@@ -2965,4 +2965,42 @@ img, svg, canvas { max-width: 100%; height: auto; }
   }
 }
 
+/* =================================================
+   MENU MOBILE — TEXTO AZUL MARINHO (FIX DEFINITIVO)
+   ================================================= */
+@media (max-width: 900px){
+
+  /* Container do menu */
+  .nav-links{
+    background: #ffffff !important;
+  }
+
+  /* Links */
+  .nav-links a{
+    color: #0f2451 !important;   /* azul-marinho */
+    font-weight: 700;
+  }
+
+  /* Caso tenha span, div, p dentro dos links */
+  .nav-links a *,
+  .nav-links li,
+  .nav-links li *{
+    color: #0f2451 !important;
+  }
+
+  /* Ícones (se existirem) */
+  .nav-links i,
+  .nav-links svg{
+    color: #0f2451 !important;
+    fill: #0f2451 !important;
+  }
+
+  /* Remove qualquer transparência que possa estar escondendo */
+  .nav-links,
+  .nav-links *{
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+}
+
 }
