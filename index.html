@@ -12,10 +12,93 @@
 
   <!-- Font Awesome (ícones) -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  
 
   <!-- Seu CSS -->
   <link rel="stylesheet" href="index.css">
+
+  <!-- ======= ADIÇÃO APENAS PARA NAVBAR MOBILE ======= -->
+  <style>
+    /* Mantém desktop como está: este bloco só atua no mobile */
+    @media (max-width: 900px) {
+      .navbar .nav-container{
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        gap:12px;
+      }
+
+      /* botão hamburger aparece no mobile */
+      .nav-toggle{
+        display:inline-flex !important;
+        align-items:center;
+        justify-content:center;
+      }
+
+      /* Ações (Iniciar Sessão / Criar Conta) ficam ao lado do hamburger */
+      .navbar .nav-right{
+        display:flex;
+        align-items:center;
+        gap:10px;
+      }
+      .navbar .auth-actions{
+        display:flex !important;
+        align-items:center;
+        gap:10px;
+      }
+
+      /* Menu (nav-links) vira drawer azul marinho com links brancos */
+      .navbar .nav-links{
+        position:fixed;
+        top:78px;               /* ajuste fino se sua navbar tiver outra altura */
+        left:12px;
+        right:12px;
+        z-index:1002;
+        margin:0;
+        padding:14px 14px;
+        list-style:none;
+
+        display:none;           /* fechado por padrão */
+        flex-direction:column;
+        gap:10px;
+
+        background:#071b3a;     /* azul marinho */
+        border-radius:14px;
+        box-shadow:0 18px 55px rgba(0,0,0,.35);
+      }
+
+      body.nav-open .navbar .nav-links{
+        display:flex;
+      }
+
+      .navbar .nav-links a{
+        display:block;
+        color:#ffffff !important;
+        text-decoration:none;
+        font-weight:600;
+        padding:10px 10px;
+        border-radius:10px;
+      }
+      .navbar .nav-links a:active{
+        opacity:.9;
+      }
+
+      /* Overlay do menu */
+      .nav-overlay{
+        position:fixed;
+        inset:0;
+        background:rgba(0,0,0,.45);
+        opacity:0;
+        pointer-events:none;
+        z-index:1001;
+        transition:opacity .2s ease;
+      }
+      body.nav-open .nav-overlay{
+        opacity:1;
+        pointer-events:auto;
+      }
+    }
+  </style>
+  <!-- ======= FIM DA ADIÇÃO NAVBAR MOBILE ======= -->
 </head>
 <body>
 
@@ -26,34 +109,26 @@
         <img src="LOGO2.png" alt="Presser Investment Logo">
       </a>
 
-      <!-- Botão menu mobile -->
-      <button class="nav-toggle" type="button" aria-label="Abrir menu" aria-expanded="false">
-        <i class="fa-solid fa-bars"></i>
-      </button>
-
       <ul class="nav-links">
         <li><a href="#sobre">Quem Somos?</a></li>
         <li><a href="#estrategia">Estratégia</a></li>
         <li><a href="#contato-final">Contato</a></li>
       </ul>
 
-      <div class="auth-actions">
-        <button id="btn-login" class="btn-ghost" type="button">Iniciar Sessão</button>
-        <button id="btn-signup" class="btn-primary" type="button">Criar Conta</button>
-      </div>
-    </div>
+      <!-- ======= ADIÇÃO APENAS PARA NAVBAR MOBILE (estrutura do lado direito) ======= -->
+      <div class="nav-right">
+        <div class="auth-actions">
+          <button id="btn-login" class="btn-ghost" type="button">Iniciar Sessão</button>
+          <button id="btn-signup" class="btn-primary" type="button">Criar Conta</button>
+        </div>
 
-    <!-- ===== MOBILE DRAWER (apenas links) ===== -->
-    <aside class="nav-drawer" aria-label="Menu mobile">
-      <div class="nav-drawer__content">
-        <ul class="nav-links nav-links--mobile">
-          <li><a href="#sobre">Quem Somos?</a></li>
-          <li><a href="#estrategia">Estratégia</a></li>
-          <li><a href="#contato-final">Contato</a></li>
-        </ul>
+        <!-- Botão menu mobile -->
+        <button class="nav-toggle" type="button" aria-label="Abrir menu" aria-expanded="false">
+          <i class="fa-solid fa-bars"></i>
+        </button>
       </div>
-    </aside>
-    <!-- ===== /MOBILE DRAWER ===== -->
+      <!-- ======= FIM DA ADIÇÃO ======= -->
+    </div>
   </nav>
 
   <!-- Overlay do menu (mobile) -->
@@ -219,8 +294,6 @@
     </div>
   </div>
 </section>
-
-
 
   <!-- Manifesto (v6) -->
   <section class="v6" id="manifesto">
