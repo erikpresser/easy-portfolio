@@ -2764,4 +2764,95 @@ img, svg, canvas { max-width: 100%; height: auto; }
   }
 }
 
+/* =========================================================
+   MOBILE MENU — estilo BASE44 (cole NO FINAL do CSS)
+   ========================================================= */
+@media (max-width: 900px){
+
+  /* Overlay mais clean */
+  .nav-overlay{
+    background: rgba(15, 36, 81, .22) !important;
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+  }
+
+  /* Painel do menu (cartão branco) */
+  .nav-links{
+    position: fixed !important;
+    top: 78px !important;                 /* abaixo da navbar */
+    left: 12px !important;
+    right: 12px !important;
+
+    background: #ffffff !important;
+    border: 1px solid rgba(15,36,81,.10) !important;
+    border-radius: 18px !important;
+
+    padding: 6px 0 !important;            /* sem padding lateral (fica “lista”) */
+    margin: 0 !important;
+
+    box-shadow: 0 24px 70px rgba(0,0,0,.22) !important;
+
+    display: block !important;            /* lista vertical */
+    max-height: calc(100dvh - 96px);
+    overflow: auto;
+
+    /* mantém sua lógica de abrir/fechar via opacity/transform */
+  }
+
+  /* Cada item como “row” */
+  .nav-links li{
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .nav-links a{
+    position: relative;
+    display: flex !important;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 16px 16px !important;
+    border-radius: 0 !important;
+
+    background: transparent !important;
+    color: #0f2451 !important;
+
+    font-weight: 600 !important;
+    font-size: 16px !important;
+    letter-spacing: .1px;
+
+    text-decoration: none !important;
+  }
+
+  /* Separadores (linhas entre itens) */
+  .nav-links li:not(:last-child) a{
+    border-bottom: 1px solid rgba(15,36,81,.08) !important;
+  }
+
+  /* Chevron (setinha) igual menu profissional */
+  .nav-links a::after{
+    content: "›";
+    font-size: 22px;
+    line-height: 1;
+    color: rgba(15,36,81,.35);
+    transform: translateY(-1px);
+  }
+
+  /* Hover/press (toque) */
+  .nav-links a:hover{
+    background: rgba(15,36,81,.04) !important;
+  }
+  .nav-links a:active{
+    background: rgba(15,36,81,.07) !important;
+  }
+
+  /* Opcional: primeiro item com respiro maior (fica mais “premium”) */
+  .nav-links li:first-child a{
+    padding-top: 18px !important;
+  }
+  .nav-links li:last-child a{
+    padding-bottom: 18px !important;
+  }
+}
+
 }
