@@ -108,29 +108,34 @@
 <body>
 
   <!-- Navbar -->
-  <nav class="navbar">
-    <div class="nav-container">
-      <a href="#home" class="nav-logo">
-        <img src="LOGO2.png" alt="Presser Investment Logo">
-      </a>
+<nav class="navbar">
+  <div class="nav-container">
+    <a href="#home" class="nav-logo">
+      <img src="LOGO2.png" alt="Presser Investment Logo">
+    </a>
 
-      <!-- Botão menu mobile -->
-      <button class="nav-toggle" type="button" aria-label="Abrir menu" aria-expanded="false">
-        <i class="fa-solid fa-bars"></i>
-      </button>
+    <!-- Botão menu mobile -->
+    <button class="nav-toggle" type="button" aria-label="Abrir menu" aria-expanded="false">
+      <i class="fa-solid fa-bars"></i>
+    </button>
 
-      <ul class="nav-links">
-        <li><a href="#sobre">Quem Somos?</a></li>
-        <li><a href="#estrategia">Estratégia</a></li>
-        <li><a href="#contato-final">Contato</a></li>
-      </ul>
+    <ul class="nav-links" aria-label="Menu principal">
+      <li><a href="#sobre">Quem Somos?</a></li>
+      <li><a href="#estrategia">Estratégia</a></li>
+      <li><a href="#contato-final">Contato</a></li>
 
-      <div class="auth-actions">
+      <!-- AUTH dentro da aba (mobile) e alinhado à direita no desktop -->
+      <li class="nav-auth">
         <button id="btn-login" class="btn-ghost" type="button">Iniciar Sessão</button>
         <button id="btn-signup" class="btn-primary" type="button">Criar Conta</button>
-      </div>
-    </div>
-  </nav>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Overlay do menu (mobile) -->
+<div class="nav-overlay" aria-hidden="true"></div>
+
 
   <!-- Overlay do menu (mobile) -->
   <div class="nav-overlay" aria-hidden="true"></div>

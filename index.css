@@ -2399,4 +2399,184 @@ img, svg, canvas { max-width: 100%; height: auto; }
   /* .navbar .auth-actions{ display:none !important; } */
 }
 
+/* =========================================
+   NAVBAR (FIX DEFINITIVO – desktop + mobile)
+   Cole no FINAL do CSS e REMOVA patches antigos
+   ========================================= */
+
+/* base */
+.navbar{
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 2000;
+  width: 100%;
+  background: rgba(255,255,255,.92);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(15,36,81,.18);
+  max-width: none !important;  /* evita “encolher” no mobile */
+  margin: 0 !important;
+  padding: 0;
+}
+
+.nav-container{
+  width: min(1200px, 92%);
+  margin: 0 auto;
+  height: 80px;                 /* casa com seu .spacer */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+/* logo sempre visível */
+.nav-logo{
+  display: inline-flex;
+  align-items: center;
+  min-width: 0;
+}
+.nav-logo img{
+  display: block;
+  height: 56px;
+  width: auto;
+  object-fit: contain;
+}
+
+/* botão hamburguer (só mobile) */
+.nav-toggle{
+  display: none;
+  width: 46px;
+  height: 46px;
+  border-radius: 14px;
+  border: 1px solid rgba(15,36,81,.18);
+  background: #fff;
+  color: #0f2451;
+  cursor: pointer;
+}
+
+/* menu desktop */
+.nav-links{
+  list-style: none !important;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links li::before{ content: none !important; }
+
+.nav-links a{
+  color: #001f3f;
+  text-decoration: none;
+  font-family: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  font-weight: 700;
+  font-size: 15px;
+}
+.nav-links a:hover{ color: #0f2451; }
+
+/* auth dentro do menu (desktop: à direita) */
+.nav-auth{
+  margin-left: 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+.nav-auth .btn-ghost,
+.nav-auth .btn-primary{
+  padding: 10px 14px;
+  border-radius: 999px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+/* overlay (só mobile) */
+.nav-overlay{
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.45);
+  z-index: 1900;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .18s ease;
+}
+
+/* =========================
+   MOBILE: aba navy + texto branco
+   ========================= */
+@media (max-width: 900px){
+
+  .nav-toggle{ display: inline-flex; align-items:center; justify-content:center; }
+
+  /* no mobile: o UL vira “aba” (drawer) */
+  .nav-links{
+    position: fixed;
+    top: 80px;
+    left: 12px;
+    right: 12px;
+
+    display: grid;
+    gap: 10px;
+
+    padding: 14px;
+    border-radius: 16px;
+
+    background: #0f2451; /* NAVY */
+    border: 1px solid rgba(255,255,255,.14);
+    box-shadow: 0 18px 60px rgba(0,0,0,.22);
+
+    /* fechado por padrão */
+    opacity: 0;
+    transform: translateY(-10px);
+    pointer-events: none;
+    transition: opacity .18s ease, transform .18s ease;
+    z-index: 2001;
+  }
+
+  .nav-links a{
+    color: #ffffff !important;
+    background: rgba(255,255,255,.08);
+    border: 1px solid rgba(255,255,255,.10);
+    padding: 12px 12px;
+    border-radius: 12px;
+  }
+
+  /* auth vira bloco dentro da aba */
+  .nav-auth{
+    margin-left: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 6px;
+  }
+
+  .nav-auth .btn-ghost{
+    background: #ffffff;
+    color: #0f2451;
+    border: 1px solid rgba(255,255,255,.0);
+  }
+
+  .nav-auth .btn-primary{
+    background: #132f5c;
+    color: #ffffff;
+  }
+
+  /* abre/fecha via JS (body.nav-open) */
+  body.nav-open .nav-links{
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  .nav-overlay{ display: block; }
+  body.nav-open .nav-overlay{
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  /* trava scroll da página com menu aberto */
+  body.nav-open{ overflow: hidden; }
+}
+
 }
