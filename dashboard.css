@@ -2446,4 +2446,37 @@ table th, table td{ white-space: nowrap; }
   }
 }
 
+/* =========================================================
+   AJUSTES FINAIS — MOBILE (CENTRAR VALOR + REDUZIR GRÁFICO)
+   ========================================================= */
+@media (max-width: 900px){
+
+  /* 1) Centraliza o bloco do Valor Patrimonial */
+  #route-dashboard .hero-balance{
+    text-align: center !important;
+    align-items: center !important;
+    justify-content: center !important;
+    display: flex !important;
+    flex-direction: column !important;
+  }
+
+  #route-dashboard .hero-balance .value{
+    margin: 0 !important;
+  }
+
+  #route-dashboard .hero-balance .unit{
+    margin-top: 4px;
+  }
+
+  /* 2) Diminui o tamanho do gráfico superior (sparkline) */
+  #route-dashboard .chart-floating canvas{
+    height: 140px !important;   /* antes: 200px */
+  }
+
+  /* 3) Reduz também o container para não sobrar espaço */
+  #route-dashboard .chart-floating .chart-scroll{
+    min-height: 140px !important;
+  }
+}
+
 }
