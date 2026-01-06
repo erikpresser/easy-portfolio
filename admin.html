@@ -1,0 +1,425 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <title>Admin – Presser Investment</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="admin.css">
+
+  <!-- Ajustes pontuais para sidebar e abas à esquerda -->
+  <style>
+    :root{
+      --sidebar-w: 260px;
+    }
+    body{ overflow-x:hidden; }
+    .layout{
+      display:flex;
+      min-height:calc(100vh - 72px); /* 72px ≈ sua topbar */
+    }
+    /* SIDEBAR (estilo inspirado no seu dashboard) */
+    .sidebar{
+      width:var(--sidebar-w);
+      background: linear-gradient(180deg,#25192e 0%, #130e18 100%);
+      border-right:1px solid rgba(255,255,255,.06);
+      padding:18px 12px;
+    }
+    .sidebar .sb-brand{
+      display:flex; align-items:center; gap:10px;
+      padding:10px 12px; color:#e5d8ff; font-weight:700; letter-spacing:.2px;
+    }
+    .sidebar .sb-brand img{ height:22px; filter:drop-shadow(0 0 6px rgba(203,108,230,.35)); }
+
+    .side-nav{ margin-top:8px; display:flex; flex-direction:column; gap:6px; }
+    .side-link{
+      display:flex; align-items:center; gap:10px;
+      padding:12px 14px; border-radius:12px; cursor:pointer;
+      color:#cfc7da; font-weight:600; background:transparent;
+      border:1px solid transparent; transition:.2s;
+    }
+    .side-link:hover{ background:rgba(203,108,230,.08); color:#fff; }
+    .side-link.is-active{
+      background: linear-gradient(180deg, rgba(203,108,230,.22), rgba(203,108,230,.12));
+      border-color: rgba(203,108,230,.35);
+      color:#fff;
+      box-shadow:0 8px 24px rgba(203,108,230,.12), inset 0 1px 0 rgba(255,255,255,.05);
+    }
+
+    /* CONTEÚDO */
+    .content{
+      flex:1;
+      padding:28px;
+      margin-left:0;
+    }
+    .content .wrap{ max-width:1400px; margin:0 auto; }
+
+    /* Painéis/Abas (esquerda controla, aqui só escondemos/mostramos) */
+    .tab-panel{ display:none; }
+    .tab-panel.is-active{ display:block; }
+
+    /* Ajustes de grid para cabeçalho de Operações */
+    .ops-header{ display:grid; grid-template-columns:1fr; gap:18px; }
+    @media (min-width:1024px){
+      .ops-top{
+        display:grid; grid-template-columns:1.1fr 1fr; gap:18px;
+      }
+    }
+    /* Métricas compactas, Ações maiores */
+    .card.metrics .form-grid{ grid-template-columns:1fr 1fr; }
+    .card.actions .actions-grid{
+      display:grid; gap:16px;
+      grid-template-columns:repeat(4, minmax(220px,1fr));
+    }
+    @media (max-width:1200px){
+      .card.actions .actions-grid{ grid-template-columns:repeat(2, minmax(220px,1fr)); }
+    }
+    @media (max-width:700px){
+      .card.actions .actions-grid{ grid-template-columns:1fr; }
+    }
+
+    /* Históricos em coluna (um abaixo do outro) e largura total */
+    .lists-vertical{ display:flex; flex-direction:column; gap:18px; }
+    .card.table-full{ width:100%; }
+
+    /* Topbar reforço para não “empurrar” à direita */
+    .topbar .userbox{ gap:10px; }
+  </style>
+</head>
+<body>
+  <!-- Topo -->
+  <header class="topbar">
+    <div class="brand">
+      <img src="LOGO2.png" alt="Presser Investment" />
+      <span>Admin</span>
+    </div>
+    <div class="userbox">
+      <a class="btn" href="dashboard.html">Voltar ao Dashboard</a>
+      <span id="admin-email" class="email">Carregando...</span>
+      <button id="logout" class="btn">Sair</button>
+    </div>
+  </header>
+
+  <!-- LAYOUT: SIDEBAR + CONTEÚDO -->
+  <div class="layout">
+
+    <!-- Sidebar (abas à esquerda) -->
+    <aside class="sidebar">
+      <div class="sb-brand">
+        <img src="LOGO2.png" alt="">
+        Presser Investment
+      </div>
+      <nav class="side-nav">
+        <button class="side-link is-active" data-tab="ops">
+          <span>Operações</span>
+        </button>
+        <button class="side-link" data-tab="clientes">
+          <span>Clientes (Pool)</span>
+        </button>
+      </nav>
+    </aside>
+
+    <!-- Conteúdo -->
+    <section class="content">
+      <main class="wrap">
+
+        <!-- ============ ABA: OPERAÇÕES ============ -->
+        <section id="tab-ops" class="tab-panel is-active">
+
+          <div class="ops-header">
+            <!-- Seleção de usuário -->
+            <section class="card">
+              <h3>Selecionar Cliente</h3>
+              <div class="row">
+                <input id="search" class="input" placeholder="Buscar por e-mail/nome…" />
+                <select id="sel-user" class="select"></select>
+                <button id="refresh-users" class="btn">Atualizar lista</button>
+              </div>
+              <p id="user-info" class="muted"></p>
+            </section>
+
+            <!-- Métricas + Ações rápidas lado a lado -->
+            <div class="ops-top">
+              <!-- Métricas compactas -->
+              <section class="card metrics">
+                <h3>Métricas do Cliente</h3>
+                <div class="form-grid">
+                  <label>
+                    <span>Valor Inicial (USDT)</span>
+                    <input id="vi" type="number" step="0.01" class="input" placeholder="0.00">
+                  </label>
+                  <label>
+                    <span>Valor Patrimonial (USDT)</span>
+                    <input id="vp" type="number" step="0.01" class="input" placeholder="0.00">
+                  </label>
+                </div>
+                <div class="form-grid">
+                  <label>
+                    <span>Lucro Mensal (%)</span>
+                    <input id="lm" type="number" step="0.01" class="input" placeholder="0.00">
+                  </label>
+                  <label>
+                    <span>Acertividade (%)</span>
+                    <input id="ac" type="number" step="0.01" class="input" placeholder="0.00">
+                  </label>
+                </div>
+                <div class="row end">
+                  <button id="save-metrics" class="btn primary">Salvar Métricas</button>
+                </div>
+                <p id="msg-metrics" class="muted"></p>
+              </section>
+
+              <!-- AÇÕES RÁPIDAS mais largas -->
+              <section class="card actions">
+                <h3>Ações rápidas</h3>
+                <div class="actions-grid">
+
+                  <!-- Operação (Dashboard) -->
+                  <div class="action-card">
+                    <h4>Lançar Operação (Dashboard)</h4>
+                    <label class="stack">
+                      <span>Data</span>
+                      <input id="trade-date" type="date" class="input">
+                    </label>
+                    <label class="stack">
+                      <span>Operação</span>
+                      <input id="trade-op" type="text" class="input" placeholder="Ex.: LONG BTCUSDT">
+                    </label>
+                    <label class="stack">
+                      <span>Lucro (USDT)</span>
+                      <input id="trade-profit" type="number" step="0.01" class="input" placeholder="0.00">
+                    </label>
+                    <button id="add-trade" class="btn primary w-full">Lançar no Dashboard</button>
+                    <p id="msg-trade" class="muted"></p>
+                  </div>
+
+                  <!-- Operação (Pool/Tabela) -->
+                  <div class="action-card">
+                    <h4>Lançar Operação (Pool / Tabela)</h4>
+                    <label class="stack">
+                      <span>Data</span>
+                      <input id="pool-date" type="date" class="input">
+                    </label>
+                    <label class="stack">
+                      <span>Operação</span>
+                      <input id="pool-op" type="text" class="input" placeholder="Ex.: LONG BTCUSDT">
+                    </label>
+                    <label class="stack">
+                      <span>PnL Total (USDT)</span>
+                      <input id="pool-pnl" type="number" step="0.01" class="input" placeholder="0.00">
+                    </label>
+                    <button id="pool-add-op" class="btn primary w-full">Lançar no Pool</button>
+                    <p id="pool-msg" class="muted"></p>
+                  </div>
+
+                  <!-- Depósito -->
+                  <div class="action-card">
+                    <h4>Lançar Depósito</h4>
+                    <label class="stack">
+                      <span>Data</span>
+                      <input id="dep-date" type="date" class="input">
+                    </label>
+                    <label class="stack">
+                      <span>Valor (USDT)</span>
+                      <input id="dep-value" type="number" step="0.01" class="input" placeholder="0.00">
+                    </label>
+                    <button id="add-dep" class="btn primary w-full">Lançar Depósito</button>
+                    <p id="msg-dep" class="muted"></p>
+                  </div>
+
+                  <!-- Saque -->
+                  <div class="action-card">
+                    <h4>Lançar Saque</h4>
+                    <label class="stack">
+                      <span>Data</span>
+                      <input id="saq-date" type="date" class="input">
+                    </label>
+                    <label class="stack">
+                      <span>Valor (USDT)</span>
+                      <input id="saq-value" type="number" step="0.01" class="input" placeholder="0.00">
+                    </label>
+                    <button id="add-saq" class="btn danger w-full">Lançar Saque</button>
+                    <p id="msg-saq" class="muted"></p>
+                  </div>
+
+                </div>
+              </section>
+            </div>
+          </div>
+
+          <!-- Histórico em largura total -->
+          <section class="card table-full">
+            <h3>Últimas Operações do Cliente</h3>
+            <table>
+              <thead><tr><th>Data</th><th>Operação</th><th>Lucro (USDT)</th><th></th></tr></thead>
+              <tbody id="tbody-trades"></tbody>
+            </table>
+            <p id="msg-trades" class="muted"></p>
+          </section>
+
+          <!-- Depósitos e Saques, um abaixo do outro -->
+          <div class="lists-vertical">
+            <section class="card">
+              <h3>Últimos Depósitos</h3>
+              <table>
+                <thead><tr><th>Data</th><th>Valor (USDT)</th></tr></thead>
+                <tbody id="tbody-deps"></tbody>
+              </table>
+              <p id="msg-deps" class="muted"></p>
+            </section>
+
+            <section class="card">
+              <h3>Últimos Saques</h3>
+              <table>
+                <thead><tr><th>Data</th><th>Valor (USDT)</th></tr></thead>
+                <tbody id="tbody-saqs"></tbody>
+              </table>
+              <p id="msg-saqs" class="muted"></p>
+            </section>
+          </div>
+        </section>
+
+        <!-- ============ ABA: CLIENTES (POOL) ============ -->
+        <section id="tab-clientes" class="tab-panel">
+
+          <!-- Resumo do pool -->
+          <section class="card">
+            <h3>Resumo do Pool</h3>
+            <div class="kpi-row">
+              <div class="kpi">
+                <span class="kpi-label">Capital Total (USDT)</span>
+                <span id="pool-total" class="kpi-value">—</span>
+              </div>
+              <div class="kpi">
+                <span class="kpi-label">Clientes Ativos</span>
+                <span id="pool-n-clients" class="kpi-value">—</span>
+              </div>
+              <div class="kpi">
+                <span class="kpi-label">Split Padrão (Cliente / Presser)</span>
+                <span class="kpi-value"><span id="pool-split-client">—</span>% / <span id="pool-split-presser">—</span>%</span>
+              </div>
+            </div>
+          </section>
+
+          <!-- Cadastrar/editar cliente no pool -->
+          <section class="card">
+            <h3>Adicionar / Editar Cliente do Pool</h3>
+            <div class="form-grid">
+              <label>
+                <span>Cliente (e-mail)</span>
+                <select id="pool-sel-user" class="select"></select>
+              </label>
+              <label>
+                <span>Split do Cliente (%)</span>
+                <input id="pool-split-user" type="number" step="1" min="0" max="100" class="input" placeholder="Ex.: 50">
+              </label>
+              <label>
+                <span>Split Presser (%)</span>
+                <input id="pool-split-presser-input" type="number" step="1" min="0" max="100" class="input" placeholder="Ex.: 50">
+              </label>
+              <label>
+                <span>Depósito Inicial (opcional, USDT)</span>
+                <input id="pool-initial-dep" type="number" step="0.01" class="input" placeholder="0.00">
+              </label>
+            </div>
+            <div class="row end">
+              <button id="pool-add-client" class="btn primary">Salvar no Pool</button>
+            </div>
+            <p id="pool-msg-add" class="muted"></p>
+          </section>
+
+          <!-- Tabela de clientes do pool -->
+          <section class="card">
+            <h3>Clientes do Pool</h3>
+            <table>
+              <thead>
+                <tr>
+                  <th>Cliente</th>
+                  <th>Patrimônio</th>
+                  <th>% do Capital</th>
+                  <th>Split (C / P)</th>
+                  <th>Lucro Op</th>
+                  <th>Ações</th>
+                </tr>
+              </thead>
+              <tbody id="pool-tbody-clients"></tbody>
+            </table>
+            <p id="pool-msg-clients" class="muted"></p>
+          </section>
+
+          <!-- Histórico do pool -->
+          <section class="card">
+            <h3>Histórico do Pool (operações rateadas)</h3>
+            <table>
+              <thead>
+                <tr>
+                  <th>Data</th>
+                  <th>Operação</th>
+                  <th>PnL Total</th>
+                  <th>Repasse Presser</th>
+                  <th>Distribuído aos Clientes</th>
+                  <th>Ações</th> <!-- NOVO: cabeçalho para o botão Excluir -->
+                </tr>
+              </thead>
+              <tbody id="pool-tbody-history"></tbody>
+            </table>
+            <p id="pool-msg-history" class="muted"></p>
+          </section>
+
+        </section>
+      </main>
+    </section>
+  </div>
+
+  <!-- MODAL do Pool (dep/saq por cliente) -->
+  <div id="pool-modal" class="modal" hidden>
+    <div class="modal-content">
+      <h3 id="pool-modal-title">Ajustar Cliente</h3>
+      <div class="form-grid">
+        <label>
+          <span>Data</span>
+          <input id="pool-modal-date" type="date" class="input">
+        </label>
+        <label>
+          <span>Valor (USDT)</span>
+          <input id="pool-modal-value" type="number" step="0.01" class="input" placeholder="0.00">
+        </label>
+      </div>
+      <div class="row end">
+        <button id="pool-modal-cancel" class="btn">Cancelar</button>
+        <button id="pool-modal-confirm" class="btn primary">Confirmar</button>
+      </div>
+      <p id="pool-modal-msg" class="muted"></p>
+    </div>
+  </div>
+
+  <!-- Libs -->
+  <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+  <!-- Lógica -->
+  <script src="admin.js"></script>
+
+  <!-- Toggle simples das abas via sidebar -->
+  <script>
+    (function(){
+      const links = document.querySelectorAll('.side-link');
+      const panels = {
+        ops: document.getElementById('tab-ops'),
+        clientes: document.getElementById('tab-clientes')
+      };
+      links.forEach(btn=>{
+        btn.addEventListener('click', ()=>{
+          links.forEach(b=>b.classList.remove('is-active'));
+          btn.classList.add('is-active');
+          const key = btn.dataset.tab;
+          Object.values(panels).forEach(p=>p.classList.remove('is-active'));
+          Object.values(panels).forEach(p=>p.style.display='none');
+          panels[key].style.display='block';
+          panels[key].classList.add('is-active');
+          // ao entrar na aba clientes, garantir refresh
+          if (key === 'clientes' && window.poolInit) { window.poolInit().catch(()=>{}); }
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
+

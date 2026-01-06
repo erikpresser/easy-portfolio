@@ -1,0 +1,2077 @@
+*.poppins-thin {
+  font-family: "Poppins", sans-serif;
+  font-weight: 100;
+  font-style: normal;
+}
+
+.poppins-extralight {
+  font-family: "Poppins", sans-serif;
+  font-weight: 200;
+  font-style: normal;
+}
+
+.poppins-light {
+  font-family: "Poppins", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+}
+
+.poppins-regular {
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.poppins-medium {
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+}
+
+.poppins-semibold {
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  font-style: normal;
+}
+
+.poppins-bold {
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.poppins-extrabold {
+  font-family: "Poppins", sans-serif;
+  font-weight: 800;
+  font-style: normal;
+}
+
+.poppins-black {
+  font-family: "Poppins", sans-serif;
+  font-weight: 900;
+  font-style: normal;
+}
+
+.poppins-thin-italic {
+  font-family: "Poppins", sans-serif;
+  font-weight: 100;
+  font-style: italic;
+}
+
+.poppins-extralight-italic {
+  font-family: "Poppins", sans-serif;
+  font-weight: 200;
+  font-style: italic;
+}
+
+.poppins-light-italic {
+  font-family: "Poppins", sans-serif;
+  font-weight: 300;
+  font-style: italic;
+}
+
+.poppins-regular-italic {
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  font-style: italic;
+}
+
+.poppins-medium-italic {
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  font-style: italic;
+}
+
+.poppins-semibold-italic {
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  font-style: italic;
+}
+
+.poppins-bold-italic {
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+  font-style: italic;
+}
+
+.poppins-extrabold-italic {
+  font-family: "Poppins", sans-serif;
+  font-weight: 800;
+  font-style: italic;
+}
+
+.poppins-black-italic {
+  font-family: "Poppins", sans-serif;
+  font-weight: 900;
+  font-style: italic;
+}
+body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff;
+            color: #001f3f;
+        }
+
+
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav ul li {
+            margin: 0 20px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        nav ul li a:hover {
+            text-decoration: underline;
+        }
+
+        /* Espaço para compensar o header fixo */
+        .spacer {
+            height: 80px;
+        }
+
+        /* Logo */
+        .logo {
+            display: flex;
+            justify-content: center;
+            margin: 40px 0;
+        }
+
+        .logo img {
+            max-width: 220px;
+        }
+
+        section {
+            padding: 50px;
+            text-align: center;
+        }
+
+        h2 {
+            color: #001f3f;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        ul li::before {
+            content: "✔ ";
+            color: #001f3f;
+            font-weight: bold;
+        }
+
+        footer {
+            background-color: #001f3f;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+        }
+
+        .whatsapp-btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 20px;
+    background-color: #32CD32; /* verde claro */
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 8px;
+        }
+
+        .whatsapp-btn:hover {
+    background-color: #32CD32; /* verde claro */
+        }
+
+        /* Container do botão */
+.botao-container {
+    display: flex;
+    justify-content: center; /* centraliza horizontalmente */
+    align-items: center;     /* centraliza verticalmente (se tiver altura definida no pai) */
+    margin: 30px 0;
+}
+
+/* Estilo do botão */
+.botao-investir {
+    background-color: #0f2451; /* verde claro */
+    color: #ffffff; /* texto branco */
+    font-size: 18px;
+    font-weight: Montserrat;
+    padding: 14px 30px;
+    border: none;
+    border-radius: 8px; /* cantos arredondados */
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+/* Efeito hover */
+.botao-investir:hover {
+    background-color: #28a0a4; /* verde mais escuro no hover */
+    transform: scale(1.05);
+}
+
+/* Estilo para aumentar a logo */
+.logo img {
+    width: 400px;   /* aumenta a largura da logo */
+    max-width: 100%; /* garante que em telas menores ela não quebre */
+    height: auto;   /* mantém a proporção */
+    display: block;
+    margin: 0 auto; /* mantém centralizada */
+}
+
+/* GRID / LAYOUT DOS CARDS */
+.stats {
+  max-width: 1100px;
+  margin: 40px auto;
+  padding: 0 16px;
+  display: grid;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  gap: 20px;
+}
+@media (min-width: 640px) { .stats { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 960px) { .stats { grid-template-columns: repeat(4, 1fr); } }
+
+.stat {
+  position: relative;
+  background: #ffffff;
+  border-radius: 16px;
+  border: 1px solid #001f3f;   /* 🔹 borda azul-marinho fina */
+  box-shadow: 0 6px 18px rgba(0,0,0,.08);
+  padding: 24px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease;
+}
+.stat:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0,0,0,.12);
+  border-color: #003366;  /* 🔹 borda fica levemente mais clara no hover */
+}
+
+/* CÍRCULO AZUL-MARINHO */
+.icon-circle {
+  position: relative;
+  z-index: 2;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background-color: #001f3f;  /* azul-marinho */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 16px;
+  box-shadow: 0 4px 12px rgba(0,0,0,.25);
+  flex-shrink: 0;
+}
+
+/* ÍCONES EM BRANCO */
+.icon-circle i,
+.icon-circle .fa-solid,
+.icon-circle .fa,
+.icon-circle svg {
+  color: #ffffff !important;
+  fill: #ffffff !important;
+  font-size: 28px;
+  line-height: 1;
+  display: inline-block;
+}
+
+/* CASO TENHA BOTÃO */
+.stat button,
+.stat .btn,
+.stat a.button {
+  position: relative;
+  z-index: 1;
+  margin-top: 14px;
+}
+
+/* TEXTOS */
+.value { color:#001f3f; font-size:28px; font-weight:800; }
+.label { color: #001f3f; margin-top:4px; font-weight:700; }
+.desc  { margin-top:6px; color:#666; font-size:14px; }
+.stats, .stat, .value, .label, .desc {
+  font-family: "Montserrat", system-ui, -apple-system, "Montserrat", sans-serif;
+}
+
+/* TÍTULO DA SEÇÃO */
+.stats-title {
+  text-align: center;
+  font-size: 42px;
+  font-weight: 800;
+  color: #001f3f;  /* azul-marinho */
+  margin-bottom: 30px;
+  margin-top: 10px;
+  font-family: "Montserrat", sans-serif;
+  letter-spacing: -0.5px;
+}
+
+.stats-title {
+  font-family: "Montserrat", system-ui, -apple-system, "Montserrat", sans-serif;
+}
+
+/* Fundo branco */
+.section-white {
+  background-color: #ffffff;
+  padding: 60px 20px;
+  color: #001f3f; /* texto azul-marinho para contraste */
+}
+
+/* Fundo azul-marinho */
+.section-blue {
+  background-color: #001f3f;
+  padding: 160px 40px;
+  color: #ffffff; /* texto branco para contraste */
+}
+
+/* Títulos dentro de fundo azul */
+.section-blue h2 {
+  color: #ffffff;
+}
+
+/* Títulos dentro de fundo branco */
+.section-white h2 {
+  color: #001f3f;
+}
+
+/* Reset total: sem bullets, sem imagens/ícones, sem pseudo-elementos */
+.nav-links,
+.nav-links * {
+  list-style: none !important;
+  background: none !important;
+}
+
+/* Remove qualquer pseudo-ícone que alguma lib adicione */
+.nav-links li::before,
+.nav-links li::after,
+.nav-links a::before,
+.nav-links a::after {
+  content: none !important;
+  display: none !important;
+}
+
+/* Garante que não haja espaço reservado a ícones */
+.nav-links li,
+.nav-links a {
+  padding-left: 0 !important;
+  background-image: none !important;
+  text-indent: 0 !important;
+}
+
+/* Mantém layout alinhado à esquerda e espaçamento correto */
+.nav-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* logo à esquerda / links à direita */
+}
+
+.nav-links {
+  display: flex;
+  gap: 5px; /* espaço entre os links */
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links a {
+  color: #001f3f;
+  text-decoration: none;
+  font-family: "Montserrat", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+}
+.nav-links a:hover { color: #00509e; }
+
+/* Logo */
+.nav-logo img { height: 80px; }
+
+.navbar {
+  border-bottom: 1px solid #001f3f; /* linha azul-marinho */
+}
+
+/* CSS */
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  background: #fff;
+  color: #001f3f;          /* Texto branco */
+}
+
+.features {
+  text-align: center;
+  padding: 50px 20px;
+}
+
+.features h2 {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  font-size: 3rem;
+  color:#001f3f;
+}
+
+.features .subtitle {
+  color: #001f3f; /* Azul claro suave */
+  margin-bottom: 15px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 25px;
+  margin-bottom: 50px;
+}
+
+.card {
+  background: #fff;       /* Cartão branco */
+  color: #0f2451;         /* Texto azul marinho */
+  border-radius: 12px;
+  padding: 25px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+  transition: transform .2s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.card .icon {
+  font-size: 2rem;
+  margin-bottom: 12px;
+}
+
+/* Botão */
+.btn-cta {
+  display: inline-block;
+  padding: 14px 32px;
+  background: #0f2451;      /* Botão branco */
+  color: #fff;        /* Texto azul marinho */
+  font-weight: 700;
+  border-radius: 999px;
+  text-decoration: none;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+  transition: transform .15s ease, background .15s ease;
+}
+
+.btn-cta:hover {
+  background: #28a0a4;  /* Azul clarinho no hover */
+  color: #fff;
+  transform: scale(1.05);
+}
+
+.navbar{
+    max-width: 1280px;
+    margin: 0 auto;
+}
+
+.stats-title2 {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  font-size: 3.5rem;
+  color: #fff;
+  line-height: 1.3;
+  margin-bottom: 30px;
+  text-align: center;
+
+  max-width: 800px;   /* define largura máxima do bloco */
+  margin-left: auto;
+  margin-right: auto; /* centraliza */
+  word-wrap: break-word;
+}
+
+/* Seção com imagem de fundo */
+.hero {
+  background: url('Entrada2.png') no-repeat center center/cover; /* coloque o caminho da sua imagem */
+  height: 70vh;              /* ocupa toda a tela */
+  display: flex;
+  flex-direction: column;     /* empilha título e botão */
+  justify-content: center;    /* centraliza vertical */
+  align-items: center;        /* centraliza horizontal */
+  text-align: center;
+  color: #fff;                /* texto branco em cima da imagem */
+  padding: 0 20px;
+}
+
+/* Seção completa com fundo azul */
+.stats-section {
+  background: #0f2451;   /* azul marinho */
+  padding: 60px 20px;
+  color: #fff;
+  text-align: center;
+}
+
+/* Título */
+.stats-section .stats-title {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 800;
+  font-size: 2.5rem;
+  color: #fff;
+  margin-bottom: 40px;
+}
+
+/* Grid de estatísticas */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Paleta base */
+:root{
+  --navy: #0f2451;
+  --navy-2: #132f5c;
+  --paper: #ffffff;
+  --ink: #0b1220;
+}
+
+/* Paleta Quem Somos */
+.somos-inicio{
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  font-size: 3rem;
+  color: #0f2451;
+  line-height: 1.3;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.etapatwo {
+  font-size: 1.2rem;        /* ajuste se quiser maior/menor */
+  line-height: 1.6;         /* espaçamento entre linhas */
+  text-align: center;       /* centraliza o texto */
+  max-width: 800px;         /* largura máxima antes de quebrar */
+  margin: 0 auto 40px;      /* centraliza o bloco e dá espaço embaixo */
+  color: #0f2451;           /* cor (pode manter a que você já usava) */
+}
+
+/* Botões de auth na tela inicial */
+.auth-buttons{
+  display:flex;
+  gap:12px;
+  justify-content:center;
+  margin-top:18px;
+}
+.btn-primary, .btn-ghost{
+  padding:12px 20px;
+  border-radius:999px;
+  font-weight:700;
+  cursor:pointer;
+  border:none;
+  font-family:'Poppins', system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+}
+.btn-primary{ background:#0f2451; color:#fff; }
+.btn-primary:hover{ background:#132f5c; }
+.btn-ghost{ background:#fff; color:#0f2451; border:1px solid #0f2451; }
+.btn-ghost:hover{ background:#f1f5f9; }
+
+/* Modal */
+.modal{
+  display:none; position:fixed; inset:0; z-index:2000;
+  background:rgba(0,0,0,.6);
+  justify-content:center; align-items:center;
+}
+.modal-content{
+  background:#fff; color:#0f2451;
+  width:min(420px, 92vw);
+  border-radius:16px; padding:28px;
+  box-shadow:0 18px 48px rgba(0,0,0,.35);
+  position:relative;
+}
+.modal-content h2{ margin:0 0 14px; font-weight:800; }
+.modal-content label{ display:block; margin:10px 0 6px; font-size:.92rem; }
+.modal-content input{
+  width:100%; padding:12px 14px;
+  border:1px solid #e5e7eb; border-radius:10px;
+  font-size:1rem;
+}
+.close{
+  position:absolute; right:14px; top:10px;
+  font-size:28px; font-weight:800; cursor:pointer;
+}
+.close:hover{ color:#e11d48; }
+.msg{ margin-top:10px; font-size:.9rem; }
+.auth-switch{
+  display:flex; gap:10px; justify-content:space-between;
+  margin-top:12px; font-size:.9rem;
+}
+.auth-switch a{ color:#0f2451; font-weight:700; text-decoration:none; }
+.auth-switch a:hover{ text-decoration:underline; }
+
+
+/* Ajuste só para os cards da seção Quem Somos */
+.somos-novo .grid {
+  display: flex;
+  flex-direction: column; /* empilha em coluna */
+  gap: 24px;              /* espaçamento entre os cards */
+  max-width: 800px;       /* largura máxima opcional */
+  margin: 0 auto;         /* centraliza no meio da tela */
+}
+
+@media (min-width: 992px){
+  .somos-novo .grid{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+/* ===== HERO DE CONVERSÃO (estilo lova*) ===== */
+.section-blue{ background:#0f2451; color:#fff; } /* já usa seu azul-marinho */
+
+.cta-hero{ padding: 72px 16px 64px; }
+.cta-wrap{ max-width: 1100px; margin: 0 auto; text-align: center; }
+
+.cta-title{
+  font-family: 'Poppins', sans-serif; font-weight: 800;
+  font-size: clamp(34px, 5vw, 56px); line-height: 1.05; margin: 0;
+}
+.cta-subtitle{
+  font-family: 'Poppins', sans-serif; font-weight: 700;
+  font-size: clamp(26px, 3.6vw, 40px); line-height: 1.1;
+  margin: 8px 0 18px; color:#9cc3ff;
+}
+.cta-lead{
+  max-width: 880px; margin: 0 auto 28px; line-height: 1.7;
+  color: #dbe7ff; font-size: 1.05rem;
+}
+
+/* cards/quadrados */
+.cta-cards{
+  display: grid; gap: 18px; margin: 18px auto 26px;
+  grid-template-columns: repeat(1, minmax(0,1fr));
+  max-width: 980px;
+}
+@media (min-width: 860px){
+  .cta-cards{ grid-template-columns: repeat(3,1fr); }
+}
+.cta-card{
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 16px; padding: 22px 20px;
+  box-shadow: 0 6px 22px rgba(0,0,0,.25);
+  backdrop-filter: blur(2px);
+  transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+}
+.cta-card:hover{
+  transform: translateY(-4px);
+  box-shadow: 0 10px 28px rgba(0,0,0,.35);
+  border-color: rgba(255,255,255,0.22);
+}
+.cta-icon{
+  width: 56px; height: 56px; border-radius: 14px;
+  margin: 0 auto 10px;
+  display:flex; align-items:center; justify-content:center;
+  background: rgba(255,255,255,0.08);
+}
+.cta-icon i{ font-size: 26px; color:#a7ffb2; }
+
+.cta-label{ color:#bcd2ff; font-weight:700; margin-top: 4px; }
+.cta-value{
+  color:#a7ffb2; font-weight:800; font-size: 22px; margin-top: 2px;
+}
+
+/* botão principal */
+.btn-cta-lg{
+  display:inline-block; margin-top: 8px;
+  padding: 14px 28px; border-radius: 999px;
+  background:#22c55e; color:#0b1220; text-decoration:none; font-weight:800;
+  box-shadow: 0 10px 30px rgba(34,197,94,.35);
+  border:1px solid rgba(255,255,255,.12);
+  transition: transform .12s ease, filter .12s ease, box-shadow .12s ease;
+}
+.btn-cta-lg:hover{ transform: translateY(-2px); filter: brightness(1.05); }
+
+/* perks */
+.cta-perks{
+  margin: 12px 0 18px; padding: 0; list-style: none;
+  display:flex; gap:16px; justify-content:center; flex-wrap:wrap;
+  color:#cfe0ff; font-size:.95rem;
+}
+.cta-perks li::before{ content:"✓ "; color:#22c55e; font-weight:800; }
+
+/* tarja */
+.limited-banner{
+  margin: 12px auto 0; max-width: 840px; padding: 14px 18px;
+  background: rgba(148, 54, 78, .28);
+  border: 1px solid rgba(222, 120, 140, .45);
+  color:#ffdfe6; border-radius: 10px;
+}
+.limited-banner small{ display:block; color:#f4cbd4; margin-top: 6px; opacity:.9; }
+
+.btn-cta-lg {
+  display: inline-block;
+  margin-top: 8px;
+  padding: 14px 28px;
+  border-radius: 999px;
+
+  background: #22c55e;          /* fundo verde */
+  color: #fff;                  /* 🔹 texto branco */
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;             /* mais robusto */
+  font-size: 1.1rem;
+
+  text-decoration: none;
+  border: none;
+  box-shadow: 0 10px 30px rgba(34, 197, 94, .35);
+  transition: transform .12s ease, filter .12s ease, box-shadow .12s ease;
+}
+
+.btn-cta-lg:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.08);
+}
+
+/* === Força Poppins em toda a seção final (CTA + footer) === */
+.landing-final, .landing-final * {
+  font-family: 'Poppins', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif !important;
+}
+
+/* === Footer: marca (PRESSER INVESTMENT) maior e em caixa alta === */
+.lf-footer .lf-logo{
+  justify-content: flex-start;   /* fica à esquerda da coluna */
+  text-align: left;
+  font-size: 20px;               /* ajuste aqui se quiser maior/menor */
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+}
+
+/* Garante que a coluna da marca também fique alinhada à esquerda */
+.lf-footer .lf-col:first-child{
+  text-align: left;
+}
+
+/* === Footer: títulos “Contato” e “Links importantes” alinhados à esquerda === */
+.lf-footer .lf-col:nth-child(2),
+.lf-footer .lf-col:nth-child(3){
+  text-align: left;              /* conteúdo à esquerda */
+}
+
+.lf-footer .lf-col:nth-child(2) h4,
+.lf-footer .lf-col:nth-child(3) h4{
+  text-align: left;              /* título à esquerda */
+  margin-left: 0;
+}
+
+/* “Contato” alinhado exatamente onde começam os textos (depois dos ícones) */
+.lf-footer .lf-col:nth-child(2) h4{
+  padding-left: 24px;            /* 18px (largura do ícone) + 6px (gap) */
+}
+
+/* Se os itens tiverem ícone, centraliza o layout do item e o texto fica à esquerda do título */
+.lf-footer .lf-list li{
+  justify-content: flex-start;
+}
+
+/* ====== Nossos Números ====== */
+.nn-section{
+  --navy:#0b2244;
+  --text:#dbe7ff;
+  --muted:#a9b7d7;
+  --card:rgba(255,255,255,.06);
+  --line:rgba(255,255,255,.12);
+
+  background:var(--navy);
+  color:var(--text);
+  padding:64px 0;
+  font-family:'Poppins', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+}
+
+.nn-title{
+  margin:0 0 6px;
+  text-align:center;
+  font-size:32px;
+  font-weight:800;
+  color:#eaf2ff;
+}
+
+.nn-sub{
+  margin:8px auto 28px;
+  text-align:center;
+  color:var(--muted);
+  max-width:780px;
+}
+
+.nn-wrap{
+  width:min(1200px,92%);
+  margin:0 auto;
+  display:grid;
+  grid-template-columns:1.15fr 1fr; /* KPIs | Gauge */
+  gap:32px;
+  align-items:stretch;
+}
+
+/* KPIs à esquerda */
+.nn-kpis{
+  display:grid;
+  grid-template-columns:repeat(2, minmax(0,1fr));
+  gap:16px;
+}
+
+.nn-card{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:16px 18px;
+  text-align:center;
+  box-shadow:0 8px 24px rgba(0,0,0,.12);
+}
+
+.nn-card .k-label{
+  color:var(--muted);
+  font-size:13px;
+  font-weight:600;
+  margin-bottom:6px;
+}
+
+.nn-card .k-value{
+  color:#fff;
+  font-weight:800;
+  font-size:22px;
+  letter-spacing:.2px;
+}
+
+/* ===== Gauge à direita ===== */
+.nn-gauge-card{
+  position:relative;
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:16px;
+  height:320px;            /* garante o espaço do gráfico */
+  padding:12px;
+  box-shadow:0 8px 24px rgba(0,0,0,.12);
+}
+
+/* MUITO IMPORTANTE pro Chart.js respeitar o tamanho */
+.nn-gauge-card canvas{
+  display:block;
+  width:100% !important;
+  height:100% !important;
+}
+
+.gauge-center{
+  position:absolute;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:800;
+  font-size:clamp(22px, 6vw, 46px);
+  letter-spacing:.5px;
+  color:#e9f0ff;
+  pointer-events:none;
+}
+
+.gauge-foot{
+  position:absolute;
+  right:14px;
+  bottom:10px;
+  font-size:12px;
+  color:#97add3;
+  opacity:.95;
+}
+
+/* responsivo */
+@media (max-width:1024px){
+  .nn-wrap{ grid-template-columns:1fr; }
+}
+@media (max-width:560px){
+  .nn-card .k-value{ font-size:20px; }
+}
+
+/* ===== PATCH FINAL: rodapé / parte de baixo ===== */
+
+/* 1) elimina a faixa branca acima do footer (era o margin-top do <footer>) */
+footer { margin-top: 0 !important; }
+.lf-footer { margin-top: 0 !important; }
+
+/* 2) volta o visual do footer (mesmo tom escuro da seção anterior) */
+.lf-footer{
+  background: #0b2244;           /* mesmo navy do “Nossos Números” */
+  color: #dbe7ff;
+  border-top: 1px solid rgba(255,255,255,.12);
+}
+
+/* 3) marca “Presser Investment” maior e forte (sem exagero) */
+.lf-footer .lf-logo{
+  font-family: 'Poppins', sans-serif;
+  font-weight: 800;
+  font-size: 20px;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+  margin-bottom: 10px;
+}
+
+/* 4) “Contato” e “Links importantes” alinhados à esquerda,
+      sem aquele recuo extra no título de Contato */
+.lf-footer .lf-col h4{
+  font-family: 'Poppins', sans-serif;
+  font-weight: 800;
+  color: #eaf2ff;
+  margin: 0 0 12px;
+  text-align: left;
+}
+.lf-footer .lf-col:nth-child(2) h4{ padding-left: 0; } /* remove o deslocamento */
+
+/* 5) listas e links do footer */
+.lf-footer .lf-list{ list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.lf-footer .lf-list li{ display: flex; align-items: center; justify-content: flex-start; }
+.lf-footer .lf-list i{ width: 18px; text-align: center; margin-right: 6px; }
+.lf-footer .lf-list a{ color: #bcd3ff; text-decoration: none; }
+.lf-footer .lf-list a:hover{ text-decoration: underline; }
+
+/* 6) texto do aviso de risco */
+.lf-risk{
+  border-top: 1px solid rgba(255,255,255,.12);
+  margin-top: 28px;
+  padding-top: 14px;
+  color: #b8c6e6;
+  font-size: 12.5px;
+  text-align: center;
+}
+
+/* 7) âncora do menu “Contato” cair no lugar certo */
+#contato-final{ scroll-margin-top: 90px; }
+
+/* ================================
+   FOOTER (visual contínuo com números)
+   ================================ */
+#contato-final{ scroll-margin-top:90px; }
+
+.lf-footer{
+  background:#0b2244;                            /* mesmo tom da seção Nossos Números */
+  border-top:1px solid rgba(255,255,255,.12);
+  padding:42px 0 18px;
+  color:#dbe7ff;
+}
+.lf-container{ width:min(1200px,92%); margin:0 auto; }
+.lf-footer-grid{ display:grid; grid-template-columns:2fr 1.2fr 1.2fr; gap:32px; }
+
+.lf-col:first-child{ text-align:left; }
+.lf-logo{
+  display:flex; align-items:center; gap:10px;
+  font-size:20px; font-weight:800; text-transform:uppercase; letter-spacing:.5px;
+  margin-bottom:10px;
+}
+
+.lf-col h4{ margin:0 0 12px; font-size:18px; font-weight:800; color:#eaf2ff; text-align:left; }
+.lf-muted{ color:#a9b7d7; margin:10px 0 6px; }
+.lf-copy{ color:#a9b7d7; font-size:13px; margin-top:10px; }
+
+.lf-list{ list-style:none; padding:0; margin:0; display:grid; gap:10px; }
+.lf-list li{ display:flex; align-items:center; color:#e8efff; justify-content:flex-start; }
+.lf-list i{ width:18px; text-align:center; margin-right:6px; }
+.lf-list a{ color:#bcd3ff; text-decoration:none; }
+.lf-list a:hover{ text-decoration:underline; }
+
+.lf-risk{
+  border-top:1px solid rgba(255,255,255,.12);
+  margin-top:28px; padding-top:14px;
+  color:#b8c6e6; font-size:12.5px; text-align:center;
+}
+
+@media (max-width:900px){
+  .lf-footer-grid{ grid-template-columns:1fr; }
+}
+
+/* garante que o SVG preencha o card */
+.nn-gauge-card .gauge-svg{
+  display:block;
+  width:100%;
+  height:100%;
+}
+
+/* animação suave do arco */
+#g-fg{
+  transition: stroke-dashoffset 900ms ease;
+}
+
+:root{
+  --navy:#0b2244;
+  --ink:#0f1b33;
+  --paper:#ffffff;
+  --muted:#6e7d99;
+
+  --blueA:#4ea3ff;
+  --blueB:#2d7dff;
+  --teal:#00c2c7;
+  --ring: rgba(45,125,255,.22);
+}
+
+*{ box-sizing:border-box }
+html,body{ height:100%; scroll-behavior:smooth; }
+body{
+  margin:0;
+  font-family:'Poppins', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  color:var(--ink);
+  background:
+    radial-gradient(900px 420px at 10% -10%, rgba(77,126,255,.10), transparent 60%),
+    radial-gradient(900px 420px at 110% 110%, rgba(77,126,255,.10), transparent 60%),
+    linear-gradient(180deg,#f9fbff,#f5f8ff);
+}
+
+/* ===== Cabeçalho ===== */
+.v6{ width:min(1200px,94%); margin:0 auto; padding: clamp(40px,5vw,70px) 0; }
+.head{ text-align:center; }
+.chip{
+  display:inline-block; padding:6px 12px; border-radius:999px;
+  background:#eef4ff; border:1px solid #dce7ff; color:#4c5d86;
+  font-weight:700; font-size:.85rem;
+}
+.head h1{
+  margin:10px 0 8px; font-size: clamp(34px,5.5vw,56px); font-weight:800;
+}
+.head .lead{
+  max-width:760px; margin:0 auto 16px; color:var(--muted); line-height:1.7;
+}
+
+/* ===== Rail / Slides ===== */
+.rail-wrap{ position:relative; }
+
+.progress{
+  position:absolute; left:0; right:0; top:-6px;
+  height:3px; background:rgba(0,0,0,.06); border-radius:999px; overflow:hidden;
+}
+.progress .bar{
+  display:block; width:0%; height:100%;
+  background: linear-gradient(90deg, var(--blueA), var(--blueB));
+  box-shadow: 0 0 14px rgba(45,125,255,.35);
+}
+
+.rail{
+  display:flex; align-items:stretch; gap: clamp(16px,2.2vw,22px);
+  overflow-x:auto; padding: 6px 6px 2px;
+  scroll-snap-type: x mandatory;
+  scrollbar-width:none;
+  cursor: grab;
+}
+.rail.dragging{ cursor: grabbing; }
+.rail::-webkit-scrollbar{ display:none; }
+
+.slide{
+  flex: 0 0 min(92vw, 860px);
+  scroll-snap-align:center;
+  position:relative;
+  border-radius: 22px;
+  padding: clamp(22px, 3vw, 34px);
+  min-height: 360px;
+
+  /* glass card + contorno neon sutil */
+  background: rgba(255,255,255,.75);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(185,201,255,.9);
+  box-shadow:
+    0 18px 38px rgba(17,27,64,.10),
+    0 0 0 6px rgba(77,126,255,.06);
+  transform-origin: center;
+  transition: transform .25s ease, filter .25s ease, opacity .25s ease;
+}
+
+/* número gigante fantasma */
+.slide::after{
+  content: attr(data-num);
+  position:absolute; right:18px; bottom:-6px;
+  font-weight:800; font-size: clamp(56px, 16vw, 132px);
+  line-height:1; color: rgba(45,125,255,.08);
+  pointer-events:none;
+}
+
+/* escala/blur nos não-centrais (JS adiciona .is-center no centro) */
+.slide{ opacity:.85; filter: blur(.2px); transform: scale(.96); }
+.slide.is-center{ opacity:1; filter:none; transform: scale(1); }
+
+.badge{
+  display:inline-block; font-weight:800; font-size:.78rem; letter-spacing:.5px;
+  background: #0f2451; color:#fff; padding:6px 10px; border-radius: 999px;
+  box-shadow: 0 8px 18px rgba(15,36,81,.25);
+}
+
+.slide h2{
+  margin:12px 0 8px;
+  font-size: clamp(26px, 3.2vw, 40px);
+  font-weight:800; line-height:1.15;
+}
+.slide .em{
+  background: linear-gradient(90deg, var(--blueA), var(--blueB));
+  -webkit-background-clip: text;
+          background-clip: text;
+  color: transparent;
+}
+.desc{ color:#3a4f7a; margin:6px 0 10px; }
+.desc.small{ font-size:.95rem; opacity:.9; }
+
+.points{ margin: 10px 0 0 18px; color:#3a4f7a; }
+.points li{ margin:6px 0; }
+
+.pills{
+  display:flex; gap:10px; flex-wrap:wrap; margin:12px 0 6px;
+}
+.pill{
+  display:inline-flex; align-items:center; gap:8px;
+  padding:10px 14px; border-radius:999px;
+  background:#0f2451; color:#fff; font-weight:700; font-size:.92rem;
+  box-shadow: 0 12px 24px rgba(15,36,81,.25);
+}
+
+/* ===== Navegação (dots) ===== */
+.dots{
+  display:flex; gap:10px; justify-content:center; margin:14px 0 2px;
+}
+.dots button{
+  width:10px; height:10px; border-radius:50%;
+  background:#c8d6ff; border:1px solid #b9c9ff; cursor:pointer;
+  transition: transform .15s ease, background .15s ease, box-shadow .15s ease;
+}
+.dots button:hover{ background:#88a6ff; transform: scale(1.1); }
+.dots button.active{
+  background: linear-gradient(90deg, var(--blueA), var(--blueB));
+  box-shadow: 0 0 0 6px rgba(77,126,255,.12);
+}
+
+.hint{
+  text-align:center; color:#6b7ba1; font-size:.92rem; margin-top:4px;
+}
+
+/* responsivo */
+@media (max-width: 680px){
+  .slide{ min-height: 340px; }
+}
+
+/* ==== FIX Manifesto v6: corte no card direito / camadas ==== */
+
+/* 1) Garante que a seção do Manifesto fique acima das demais */
+#manifesto,
+.manifesto-v6,
+.v6 {
+  position: relative;
+  z-index: 50;            /* maior que as seções ao redor */
+  isolation: isolate;     /* isola o contexto de pintura */
+}
+
+/* 2) Se algum ancestral usar overflow:hidden, ignora localmente */
+#manifesto,
+.manifesto-v6,
+.v6,
+.v6 .rail-wrap {
+  overflow: visible !important;
+}
+
+/* 3) O rail não deve recortar nada na vertical */
+.v6 .rail {
+  overflow-x: auto !important;
+  overflow-y: visible !important;
+  /* opcional: um respiro para a sombra do card não tocar a borda */
+  padding-right: 12px;
+}
+
+/* 4) Conteúdo do slide sempre acima de elementos decorativos */
+.v6 .slide { position: relative; z-index: 2; }
+.v6 .slide::after { z-index: 1; } /* número fantasma atrás do conteúdo */
+
+/* 5) Caso ainda veja artefatos em algumas máquinas com GPU,
+      desative o blur por teste (pode reativar depois) */
+/* .v6 .slide { backdrop-filter: none !important; } */
+
+/* 6) Edge cases: assegura que a seção anterior não passe por cima */
+.nn-section { position: relative; z-index: 1; }
+
+/* ===== Manifesto v6 — correção com alta prioridade ===== */
+.v6 .rail-wrap { position: relative; overflow: visible !important; isolation: isolate; }
+.v6 .rail{
+  overflow-x: auto !important;
+  overflow-y: visible !important;
+  gap: clamp(20px, 2.8vw, 28px);
+  scroll-snap-type: x mandatory;
+}
+
+.v6 .rail .slide{
+  position: relative;
+  z-index: 1;
+  isolation: isolate;                 /* evita “blur” capturar o vizinho */
+  transform: scale(.98);
+  /* REMOVER o “anel” externo que costuma causar o recorte visual */
+  box-shadow: 0 18px 38px rgba(17,27,64,.10) !important;
+  /* mantém a borda sem precisar do anel */
+  border: 1px solid rgba(185,201,255,.9) !important;
+  background: rgba(255,255,255,.75);  /* mantém o “glass” */
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+.v6 .rail .slide.is-center{
+  z-index: 5;                          /* o do meio sempre por cima */
+  transform: scale(1);
+}
+
+/* conteúdo acima do número fantasma */
+.v6 .rail .slide::after{ z-index: 0; }
+.v6 .rail .slide > *{ position: relative; z-index: 1; }
+
+/* Fallback: se ainda houver artefato em alguma GPU, desligue o blur (teste rápido) */
+/*
+.v6 .rail .slide{
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  background: #fff !important;
+}
+*/
+
+/* ===== Manifesto v6 — HOTFIX de corte/artefatos ===== */
+.v6 .rail-wrap { position: relative; overflow: visible !important; isolation: isolate; }
+
+.v6 .rail{
+  overflow-x: auto !important;
+  overflow-y: visible !important;
+  gap: clamp(20px, 2.8vw, 28px);
+  scroll-snap-type: x mandatory;
+}
+
+/* Remover o “anel” externo e o blur (origem do bug em GPU no Windows/Chrome) */
+.v6 .rail .slide{
+  position: relative;
+  z-index: 1;
+  isolation: isolate;
+  transform: scale(.98);
+
+  /* ❗mantém o glassy só com opacidade, sem blur no fundo */
+  background: rgba(255,255,255,.92) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+
+  /* borda+shadow normal, sem o ring 0 0 0 6px */
+  border: 1px solid rgba(185,201,255,.9) !important;
+  box-shadow: 0 18px 38px rgba(17,27,64,.10) !important;
+}
+
+.v6 .rail .slide.is-center{
+  z-index: 5;
+  transform: scale(1);
+}
+
+/* conteúdo acima do número fantasma */
+.v6 .rail .slide::after{ z-index: 0; }
+.v6 .rail .slide > *{ position: relative; z-index: 1; }
+
+/* opcional: se quiser voltar o blur depois, ative só em telas grandes
+@media (min-width: 1100px){
+  .v6 .rail .slide{
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+  }
+}
+*/
+
+/* ===== Manifesto: alinhamento à esquerda dentro dos cards ===== */
+.slide{
+  text-align: left;               /* força todo o conteúdo do card à esquerda */
+}
+.slide .badge{
+  margin-left: 4px;               /* “Missão / Visão / Valores” grudadinho à esquerda */
+}
+.slide h2{ text-align: left; }
+.slide .desc{ text-align: left; }
+
+/* Lista com bolinhas reais (e recuo) */
+.slide .points{
+  list-style: disc !important;    /* garante bolinhas mesmo com resets globais */
+  padding-left: 22px;             /* recuo para o marcador */
+  margin: 10px 0 0;               /* remove aquele deslocamento para a direita */
+}
+.slide .points li{
+  margin: 6px 0;
+}
+.slide .points li::marker{
+  color: #3a79ff;                 /* cor do marcador (opcional) */
+  font-weight: 800;
+}
+
+/* (Opcional) Dots do carrossel alinhados à esquerda do bloco inteiro */
+.dots{
+  justify-content: flex-start;    /* deixa as bolinhas à esquerda */
+  width: min(1200px, 94%);
+  margin: 14px auto 2px;
+  padding-left: 24px;             /* casa com o padding do slide */
+}
+
+/* ==== TEMA LOCAL (só vale dentro da seção #entrada) ==== */
+#entrada{
+  /* cores */
+  --navy-900:#0e2243;
+  --navy-800:#122a54;
+  --bg:linear-gradient(135deg, var(--navy-900) 0%, #0a1a36 60%, #0b1830 100%);
+  --panel:#ffffff;
+  --panel-ink:#0e1b2e;
+  --muted:#5f6f88;
+  --line:#e7ecf3;
+  --blue:#2aa8ff;
+  --violet:#7b2cff;
+
+  --radius:18px;
+  --shadow:0 18px 60px rgba(3,12,28,.35);
+
+  /* layout da própria seção */
+  position: relative;
+  color:#eef4ff;
+  background:var(--bg);
+  padding:56px 0;
+}
+
+/* escopo de box-sizing só aqui dentro */
+#entrada *, #entrada *::before, #entrada *::after{ box-sizing:border-box }
+
+/* container local (não conflita com o .wrap do seu site, pois está escopado) */
+#entrada .wrap{ width:min(1120px,92%); margin:0 auto }
+
+/* grid principal da seção */
+#entrada .grid{
+  display:grid; grid-template-columns:1.1fr .9fr; gap:36px; align-items:center;
+}
+
+/* ===== COLUNA ESQUERDA ===== */
+#entrada .left h1{
+  font-size:clamp(36px,7vw,64px); line-height:1.02; margin:0 0 10px; letter-spacing:.2px;
+  text-shadow:0 6px 18px rgba(0,0,0,.25);
+}
+#entrada .lead{ max-width:56ch; color:#cfe1ff; margin:8px 0 18px }
+
+#entrada .steps{ display:grid; gap:10px; margin:0 0 20px; padding:0 }
+#entrada .steps li{ list-style:none; display:flex; gap:10px; align-items:flex-start }
+#entrada .steps .ico{
+  width:34px; height:34px; display:grid; place-items:center; border-radius:10px;
+  background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.14);
+}
+#entrada .steps b{ display:block }
+#entrada .steps span{ font-size:13px; color:#d5e2ff }
+
+/* botão desta seção apenas */
+#entrada .btn.cta{
+  display:inline-flex; align-items:center; gap:10px;
+  background:#fff; color:#0e1b2e; font-weight:800;
+  padding:12px 18px; border-radius:999px; border:1px solid var(--line);
+  box-shadow:var(--shadow); text-decoration:none;
+}
+#entrada .btn .arrow{
+  width:28px; height:28px; border-radius:999px; display:grid; place-items:center;
+  background:linear-gradient(90deg, var(--blue), var(--violet)); color:#0b1430;
+}
+
+/* ===== CARTÃO DIREITO ===== */
+#entrada .card{
+  background:var(--panel); color:var(--panel-ink);
+  border:1px solid var(--line); border-radius:20px; box-shadow:var(--shadow);
+  padding:16px; overflow:hidden;
+}
+#entrada .card-head{ display:flex; align-items:center; gap:8px; font-weight:800; color:#0e1b2e }
+#entrada .head-ico{
+  width:30px; height:30px; border-radius:10px; display:grid; place-items:center;
+  background:#eef3ff; color:#1b2d4b; border:1px solid #dbe4f0;
+}
+
+/* contador */
+#entrada .countdown{ display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin:12px 0 }
+#entrada .slot{
+  background:#f7f9fe; border:1px solid var(--line); border-radius:14px;
+  padding:12px 10px; text-align:center;
+}
+#entrada .num{ display:block; font-weight:800; font-size:26px }
+#entrada .lbl{ font-size:12px; color:#5f6f88 }
+#entrada .muted{ color:#6b7c94; font-size:13px; margin:2px 2px 10px }
+
+/* lista de infos do cartão */
+#entrada .info-list{ display:grid; gap:10px; margin:6px 0 10px; padding:0 }
+#entrada .info-list li{
+  list-style:none; display:flex; gap:10px; align-items:center;
+  background:#f7f9fe; border:1px solid var(--line); border-radius:14px; padding:12px;
+}
+#entrada .info-list .i{
+  width:34px; height:34px; display:grid; place-items:center; border:1px solid #dbe4f0;
+  background:#eef3ff; color:#1b2d4b; border-radius:10px;
+}
+#entrada .info-list .title{ display:block; color:#5f6f88; font-size:12px }
+#entrada .info-list .value{ font-size:14px }
+
+/* badges */
+#entrada .badges{ display:flex; gap:10px; flex-wrap:wrap; margin:8px 0 10px; padding:0 }
+#entrada .badges li{
+  list-style:none; border:1px solid var(--line); background:#f7f9fe;
+  border-radius:999px; padding:6px 10px; color:#405373; font-size:12px;
+}
+
+/* ribbon */
+#entrada .ribbon{
+  display:flex; align-items:center; gap:8px; justify-content:center; text-align:center;
+  background:#eef3ff; color:#0e1b2e; border:2px dashed #cfd9ea; border-radius:12px; padding:12px;
+  font-weight:800; letter-spacing:.2px;
+}
+#entrada .ribbon .warn{
+  display:grid; place-items:center; width:26px; height:26px; border-radius:999px;
+  background:#fff; border:1px solid #dbe4f0; color:#31456a;
+}
+
+/* ===== Responsivo desta seção ===== */
+@media (max-width: 980px){
+  #entrada .grid{ grid-template-columns:1fr; gap:20px }
+  #entrada .left h1{ font-size:42px }
+}
+
+/* ===== Alinhar coluna esquerda (texto e botão) ===== */
+#entrada .left{
+  text-align: left !important;
+  display: grid;              /* permite alinhar o botão */
+  justify-items: start;       /* botão/itens começam à esquerda */
+  align-items: start;
+}
+
+#entrada .left h1,
+#entrada .left .lead,
+#entrada .left .steps{
+  text-align: left !important;
+  margin-left: 0;
+}
+
+#entrada .steps{ justify-items: start; }
+#entrada .steps li{ align-items: flex-start; }
+
+#entrada .left .btn.cta{         /* botão começa na esquerda */
+  justify-self: start;
+}
+
+/* ===== Remover o ícone de verificado e manter só 1 ícone ===== */
+
+/* se existir um elemento .check, some com ele */
+#entrada .info-list li .check{ display:none !important; }
+
+/* se o tema injeta pseudo-elemento de check (::before), desativa */
+#entrada .info-list li::before{ content:none !important; }
+
+/* se vierem dois .i, esconda todos menos o último (fica só o principal) */
+#entrada .info-list li > .i:not(:last-of-type){ display:none !important; }
+
+/* reempacotar: 1 coluna de ícone (34px) + texto */
+#entrada .info-list li{
+  display:grid !important;
+  grid-template-columns: 34px 1fr !important;
+  gap:10px;
+  align-items:center;
+  text-align:left;
+}
+
+#entrada .info-list li > .i{ grid-column:1; }
+#entrada .info-list li > div{
+  grid-column:2;
+  display:grid;
+  justify-items:start;
+}
+
+/* ===== Fonte Poppins só dentro da seção #entrada ===== */
+#entrada, 
+#entrada *:not(svg):not(i){
+  font-family: 'Poppins', system-ui, -apple-system, Segoe UI, Roboto, Inter, sans-serif !important;
+  font-optical-sizing: auto;
+}
+
+/* pesos bonitos para títulos e ênfases */
+#entrada h1, #entrada h2, #entrada h3 { font-weight: 800; }
+#entrada b, #entrada strong { font-weight: 700; }
+#entrada .lead, 
+#entrada .steps span, 
+#entrada .muted, 
+#entrada .lbl, 
+#entrada .title, 
+#entrada .value { font-weight: 400; }
+#entrada .btn.cta { font-weight: 800; }
+
+/* ====== BLOCO NAVY PRO (apenas #nn-pro) ====== */
+#nn-pro{
+  --bg1:#0b1832; --bg2:#0e2243;
+  --panel:rgba(255,255,255,.06); --panel2:rgba(255,255,255,.08);
+  --line:rgba(255,255,255,.14);
+  --ink:#eaf2ff; --muted:#cfe1ff;
+  --blue:#2aa8ff; --teal:#28ffd3;
+
+  font-family:'Poppins',system-ui,-apple-system,Segoe UI,Roboto,Inter,sans-serif;
+  color:var(--ink);
+  background:linear-gradient(180deg,var(--bg2),var(--bg1));
+  padding:64px 0 68px;
+}
+
+#nn-pro .nn-wrap{ width:min(1200px,92%); margin:0 auto }
+
+/* Títulos (força cor pra não ser sobrescrito pelo CSS global) */
+#nn-pro .nn-head{ text-align:center; margin-bottom:18px }
+#nn-pro h2{ margin:0; font-size:clamp(26px,5vw,36px); font-weight:800; color:var(--ink) !important; letter-spacing:.2px }
+#nn-pro .nn-sub{ margin:6px auto 0; color:var(--muted) !important; max-width:66ch }
+
+/* GRID principal — gauge grande + KPIs */
+#nn-pro .nn-grid{
+  display:grid;
+  grid-template-columns: minmax(560px,1fr) minmax(420px,.9fr);
+  gap:24px;
+  align-items:stretch;
+}
+
+/* ===== Gauge card ===== */
+#nn-pro .nn-gauge-card{
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:20px;
+  padding:18px;
+  box-shadow:0 18px 48px rgba(0,0,0,.35);
+}
+
+#nn-pro .nn-gauge-wrap{
+  position:relative;
+  border-radius:14px;
+  background:radial-gradient(120% 90% at 50% 8%, var(--panel2), transparent 60%);
+  padding:16px;
+}
+
+#nn-pro .nn-gauge{ display:block; width:100%; max-width:700px; height:auto; margin:0 auto; filter:drop-shadow(0 12px 40px rgba(42,168,255,.25)) }
+#nn-pro .nn-track{ fill:none; stroke:rgba(255,255,255,.18); stroke-width:26; stroke-linecap:round }
+#nn-pro .nn-value{ fill:none; stroke-width:26; stroke-linecap:round; transition:stroke-dashoffset .9s cubic-bezier(.2,.8,.2,1) }
+#nn-pro .nn-ticks line{ stroke:rgba(255,255,255,.22); stroke-width:1.6 }
+
+#nn-pro .nn-center{ position:absolute; inset:auto 0 8px 0; text-align:center }
+#nn-pro .nn-center b{ font-size:clamp(22px,6vw,38px); font-weight:800 }
+#nn-pro .nn-center small{ display:block; color:var(--muted) }
+
+/* Chips (reset pra não herdar estilos globais de <ul>) */
+#nn-pro .nn-chips{ display:flex; flex-wrap:wrap; gap:10px; margin:12px 2px 0; padding:0; list-style:none }
+#nn-pro .nn-chips li{
+  padding:8px 10px;
+  border-radius:12px;
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.14);
+  color:#dbe8ff; font-size:12px; line-height:1;
+}
+#nn-pro .nn-chips b{ color:#fff; margin-right:4px }
+
+/* ===== KPI cards ===== */
+#nn-pro .nn-kpis{ display:grid; grid-template-columns:repeat(2, minmax(250px,1fr)); gap:18px }
+#nn-pro .nn-card{
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:16px;
+  padding:12px;
+  box-shadow:0 18px 48px rgba(0,0,0,.35);
+  min-height:170px;
+  display:flex; flex-direction:column;
+}
+
+#nn-pro .nn-card-top{ display:flex; align-items:center; gap:8px; color:#dbe8ff; font-weight:600 }
+#nn-pro .nn-ico{
+  width:28px; height:28px; display:grid; place-items:center; border-radius:10px;
+  background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.14); color:#cfe1ff
+}
+#nn-pro .nn-card-title{ font-size:14px }
+#nn-pro .nn-card-value{ font-size:22px; font-weight:800; margin-top:6px; letter-spacing:.2px }
+#nn-pro .nn-spark{ width:100%; display:block; margin-top:8px; background:rgba(255,255,255,.03); border:1px solid var(--line); border-radius:10px; flex:1 }
+#nn-pro .nn-note{ display:block; color:var(--muted); font-size:12px; margin-top:8px }
+
+/* ===== Responsivo ===== */
+@media (max-width:1100px){
+  #nn-pro .nn-grid{ grid-template-columns:1fr; }
+  #nn-pro .nn-kpis{ grid-template-columns:repeat(2, minmax(220px,1fr)); }
+}
+@media (max-width:640px){
+  #nn-pro .nn-kpis{ grid-template-columns:1fr; }
+  #nn-pro .nn-chips{ gap:6px }
+  #nn-pro .nn-chips li{ padding:6px 8px; font-size:11px }
+}
+
+/* === PIN DO VALOR NO PONTO VERDE (somente #nn-pro) === */
+#nn-pro .nn-card{ position: relative; } /* permite posicionar absoluto dentro do card */
+
+#nn-pro .nn-card-value.pin{
+  position: absolute;
+  /* será posicionado via JS (left/top) */
+  transform: translate(-50%, -110%); /* centraliza e sobe um pouco acima do ponto */
+  background: rgba(255,255,255,.10);
+  border: 1px solid rgba(255,255,255,.18);
+  backdrop-filter: blur(4px);
+  padding: 6px 8px;
+  border-radius: 8px;
+  font-weight: 800;
+  font-size: 14px;
+  line-height: 1;
+  color: #fff;
+  pointer-events: none;
+  white-space: nowrap;
+  box-shadow: 0 6px 18px rgba(0,0,0,.25);
+}
+
+/* Header do bloco no topo, centralizado */
+#nn-pro .nn-head{ text-align:center; margin:0 0 18px }
+#nn-pro .nn-head h2{ margin:0; font-weight:800 }
+#nn-pro .nn-sub{ margin-top:6px; opacity:.9 }
+
+/* Header em cima do bloco */
+#nn-pro .nn-wrap{max-width:1200px;margin:0 auto;padding:0 16px}
+#nn-pro .nn-head{ text-align:center; margin:0 0 18px }
+#nn-pro .nn-head h2{ margin:0; font-weight:800 }
+#nn-pro .nn-sub{ margin-top:6px; opacity:.9 }
+
+/* Grade do bloco */
+#nn-pro .nn-grid{
+  display:grid;
+  grid-template-columns:minmax(560px,1fr) minmax(420px,1fr);
+  gap:24px;
+  align-items:stretch;
+}
+
+/* === “Nossos Números” em cima dos quadrados === */
+#nn-pro .nn-grid{
+  display: grid;
+  /* duas colunas: gauge + kpis */
+  grid-template-columns: minmax(560px,1fr) minmax(420px,1fr);
+  /* primeira linha vira o cabeçalho (ocupa as duas colunas) */
+  grid-template-areas:
+    "head head"
+    "gauge kpis";
+  gap: 24px;
+  align-items: stretch;
+}
+
+/* bloco do título/subtítulo vira o “head” da grid */
+#nn-pro .nn-info,                /* caso seu bloco tenha essa classe */
+#nn-pro .nn-head{               /* ou essa (do modelo mais novo)   */
+  grid-area: head;
+  text-align: center;
+  margin: 0 0 12px;
+}
+#nn-pro .nn-info h2,
+#nn-pro .nn-head h2{ margin: 0 0 6px; font-weight: 800; }
+#nn-pro .nn-info p,
+#nn-pro .nn-head p{ margin: 0; opacity: .9; }
+
+/* fixa as áreas das outras peças */
+#nn-pro .nn-gauge-card{ grid-area: gauge; }
+#nn-pro .nn-kpis{ grid-area: kpis; }
+
+/* ===== NOSSOS NÚMEROS – TÍTULO EM CIMA ===== */
+#nn-pro .nn-grid{
+  display: grid;
+  grid-template-columns: minmax(580px,1fr) minmax(420px,1fr);
+  grid-template-areas:
+    "head head"
+    "gauge kpis";
+  gap: 24px;
+  align-items: stretch;
+}
+
+/* coloca o cabeçalho na faixa superior e limpa heranças antigas */
+#nn-pro .nn-head{
+  grid-area: head;
+  text-align: center;
+  margin: 0 0 4px;
+  position: static !important;
+  left: auto !important; right: auto !important; top: auto !important; bottom: auto !important;
+  float: none !important; clear: both !important;
+  max-width: 920px; justify-self: center;
+}
+#nn-pro .nn-head h2{ margin: 0 0 6px; font-weight: 800; }
+#nn-pro .nn-head p{ margin: 0; opacity: .9; }
+
+/* fixa as outras áreas da grid */
+#nn-pro .nn-gauge-card{ grid-area: gauge; }
+#nn-pro .nn-kpis{ grid-area: kpis; }
+
+/* responsivo simples */
+@media (max-width: 980px){
+  #nn-pro .nn-grid{
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "head"
+      "gauge"
+      "kpis";
+  }
+}
+
+/* ===== Nossos Números: legenda no topo ===== */
+#nn-pro .nn-wrap{ display:block; }          /* garante bloco normal */
+#nn-pro .nn-head{
+  position: static;                          /* nada de absolute/sticky */
+  float: none;                               /* previne floats antigos  */
+  grid-column: 1 / -1;                       /* se cair numa grid, pega a linha inteira */
+  text-align: center;
+  margin: 0 0 22px 0;
+}
+#nn-pro #nn-title{ margin:0; }
+#nn-pro .nn-sub{ margin:8px 0 0; }
+
+/* ==== NN (gauge) — centralização total ==== */
+#nn-pro .nn-gauge-card{
+  display:flex;                 /* centraliza o conteúdo do card */
+  align-items:center;
+  justify-content:center;
+}
+
+#nn-pro .nn-gauge-wrap{
+  position: relative;
+  width: min(100%, 680px);      /* largura máxima do gauge */
+  margin: 0 auto;               /* centralizado dentro do card */
+}
+
+#nn-pro .nn-gauge{
+  display:block;
+  width: 100%;                  /* SVG escala responsivo e centralizado */
+  height: auto;
+  margin: 0 auto;
+}
+
+/* Valor e legenda centralizados no “miolo” do semicírculo */
+#nn-pro .nn-center{
+  position: absolute;
+  left: 50%;
+  top: 82%;                      /* ajuste fino da altura do texto */
+  transform: translate(-50%, -50%);
+  text-align: center;
+  pointer-events: none;
+}
+
+#nn-pro .nn-center b{
+  font-size: clamp(22px, 4.2vw, 36px);
+  line-height: 1;
+}
+
+#nn-pro .nn-center small{
+  display:block;
+  margin-top: 6px;
+  opacity: .85;
+}
+
+/* Se tiver chips abaixo do gauge, mantém centralizados */
+#nn-pro .nn-chips{
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+:root{
+  /* paleta branco + navy */
+  --navy:#0e2243;     /* azul-marinho */
+  --navy-2:#0e2243;   /* variação */
+  --ink:#0b1522;
+  --text:#142231;
+  --muted:#5b6b80;
+  --white:#ffffff;
+  --line:#e8eef6;
+  --brand:#2a9bff;
+
+  --radius:18px;
+  --shadow:0 10px 30px rgba(15,47,71,.10);
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family: "Poppins", system-ui, -apple-system, Segoe UI, Roboto, Arial;
+  background:#fff; /* branco */
+  color:var(--text);
+}
+
+/* Seção */
+.why{
+  padding:56px 20px 72px;
+  max-width:1200px;
+  margin:auto;
+}
+
+.why__head{
+  text-align:center;
+  margin-bottom:22px;
+}
+.why__head h2{
+  margin:0 0 6px;
+  font-size:clamp(26px,3.2vw,40px);
+  font-weight:800;
+  color:var(--navy);
+}
+.why__sub{
+  margin:0;
+  color:var(--muted);
+  font-weight:500;
+}
+
+/* grid de cards */
+.why__grid{
+  display:grid;
+  gap:18px;
+  grid-template-columns:repeat(3,1fr);
+  margin-top:24px;
+}
+@media (max-width:960px){ .why__grid{grid-template-columns:repeat(2,1fr)} }
+@media (max-width:640px){ .why__grid{grid-template-columns:1fr} }
+
+.card{
+  position:relative;
+  background:var(--white);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  padding:22px 18px 18px;
+  box-shadow:var(--shadow);
+  transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+  will-change:transform, box-shadow;
+}
+.card:hover{
+  transform:translateY(-4px);
+  box-shadow:0 16px 44px rgba(15,47,71,.14);
+  border-color:#d9e5f2;
+}
+
+/* ícone circular navy */
+.card__ico{
+  width:52px; height:52px;
+  display:grid; place-items:center;
+  border-radius:14px;
+  color:#fff; font-size:20px;
+  background:linear-gradient(135deg, var(--navy), var(--navy-2));
+  box-shadow:0 6px 18px rgba(20,58,89,.25);
+}
+.card h3{
+  margin:12px 0 6px;
+  font-size:18px;
+  color:var(--ink);
+}
+.card p{
+  margin:0;
+  color:var(--muted);
+  line-height:1.55;
+}
+
+/* CTA */
+.why__cta{
+  margin-top:26px;
+  display:flex; gap:12px; justify-content:center; flex-wrap:wrap;
+}
+.btn{
+  border:none; text-decoration:none; cursor:pointer;
+  padding:12px 18px; border-radius:12px; font-weight:800;
+}
+.btn--primary{
+  background:linear-gradient(135deg,var(--navy),var(--navy-2));
+  color:#fff;
+}
+.btn--primary:hover{filter:brightness(1.05)}
+.btn--ghost{
+  background:#fff; color:var(--navy);
+  border:1px solid var(--line);
+}
+.btn--ghost:hover{border-color:#ccd9e6}
+
+/* reveal suave */
+.reveal{opacity:0; transform:translateY(12px); transition:opacity .6s ease, transform .6s ease}
+.reveal.show{opacity:1; transform:none}
+
+/* foco acessível */
+a:focus-visible, button:focus-visible{outline:2px solid var(--brand); outline-offset:2px}
+
+/* =================== ALINHAR TUDO À ESQUERDA (cards) =================== */
+/* Vale tanto para .features quanto .features-clean */
+:is(.features, .features-clean) .card {
+  /* mata qualquer centralização anterior */
+  text-align: left !important;
+  justify-items: start !important;
+  align-items: start !important;
+
+  /* troca o layout do card para 2 colunas: ícone + textos */
+  display: grid !important;
+  grid-template-columns: 56px minmax(0, 1fr) !important;
+  gap: 16px !important;
+}
+
+/* ícone fica fixo na coluna da esquerda */
+:is(.features, .features-clean) .card .ico {
+  grid-column: 1 !important;
+  grid-row: 1 / span 2 !important;     /* ocupa a altura do título + parágrafo */
+  justify-self: start !important;
+  align-self: start !important;
+  margin: 0 !important;
+}
+
+/* título e parágrafo SEM centralização */
+:is(.features, .features-clean) .card h3,
+:is(.features, .features-clean) .card p {
+  grid-column: 2 !important;
+  text-align: left !important;
+  margin: 0 0 6px 0 !important;
+}
+
+/* se a grade dos cards estiver centralizando o próprio card */
+:is(.features, .features-clean) .grid {
+  justify-items: stretch !important; /* o card ocupa a coluna toda */
+}
+
+/* “chave de fenda”: se houver algum * text-center perdido no card */
+:is(.features, .features-clean) .card * {
+  text-align: left !important;
+}
+
+/* responsivo – só ajusta o espaço do ícone */
+@media (max-width: 900px){
+  :is(.features, .features-clean) .card { grid-template-columns: 48px 1fr !important; }
+}
+@media (max-width: 640px){
+  :is(.features, .features-clean) .card { grid-template-columns: 42px 1fr !important; }
+}
+
+
+/* ===== Fix: textos dos cards à esquerda (apenas na seção #why) ===== */
+#why .card {
+  text-align: left !important;      /* força o alinhamento do container */
+  align-items: flex-start !important; /* se o card for display:flex */
+}
+
+#why .card * {
+  text-align: left !important;      /* garante que títulos e parágrafos não herdem center */
+}
+
+#why .card h3 {
+  margin-left: 0;                   /* evita compensações */
+}
+
+#why .card p,
+#why .card .desc,
+#why .card small {
+  margin-left: 0;
+}
+
+#why .badge-ico,
+#why .ico,
+#why .card .icon,
+#why .card .card-ico {
+  margin-left: 0;                   /* deixa o ícone colado à esquerda */
+}
+
+/* Se você estiver usando grid, evita centralização por default */
+#why .grid, 
+#why .why__grid, 
+#why .features .grid {
+  justify-items: stretch;
+  align-items: start;
+}
+
+/* Por que escolher nossa equipe? */
+.why__title{
+  font-size: clamp(36px, 5.6vw, 96px); /* antes ~42–48 */
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+.why__sub{
+  font-size: clamp(16px, 1.6vw, 22px); /* legenda abaixo do título */
+}
+
+/* Nossos Números */
+#nn-pro .nn-head h2,
+#nn-pro h2{
+  font-size: clamp(34px, 5.4vw, 54px);  /* aumenta o H2 */
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+#nn-pro .nn-sub{
+  font-size: clamp(16px, 1.6vw, 22px);  /* legenda abaixo do H2 */
+}
+
+/* (Opcional) um respiro extra abaixo das legendas */
+.why__sub,
+#nn-pro .nn-sub{
+  margin-top: 8px;
+  margin-bottom: 22px;
+}
+
+/* SUBSTITUA pelo seu bloco de .hero */
+.hero{
+  position: relative;
+  min-height: 78vh;
+  display: grid;
+  place-content: center;
+  text-align: center;
+  padding: 60px 20px;
+
+  /* fundo com overlay + sua imagem nova */
+  background-image:
+    linear-gradient(180deg, rgba(0,0,0,.35), rgba(0,0,0,.55)),
+    url("FUNDO2.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* ===== RESPONSIVIDADE PARA CELULAR ===== */
+@media (max-width: 768px) {
+  /* Ajusta a sidebar */
+  .sidebar {
+    width: 100%;
+    position: relative;
+    height: auto;
+    text-align: center;
+  }
+
+  .sidebar nav {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+  }
+
+  /* Ajusta o container principal */
+  .app {
+    flex-direction: column;
+  }
+
+  /* Painéis e caixas */
+  .painel,
+  .box,
+  .card,
+  .section {
+    width: 90%;
+    margin: 10px auto;
+  }
+
+  /* Ajuste de texto e títulos */
+  h1, h2, h3 {
+    font-size: 1.1rem;
+    text-align: center;
+  }
+
+  /* Botões menores e centralizados */
+  button {
+    width: 100%;
+    margin: 5px 0;
+    font-size: 0.9rem;
+  }
+
+  /* Tabelas responsivas */
+  table {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    border-collapse: collapse;
+  }
+
+  th, td {
+    font-size: 0.85rem;
+    padding: 8px;
+    text-align: left;
+  }
+
+  /* Cabeçalho fixo ajustado */
+  header, .sb-title {
+    text-align: center;
+    padding: 10px;
+  }
+}

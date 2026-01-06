@@ -1,0 +1,2384 @@
+/* ========= TEMA CRIPTO NEON (Roxo + Rosa / Black) ========= */
+:root{
+  --bg:#0a0a0f;               /* fundo principal */
+  --panel:#111219;            /* cartões / superfícies */
+  --panel-2:#0f0f16;
+  --text:#e5e7eb;
+  --muted:#9aa3b2;
+  --border:rgba(255,255,255,.08);
+
+  --purple:#8b5cf6;           /* roxo neon */
+  --purple-2:#7c3aed;
+  --pink:#f472b6;             /* rosa neon */
+  --pink-2:#fb7185;
+
+  --green:#22c55e;            /* lucro */
+  --red:#f43f5e;              /* prejuízo */
+}
+
+*{ box-sizing:border-box }
+html,body{ height:100% }
+body{
+  margin:0;
+  font-family:'Poppins', system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  background:
+    radial-gradient(1000px 400px at 10% 0%, rgba(139,92,246,.12), transparent 60%),
+    radial-gradient(800px 400px at 100% 10%, rgba(244,114,182,.12), transparent 60%),
+    var(--bg);
+  color:var(--text);
+}
+
+/* ====== Topbar ====== */
+.topbar{
+  background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-bottom:1px solid var(--border);
+  padding:12px 18px;
+  display:flex; align-items:center; justify-content:space-between;
+  position:sticky; top:0; z-index:10;
+}
+.brand{ display:flex; align-items:center; gap:10px; font-weight:800 }
+.brand span{
+  background: linear-gradient(90deg, var(--purple), var(--pink));
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+}
+.userbox{ display:flex; align-items:center; gap:12px; }
+.userbox .email{ color:var(--muted); font-size:.95rem; }
+.btn{
+  padding:10px 14px; border-radius:999px; border:1px solid var(--border);
+  background:rgba(255,255,255,.02); cursor:pointer; font-weight:700; color:var(--text);
+}
+.btn:hover{ background:rgba(255,255,255,.06); }
+.btn.admin{
+  border-color:transparent;
+  background:linear-gradient(90deg, var(--purple), var(--pink));
+  color:#0b0b0b; font-weight:800;
+}
+
+/* ====== Layout ====== */
+.app-layout{
+  display:grid;
+  grid-template-columns: 260px 1fr;
+  min-height:100vh;
+  background:transparent;
+}
+
+/* estado colapsado */
+.app-layout.sidebar-collapsed{ grid-template-columns: 76px 1fr; }
+.app-layout.sidebar-collapsed .sidebar{ width:76px; }
+.app-layout.sidebar-collapsed .sidebar .sb-brand,
+.app-layout.sidebar-collapsed .sidebar .sb-link span,
+.app-layout.sidebar-collapsed .sidebar .sb-logout span{ display:none; }
+.app-layout.sidebar-collapsed .sidebar .sb-top{ justify-content:center; }
+.app-layout.sidebar-collapsed .sidebar .sb-link{ justify-content:center; }
+
+/* ====== Sidebar ====== */
+.sidebar{
+  position:sticky; top:0;
+  width:260px;
+  background:
+    linear-gradient(180deg, rgba(139,92,246,.16), transparent 25%),
+    linear-gradient(180deg, rgba(244,114,182,.12), transparent 45%),
+    #080810;
+  color:#fff;
+  display:flex; flex-direction:column;
+  border-right:1px solid var(--border);
+  box-shadow:0 0 32px rgba(139,92,246,.12);
+  z-index:15;
+}
+.sb-top{ display:flex; align-items:center; gap:10px; padding:14px 14px 8px 14px; }
+.sb-toggle{
+  background:transparent; border:none; color:#fff; cursor:pointer;
+  font-size:20px; padding:10px; border-radius:10px;
+}
+.sb-toggle:hover{ background:rgba(255,255,255,.06); }
+.sb-brand{ font-weight:800; letter-spacing:.5px; }
+
+.sb-nav{ display:flex; flex-direction:column; gap:6px; padding:10px 8px; }
+.sb-link{
+  display:flex; align-items:center; gap:12px;
+  padding:12px 12px; border-radius:12px; color:#e2e8f0; text-decoration:none;
+  transition:background .2s ease, color .2s ease, transform .15s ease, box-shadow .2s ease;
+}
+.sb-link i{ width:22px; text-align:center; font-size:18px; }
+.sb-link:hover{ background:rgba(255,255,255,.06); color:#fff; transform:translateX(2px); }
+.sb-link.is-active{
+  background:linear-gradient(90deg, rgba(139,92,246,.25), rgba(244,114,182,.25));
+  box-shadow:0 8px 22px rgba(139,92,246,.18);
+  color:#fff;
+}
+
+/* ====== Conteúdo ====== */
+.content{ min-width:0; }
+.content-inner{ padding: 0 18px 28px 18px; max-width:1200px; margin:0 auto; }
+
+/* ====== Cards ====== */
+.card{
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.01)),
+    var(--panel);
+  border:1px solid var(--border);
+  border-radius:16px; padding:20px;
+  box-shadow:0 8px 24px rgba(0,0,0,.35);
+}
+.glow{
+  box-shadow:
+    0 0 0 .5px rgba(139,92,246,.35) inset,
+    0 0 24px rgba(139,92,246,.18),
+    0 0 64px rgba(244,114,182,.12);
+}
+
+/* ====== Métricas ====== */
+.metrics{ display:grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap:16px; }
+.metric .label{ color:#b1b7c4; font-size:.95rem; margin-bottom:6px; }
+.metric .value{
+  font-size:1.9rem; font-weight:800;
+  background:linear-gradient(90deg, var(--purple), var(--pink));
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+  letter-spacing:.3px;
+}
+.metric .delta{ font-size:.95rem; margin-top:6px; color:#cdd4df; opacity:.9; }
+.delta.up{ color:var(--green); }
+.delta.down{ color:var(--red); }
+.delta.up::before{ content:"▲ "; }
+.delta.down::before{ content:"▼ "; }
+
+/* animação sutil nas métricas */
+.metric .value, .metric .delta{
+  animation: fadeInUp .5s ease both;
+}
+@keyframes fadeInUp{
+  from{ opacity:0; transform: translateY(6px); }
+  to{ opacity:1; transform: translateY(0); }
+}
+
+/* ====== Grade inferior ====== */
+.grid-bottom{ margin-top:18px; display:grid; grid-template-columns: 1.2fr .8fr; gap:16px; }
+
+/* ====== Tabela ====== */
+.table-card h3{ margin:0 0 10px 0; color:#dbe2ed }
+table{ width:100%; border-collapse:collapse; background:transparent; border-radius:14px; overflow:hidden; color:var(--text); }
+thead{ background:var(--panel-2); }
+th, td{ padding:12px 14px; text-align:left; border-bottom:1px solid var(--border); }
+tbody tr:last-child td{ border-bottom:none; }
+tbody tr:hover{ background:rgba(255,255,255,.02); }
+.profit-pos{ color:var(--green); font-weight:700; }
+.profit-neg{ color:var(--red); font-weight:700; }
+
+/* ====== Gráficos ====== */
+.chart-card h3{ margin:0 0 10px 0; color:#dbe2ed }
+.chart-card canvas{
+  width:100%!important; height:300px!important; display:block;
+  border:1px solid var(--border); border-radius:12px;
+  background:linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.01));
+  padding:6px;
+}
+
+/* ====== Scrolls ====== */
+.table-scroll{ max-height: 420px; overflow:auto; border-radius: 14px; }
+.table-scroll thead th{ position: sticky; top: 0; z-index: 1; background: var(--panel-2); }
+.table-scroll::-webkit-scrollbar{ width:8px; height:8px; }
+.table-scroll::-webkit-scrollbar-thumb{ background: rgba(148,163,184,.35); border-radius: 999px; }
+.table-scroll::-webkit-scrollbar-track{ background: transparent; }
+
+/* ===== Sidebar Footer ===== */
+.sb-bottom{ margin-top:auto; padding:10px 8px 14px; }
+.sb-logout{
+  width:100%; display:flex; align-items:center; gap:12px;
+  padding:12px 12px; border:none; border-radius:12px;
+  background:rgba(244, 63, 94, .16); color:#fff; cursor:pointer;
+}
+.sb-logout i{ width:22px; text-align:center; }
+.sb-logout:hover{ background:rgba(244, 63, 94, .25); }
+
+/* ===== Responsivo ===== */
+@media (max-width: 980px){
+  .app-layout{ grid-template-columns: 76px 1fr; }
+  .sidebar{ width:76px; }
+  .sidebar .sb-brand, .sidebar .sb-link span, .sidebar .sb-logout span{ display:none; }
+  .sidebar .sb-top{ justify-content:center; }
+  .sb-link{ justify-content:center; }
+}
+@media (max-width: 900px){
+  .metrics{ grid-template-columns: 1fr; }
+  .grid-bottom{ grid-template-columns: 1fr; }
+}
+
+/* ===== Seções extras ===== */
+.full-section {
+  margin-top: 32px;
+  padding: 24px;
+  border-radius: 16px;
+  background: var(--panel);
+  border:1px solid var(--border);
+  box-shadow: 0 8px 24px rgba(0,0,0,.35);
+}
+.full-section h2 { margin-bottom:10px; font-weight:700; color:#e9edf6; }
+.section-subtitle { margin-bottom:20px; color:#a7b0c0; font-size:.95rem; }
+
+.table-scroll.big { max-height: 600px; overflow-y: auto; }
+
+/* ===== Relatórios grid ===== */
+.relatorios-grid { margin-top:20px; display:grid; grid-template-columns: repeat(3, 1fr); gap:18px; }
+.relatorios-grid .full-width { grid-column: 1 / -1; }
+@media (max-width: 1100px) { .relatorios-grid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 700px)  { .relatorios-grid { grid-template-columns: 1fr; } }
+
+/* ===== INICIO / HERO ===== */
+.neon-hero{
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  gap: 18px;
+  min-height: clamp(520px, 72vh, 820px);
+  background:
+    radial-gradient(900px 280px at 12% 8%, rgba(139,92,246,.18), transparent 60%),
+    radial-gradient(900px 320px at 88% 12%, rgba(244,114,182,.16), transparent 60%),
+    var(--panel, #111219);
+  border: 1px solid var(--border, rgba(255,255,255,.08));
+}
+
+.headline{
+  margin: 0;
+  text-align: center;
+  line-height: 1.08;
+  font-weight: 800;
+  letter-spacing: .4px;
+  font-size: clamp(28px, 6vw, 72px);
+  z-index: 1;
+}
+.headline .blk{ display:block; }
+.headline .grad{
+  background: linear-gradient(90deg, var(--purple, #8b5cf6), var(--pink, #f472b6));
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+
+/* campo de porcentagens no fundo */
+.percent-field{
+  position: absolute; inset: 0;
+  pointer-events: none; z-index: 0;
+}
+.pct{
+  position: absolute; user-select: none;
+  font-weight: 800;
+  color: rgba(255,255,255,.12);
+  font-size: clamp(14px, 3vw, 44px);
+  animation: drift var(--t, 8s) ease-in-out var(--d, 0s) infinite alternate;
+  transform: translate(-50%, -50%) translateY(0);
+}
+@keyframes drift{
+  from { transform: translate(-50%, -50%) translateY(-10%); opacity:.25; }
+  to   { transform: translate(-50%, -50%) translateY(10%);  opacity:.4; }
+}
+
+/* bitcoin */
+.btc-stage{ position: relative; width: clamp(140px, 16vw, 220px); height: clamp(140px, 16vw, 220px); z-index:1; }
+#btc-video{ width: 100%; height: 100%; object-fit: contain; display: none; }
+.btc-stage.has-video #btc-video{ display: block; }
+.btc-stage.has-video .btc-coin{ display: none; }
+
+.btc-coin{
+  position:absolute; inset:0; display:grid; place-items:center;
+  border-radius:50%;
+  background:
+    radial-gradient(120px 120px at 35% 35%, rgba(255,255,255,.18), transparent 55%),
+    radial-gradient(200px 200px at 50% 50%, rgba(139,92,246,.35), rgba(244,114,182,.15)),
+    #0f0f16;
+  box-shadow: inset 0 0 0 2px rgba(255,255,255,.06), 0 12px 32px rgba(139,92,246,.25);
+  transform-style: preserve-3d;
+  animation: spinY 6s linear infinite;
+}
+.btc-coin i{
+  font-size: clamp(56px, 6vw, 88px);
+  background: linear-gradient(90deg, var(--purple, #8b5cf6), var(--pink, #f472b6));
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+  text-shadow: 0 0 24px rgba(139,92,246,.35);
+}
+@keyframes spinY { from{ transform: rotateY(0deg); } to{ transform: rotateY(360deg); } }
+
+/* ===== % maiores e com variação por elemento ===== */
+.pct{
+  font-weight: 900;
+  letter-spacing: .5px;
+  color: rgba(255,255,255,.15);
+  /* cada span pode definir --fs inline; aqui é o fallback */
+  font-size: var(--fs, clamp(22px, 3.6vw, 80px));
+}
+
+:root{
+  --bg:#070a10; --ink:#e8eef7; --muted:#93a3b8;
+  --neonA:#00ffd1;         /* turquesa */
+  --neonB:#6D5DFC;         /* roxo    */
+  --neonM:#9B5CFF;         /* roxo claro */
+  --neonC:#FF4FD8;         /* rosa neon */
+  --neonP:#FFA3EE;         /* rosa claro */
+}
+
+/* fundo com manchas + campo das % */
+.pct-field{
+  position:absolute; inset:0; z-index:1; overflow:hidden;
+  background:
+    radial-gradient(50vmax 50vmax at 15% 20%, rgba(155,92,255,.25), transparent 60%),
+    radial-gradient(60vmax 60vmax at 85% 15%, rgba(0,225,255,.18), transparent 60%),
+    radial-gradient(70vmax 70vmax at 50% 90%, rgba(255,79,216,.12), transparent 60%),
+    var(--bg);
+}
+
+/* cada % */
+.pct{
+  position:absolute; user-select:none; white-space:nowrap; will-change:transform,filter;
+  font-weight:800; letter-spacing:.02em; opacity:.95; transform:translateZ(0);
+  animation: float var(--t,10s) ease-in-out var(--d,0s) infinite alternate,
+             glow 3s ease-in-out calc(var(--d,0s)/2) infinite;
+  text-shadow:0 0 16px rgba(0,0,0,.25);
+}
+@keyframes float{
+  from{ transform: translate3d(var(--x0,0), var(--y0,0), 0) }
+  to  { transform: translate3d(calc(var(--x0) + var(--dx,0px)), calc(var(--y0) + var(--dy,0px)), 0) }
+}
+@keyframes glow{ 50%{ filter:brightness(1.08) } }
+.pct.pos{ color:#baffee; text-shadow:0 0 20px rgba(0,255,170,.45),0 0 32px rgba(0,225,255,.25) }
+.pct.neg{ color:#ffd3e6; text-shadow:0 0 20px rgba(255,79,216,.38),0 0 32px rgba(255,130,180,.22) }
+
+.fs-xs{font-size:12px} .fs-sm{font-size:18px} .fs-md{font-size:26px}
+.fs-lg{font-size:38px} .fs-xl{font-size:54px} .fs-xxl{font-size:72px}
+
+/* HERO */
+.hero{
+  position:absolute; inset:0; z-index:3;
+  display:grid; place-content:center; text-align:center; pointer-events:none;
+  padding:clamp(12px,2vw,24px);
+  isolation:isolate;        /* garante pseudo-layers */
+}
+.hero-kicker{
+  margin:.2rem auto 0; color:var(--muted); letter-spacing:.5em;
+  font-size:clamp(.7rem,1.2vw,1rem); font-weight:800;
+}
+.hero-title{
+  margin:.2rem 0 1.1rem 0;
+  font-weight:800; line-height:.95;
+  font-size: clamp(2.6rem, 7.6vw, 8rem);
+  letter-spacing:.02em;
+  position:relative; z-index:3;
+}
+.hero-title .white{
+  color:#fff;
+  text-shadow: 0 14px 42px rgba(0,0,0,.55), 0 6px 18px rgba(0,0,0,.55), 0 2px 6px rgba(0,0,0,.65);
+}
+.hero-title .grad{
+  background-image: linear-gradient(90deg,var(--neonB),var(--neonM),var(--neonC),var(--neonP));
+  background-size:220% 100%; background-clip:text; -webkit-background-clip:text; color:transparent;
+  mix-blend-mode:screen; filter:brightness(1.45) saturate(1.2);
+  text-shadow:0 0 16px rgba(109,93,252,.55),0 0 36px rgba(255,79,216,.40),0 0 72px rgba(255,79,216,.25);
+  animation: rrShift 10s linear infinite;
+}
+@keyframes rrShift{ to{ background-position:-220% 0 } }
+
+/* HALO atrás do título (não escurece o texto) */
+.hero::before{
+  content:""; position:absolute; left:50%; top:50%; transform:translate(-50%,-56%);
+  width:clamp(520px,62vw,1100px); height:clamp(160px,24vh,300px);
+  pointer-events:none; z-index:0; border-radius:48px;
+  background: rgba(7,10,16,.46);
+  backdrop-filter: blur(10px) saturate(110%);
+  -webkit-backdrop-filter: blur(10px) saturate(110%);
+  mask-image: radial-gradient(ellipse at 50% 50%, #000 36%, rgba(0,0,0,.7) 58%, transparent 78%);
+  -webkit-mask-image: radial-gradient(ellipse at 50% 50%, #000 36%, rgba(0,0,0,.7) 58%, transparent 78%);
+  box-shadow: 0 40px 120px rgba(0,0,0,.55), 0 12px 36px rgba(0,0,0,.42);
+}
+
+/* SWITCH decorativo */
+.switch{
+  margin-inline:auto; width:min(260px,60vw); height:52px;
+  border-radius:999px; backdrop-filter: blur(8px);
+  background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03));
+  border:1px solid rgba(255,255,255,.12);
+  box-shadow: 0 0 0 8px rgba(0,0,0,.12) inset, 0 24px 64px rgba(0,0,0,.35);
+  display:flex; align-items:center; justify-content:center; gap:.6rem; position:relative; pointer-events:none;
+}
+.switch.on::before{
+  content:""; position:absolute; inset:-18px; border-radius:inherit; z-index:-1;
+  background: radial-gradient(40% 100% at 50% 50%, rgba(0,255,209,.22), transparent 60%);
+  filter: blur(14px); opacity:.9;
+}
+.switch .dot{
+  width:12px; height:12px; border-radius:50%;
+  background: radial-gradient(circle at 30% 30%, #fff, #aaffef 45%, #00d6be 70%);
+  box-shadow: 0 0 16px #35ffd2, 0 0 32px rgba(0,255,209,.45), 0 0 64px rgba(0,255,209,.25);
+  animation: pulse 2.4s ease-in-out infinite;
+}
+.switch .txt{ font-weight:800; letter-spacing:.35em; color:#dffdf6 }
+@keyframes pulse{ 50%{ filter:brightness(1.25); transform:scale(1.12) } }
+
+/* TICKER */
+.ticker{
+  position:fixed; left:0; right:0; bottom:0; z-index:4; padding:10px 0;
+  background: linear-gradient(180deg, rgba(7,10,16,0), rgba(7,10,16,.6) 30%, rgba(7,10,16,.9));
+  backdrop-filter: blur(4px);
+  border-top:1px solid rgba(255,255,255,.06);
+}
+.ticker-track{
+  display:flex; gap:16px; width:max-content; will-change:transform;
+  animation: roll var(--dur,40s) linear infinite; padding-left:24px;
+}
+@keyframes roll{ from{transform:translateX(0)} to{transform:translateX(calc(-1 * var(--loopW,1200px)))} }
+.ti{
+  display:flex; align-items:center; gap:10px; padding:8px 12px; border-radius:14px;
+  background: rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.1);
+  color:#e8eef7; font-weight:700; white-space:nowrap; box-shadow: 0 6px 18px rgba(0,0,0,.25);
+}
+.badge{ padding:3px 8px; border-radius:999px; font-size:.8rem; font-weight:800; border:1px solid rgba(255,255,255,.12); background: linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.04)) }
+.up{color:#9fffcf; text-shadow:0 0 10px rgba(0,255,170,.35)}
+.down{color:#ffb1c7; text-shadow:0 0 10px rgba(255,79,216,.28)}
+
+/* --- 1) Legenda “MODO” central e mais evidente --- */
+.hero{ 
+  place-content:center;           /* já estava, garantimos centro */
+  place-items:center;             /* alinha eixo secundário */
+}
+.hero-kicker{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  margin: 0 auto 1.1rem;
+  padding: 8px 18px;
+  border-radius:999px;
+  text-transform:uppercase;
+  letter-spacing:.35em;           /* menos “aberto” pra legibilidade */
+  font-weight:900;
+  font-size: clamp(.85rem, 1.6vw, 1.15rem);
+  color:#eafaf7;
+
+  /* vidro + borda + glow sutil */
+  background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.04));
+  border:1px solid rgba(255,255,255,.14);
+  box-shadow: 0 8px 26px rgba(0,0,0,.35), 0 0 0 6px rgba(0,0,0,.06) inset;
+  position:relative;
+}
+.hero-kicker::after{
+  content:"";
+  position:absolute; inset:-12px; z-index:-1; border-radius:inherit;
+  background: radial-gradient(60% 100% at 50% 50%, rgba(155,92,255,.25), rgba(0,255,209,.12) 60%, transparent 70%);
+  filter: blur(14px);
+}
+
+/* --- 2) % mais discretas (menos cor/brilho) --- */
+.pct-field{
+  filter: saturate(.78) brightness(.9); /* baixa saturação/ brilho do fundo todo */
+}
+.pct{
+  opacity:.55;                        /* antes ~.95 */
+  text-shadow: 0 0 10px rgba(0,0,0,.25);  /* sombra suave pra não estourar */
+}
+.pct.pos{
+  color: rgba(170,255,230,.75);
+  text-shadow: 0 0 12px rgba(0,255,170,.18), 0 0 24px rgba(0,225,255,.12);
+}
+.pct.neg{
+  color: rgba(255,190,220,.72);
+  text-shadow: 0 0 12px rgba(255,79,216,.16), 0 0 24px rgba(255,130,180,.10);
+}
+
+/* --- 3) Halo mais forte atrás do título (nada por cima do texto) --- */
+.hero::before{
+  /* mantém a mesma geometria que você já tinha */
+  background: rgba(7,10,16,.56);                 /* um pouco mais escuro */
+  backdrop-filter: blur(12px) saturate(110%);
+  -webkit-backdrop-filter: blur(12px) saturate(110%);
+
+  /* máscara que desvanece nas bordas, reforçando o centro */
+  mask-image: radial-gradient(ellipse at 50% 50%,
+                #000 34%, rgba(0,0,0,.6) 56%, transparent 78%);
+  -webkit-mask-image: radial-gradient(ellipse at 50% 50%,
+                #000 34%, rgba(0,0,0,.6) 56%, transparent 78%);
+  box-shadow: 0 40px 120px rgba(0,0,0,.6), 0 12px 36px rgba(0,0,0,.45);
+}
+
+/* título com grad roxo->rosa mais vivo, mas sem perder legibilidade */
+.hero-title .grad{
+  background-image: linear-gradient(90deg,#b07bff,#d46bff,#ff9ae9);
+  background-size: 200% auto;
+  animation: gradShift 12s linear infinite;
+  text-shadow:
+    0 14px 42px rgba(0,0,0,.55),
+    0 6px 18px rgba(0,0,0,.55),
+    0 2px 6px rgba(0,0,0,.65);
+}
+@keyframes gradShift{ to{ background-position:200% 0; } }
+
+/* —————————————————————————————
+   1) Centraliza a legenda “MODO”
+   ————————————————————————————— */
+.hero{
+  display:grid;
+  place-items:center;        /* centro real em ambos eixos */
+  text-align:center;
+}
+.hero-kicker{
+  justify-self:center;       /* garante alinhado no meio da linha */
+  margin: 0 auto 1.1rem;
+}
+
+/* —————————————————————————————
+   2) Tira o halo global e coloca um
+      halo só atrás do “CRIPTO”
+   ————————————————————————————— */
+
+/* desliga o halo que ficava no centro inteiro */
+.hero::before{ display:none; }
+
+/* cria um vidro/halo apenas atrás do span branco */
+.hero-title .white{
+  position: relative;
+  display: inline-block;
+  padding: 0 .08em;          /* folguinha pro halo acompanhar */
+}
+.hero-title .white::before{
+  content:"";
+  position:absolute;
+  z-index:-1;
+  left:-.35em; right:-.35em;
+  top:-.18em;  bottom:-.18em;
+  border-radius: 44px;
+
+  /* vidro escuro + blur (só atrás do “CRIPTO”) */
+  background: rgba(7,10,16,.52);
+  backdrop-filter: blur(12px) saturate(110%);
+  -webkit-backdrop-filter: blur(12px) saturate(110%);
+
+  /* some nas bordas pra não parecer um retângulo duro */
+  mask-image: radial-gradient(ellipse at 50% 50%,
+              #000 36%, rgba(0,0,0,.55) 62%, transparent 85%);
+  -webkit-mask-image: radial-gradient(ellipse at 50% 50%,
+              #000 36%, rgba(0,0,0,.55) 62%, transparent 85%);
+  box-shadow: 0 32px 96px rgba(0,0,0,.55), 0 10px 30px rgba(0,0,0,.42);
+}
+
+/* mantém o “ATIVADO” vibrante, sem escurecer */
+.hero-title .grad{
+  background-image: linear-gradient(90deg,#b07bff,#d46bff,#ff9ae9);
+  background-size: 200% auto;
+  animation: gradShift 12s linear infinite;
+  text-shadow:
+    0 14px 42px rgba(0,0,0,.45),
+    0 6px 18px rgba(0,0,0,.45),
+    0 2px 6px rgba(0,0,0,.55);
+}
+@keyframes gradShift{ to{ background-position:200% 0; } }
+
+/* —————————————————————————————
+   3) % de fundo um pouco mais discretas
+   ————————————————————————————— */
+.pct-field{
+  filter: saturate(.75) brightness(.9);
+}
+.pct{
+  opacity:.50; /* estava .55 ~ .95; agora mais suave */
+  text-shadow: 0 0 10px rgba(0,0,0,.25);
+}
+.pct.pos{
+  color: rgba(170,255,230,.72);
+  text-shadow: 0 0 12px rgba(0,255,170,.16), 0 0 24px rgba(0,225,255,.10);
+}
+.pct.neg{
+  color: rgba(255,190,220,.70);
+  text-shadow: 0 0 12px rgba(255,79,216,.15), 0 0 24px rgba(255,130,180,.10);
+}
+
+/* 0) ZERE QUALQUER CAMADA ESCURA ANTIGA */
+.hero::before,
+.hero::after,
+.pct-field::after{
+  content: none !important;
+  display: none !important;
+}
+
+/* 1) CENTRALIZAÇÃO REAL DO HERO + “MODO” */
+.hero{
+  position:absolute; inset:0;
+  display:flex; flex-direction:column;
+  align-items:center; justify-content:center;
+  text-align:center;
+}
+.hero-kicker{
+  margin: 0 auto 1.1rem !important;
+  left:auto !important; transform:none !important;
+}
+
+/* 2) HALO APENAS ATRÁS DO “CRIPTO” (palavra branca) */
+.hero-title .white{
+  position:relative; display:inline-block;
+  isolation:isolate;             /* cria contexto p/ z-index do ::after */
+  padding: 0 .08em;
+  z-index: 1;
+}
+.hero-title .white::after{
+  content:""; position:absolute; z-index:-1;      /* atrás do texto */
+  left:-.35em; right:-.35em; top:-.18em; bottom:-.18em;
+  border-radius:44px;
+  background: rgba(7,10,16,.46);
+  -webkit-backdrop-filter: blur(12px) saturate(110%);
+  backdrop-filter: blur(12px) saturate(110%);
+  mask-image: radial-gradient(ellipse at 50% 50%,
+              #000 36%, rgba(0,0,0,.55) 62%, transparent 85%);
+  -webkit-mask-image: radial-gradient(ellipse at 50% 50%,
+              #000 36%, rgba(0,0,0,.55) 62%, transparent 85%);
+  box-shadow: 0 32px 96px rgba(0,0,0,.55), 0 10px 30px rgba(0,0,0,.42);
+}
+
+/* 3) “ATIVADO” SEM QUALQUER ESCURECIMENTO + GRADIENTE ROXO/ROSA */
+.hero-title .grad{
+  position:relative; z-index:2;  /* acima de qualquer halo */
+  background-image: linear-gradient(90deg,#b07bff,#d46bff,#ff9ae9);
+  background-size: 200% auto;
+  animation: gradShift 12s linear infinite;
+  text-shadow:
+    0 14px 42px rgba(0,0,0,.35),
+    0 6px 18px rgba(0,0,0,.35),
+    0 2px 6px rgba(0,0,0,.45);
+}
+@keyframes gradShift{ to{ background-position:200% 0; } }
+
+/* 4) SUAVIZA A CAMADA DE % (menos concorrência visual) */
+.pct-field{ filter: saturate(.7) brightness(.9) !important; }
+.pct{
+  opacity:.42 !important;
+  text-shadow: 0 0 10px rgba(0,0,0,.22) !important;
+}
+.pct.pos{
+  color: rgba(170,255,230,.68) !important;
+  text-shadow: 0 0 10px rgba(0,255,170,.14), 0 0 18px rgba(0,225,255,.08) !important;
+}
+.pct.neg{
+  color: rgba(255,190,220,.66) !important;
+  text-shadow: 0 0 10px rgba(255,79,216,.12), 0 0 18px rgba(255,130,180,.08) !important;
+}
+
+/* ===== REMOVER TODAS AS SOMBRAS DO HERO ===== */
+
+/* nada de vidro/halo atrás do CRIPTO */
+#route-inicio .halo-wrap::before{ 
+  content:none !important; 
+  display:none !important; 
+}
+
+/* sem drop-shadow no texto */
+#route-inicio .hero-title .white,
+#route-inicio .hero-title .grad{
+  text-shadow:none !important;
+  filter:none !important;
+  mix-blend-mode:normal !important;
+}
+
+/* mantém o gradiente do ATIVADO, só sem sombra */
+#route-inicio .hero-title .grad{
+  background-image:linear-gradient(90deg,#b07bff,#d46bff,#ff9ae9) !important;
+  -webkit-background-clip:text !important; background-clip:text !important;
+  color:transparent !important; -webkit-text-fill-color:transparent !important;
+}
+
+/* remove sombras da pill "MODO" e do botão ON */
+#route-inicio .hero-kicker,
+#route-inicio .switch,
+#route-inicio .switch.on::before{
+  box-shadow:none !important;
+}
+
+/* porcentagens sem sombra (mantém opacidade suave) */
+#route-inicio .pct{
+  text-shadow:none !important;
+  opacity:.40 !important;
+}
+
+/* por garantia, nada de camadas escuras no hero */
+#route-inicio .hero::before,
+#route-inicio .hero::after,
+#route-inicio .pct-field::before,
+#route-inicio .pct-field::after{
+  content:none !important; display:none !important;
+}
+
+/* ===== Início (neonStorm) — escopado ao #route-inicio ===== */
+#route-inicio{
+  --bg:#070a10;
+  --ink:#e8eef7;
+  --muted:#93a3b8;
+  --neonA:#00ffd1;   /* turquesa */
+  --neonB:#6D5DFC;   /* roxo */
+  --neonM:#9B5CFF;   /* roxo claro */
+  --neonC:#FF4FD8;   /* rosa neon */
+  --neonP:#FFA3EE;   /* rosa claro */
+  position: relative;
+  min-height: clamp(560px, 76vh, 860px);
+  overflow: hidden;
+}
+
+/* ===== Fundo com porcentagens ===== */
+#route-inicio .pct-field{
+  position:absolute; inset:0; z-index:1; overflow:hidden;
+  background:
+    radial-gradient(50vmax 50vmax at 15% 20%, rgba(155,92,255,.25), transparent 60%),
+    radial-gradient(60vmax 60vmax at 85% 15%, rgba(0,225,255,.18), transparent 60%),
+    radial-gradient(70vmax 70vmax at 50% 90%, rgba(255,79,216,.12), transparent 60%),
+    var(--bg);
+  filter:saturate(.68) brightness(.9);
+}
+/* (mantemos a vinheta desativada para não escurecer o texto)
+#route-inicio .pct-field::after{ ... }
+*/
+
+/* cada % */
+#route-inicio .pct{
+  position:absolute; user-select:none; white-space:nowrap; will-change:transform,filter;
+  font-weight:800; letter-spacing:.02em; opacity:.40; transform:translateZ(0);
+  animation: neon-float var(--t,10s) ease-in-out var(--d,0s) infinite alternate,
+             neon-glow 3s ease-in-out calc(var(--d,0s)/2) infinite;
+  text-shadow:0 0 10px rgba(0,0,0,.22);
+}
+@keyframes neon-float{
+  from{ transform: translate3d(var(--x0,0), var(--y0,0), 0) }
+  to  { transform: translate3d(calc(var(--x0) + var(--dx,0px)),
+                               calc(var(--y0) + var(--dy,0px)), 0) }
+}
+@keyframes neon-glow{ 50%{ filter:brightness(1.08) } }
+#route-inicio .pct.pos{ color:rgba(170,255,230,.66) }
+#route-inicio .pct.neg{ color:rgba(255,190,220,.64) }
+
+/* tamanhos */
+#route-inicio .fs-sm{font-size:18px}
+#route-inicio .fs-md{font-size:26px}
+#route-inicio .fs-lg{font-size:38px}
+#route-inicio .fs-xl{font-size:54px}
+#route-inicio .fs-xxl{font-size:72px}
+
+/* ===== HERO ===== */
+#route-inicio .hero{
+  position:absolute; inset:0; z-index:3;
+  display:grid; place-content:center; text-align:center; pointer-events:none;
+  padding:clamp(12px,2vw,24px);
+  isolation:isolate;
+}
+#route-inicio .hero > *{ position:relative; z-index:1 }
+
+#route-inicio .hero-kicker{
+  margin:.2rem auto 0; color:var(--muted); letter-spacing:.5em;
+  font-size:clamp(.7rem,1.2vw,1rem); font-weight:800;
+}
+#route-inicio .hero-title{
+  margin:.1rem 0 1.1rem 0;
+  font-weight:800; line-height:.95;
+  font-size: clamp(2.4rem, 7.2vw, 7.5rem);
+  letter-spacing:.02em;
+}
+/* realce do título (igual ao seu index) */
+#route-inicio .hero-title .white,
+#route-inicio .hero-title .grad{
+  text-shadow:
+    0 14px 42px rgba(0,0,0,.55),
+    0 6px 18px rgba(0,0,0,.55),
+    0 2px 6px rgba(0,0,0,.65);
+  filter: drop-shadow(0 8px 24px rgba(0,0,0,.22));
+}
+#route-inicio .hero-title .white{
+  color:#fff;
+  filter: drop-shadow(0 6px 18px rgba(255,255,255,.08));
+}
+#route-inicio .hero-title .grad{
+  background-image: linear-gradient(
+    90deg,
+    var(--neonB) 0%,
+    var(--neonM) 35%,
+    var(--neonC) 70%,
+    var(--neonP) 100%
+  );
+  background-size:220% 100%;
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+  animation: rrShift 10s linear infinite;
+  filter: brightness(1.45) saturate(1.2);
+  text-shadow:
+    0 0 16px rgba(109,93,252,.55),
+    0 0 36px rgba(255,79,216,.40),
+    0 0 72px rgba(255,79,216,.25);
+}
+@keyframes rrShift{ to{ background-position:-220% 0 } }
+
+/* HALO suave (atrás do título, sem “caixa”) */
+#route-inicio .hero{
+  --halo-w: clamp(520px, 62vw, 1100px);
+  --halo-h: clamp(160px, 24vh, 300px);
+}
+#route-inicio .hero::before{
+  content:"";
+  position:absolute; left:50%; top:50%;
+  transform:translate(-50%, -56%);
+  width:var(--halo-w); height:var(--halo-h);
+  pointer-events:none; z-index:0; border-radius:48px;
+  background: rgba(7,10,16,.46);
+  backdrop-filter: blur(10px) saturate(110%);
+  -webkit-backdrop-filter: blur(10px) saturate(110%);
+  mask-image: radial-gradient(ellipse at 50% 50%,
+              #000 36%, rgba(0,0,0,.7) 58%, transparent 78%);
+  -webkit-mask-image: radial-gradient(ellipse at 50% 50%,
+              #000 36%, rgba(0,0,0,.7) 58%, transparent 78%);
+  box-shadow: 0 40px 120px rgba(0,0,0,.55), 0 12px 36px rgba(0,0,0,.42);
+}
+
+/* ===== Botão “ON” (decorativo) ===== */
+#route-inicio .switch, #route-inicio .mode-pill{
+  margin-inline:auto; width:min(260px, 60vw); height:52px;
+  border-radius:999px; backdrop-filter: blur(8px);
+  background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03));
+  border:1px solid rgba(255,255,255,.12);
+  box-shadow: inset 0 0 0 8px rgba(0,0,0,.12), 0 24px 64px rgba(0,0,0,.35);
+  display:flex; align-items:center; justify-content:center; gap:.6rem;
+  position:relative; pointer-events:none;
+}
+#route-inicio .switch.on::before, #route-inicio .mode-pill.on::before{
+  content:""; position:absolute; inset:-16px -22px; z-index:-1; border-radius:999px;
+  background: radial-gradient(circle at 50% 50%, rgba(21,239,255,.22), rgba(21,239,255,0) 60%);
+  filter: blur(10px);
+}
+#route-inicio .switch .dot, #route-inicio .mode-pill .dot{
+  width:12px; height:12px; border-radius:50%;
+  background: radial-gradient(circle at 30% 30%, #fff, #aaffef 45%, #00d6be 70%);
+  box-shadow: 0 0 16px #35ffd2, 0 0 32px rgba(0,255,209,.45), 0 0 64px rgba(0,255,209,.25);
+  animation: neon-pulse 2.4s ease-in-out infinite;
+}
+#route-inicio .switch .txt, #route-inicio .mode-pill .txt{
+  font-weight:800; letter-spacing:.35em; color:#dffdf6;
+}
+@keyframes neon-pulse{ 50%{ filter:brightness(1.25); transform:scale(1.12) } }
+
+/* ===== Ticker ===== */
+#route-inicio .ticker{
+  position:absolute; left:0; right:0; bottom:0; z-index:4;
+  padding:10px 0;
+  background: linear-gradient(180deg, rgba(7,10,16,0),
+             rgba(7,10,16,.6) 30%, rgba(7,10,16,.9));
+  backdrop-filter: blur(4px);
+  border-top:1px solid rgba(255,255,255,.06);
+}
+#route-inicio .ticker-track{
+  display:flex; gap:16px; width:max-content; will-change:transform;
+  animation: neon-roll var(--dur,40s) linear infinite;
+  padding-left:24px;
+}
+@keyframes neon-roll{
+  from{ transform:translateX(0) }
+  to  { transform:translateX(calc(-1 * var(--loopW, 1200px))) }
+}
+#route-inicio .ti{
+  display:flex; align-items:center; gap:10px;
+  padding:8px 12px; border-radius:14px;
+  background: rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.1);
+  color:#e8eef7; font-weight:700; white-space:nowrap;
+  box-shadow: 0 6px 18px rgba(0,0,0,.25);
+}
+#route-inicio .badge{
+  padding:3px 8px; border-radius:999px; font-size:.8rem; font-weight:800;
+  letter-spacing:.02em; border:1px solid rgba(255,255,255,.12);
+  background: linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.04));
+}
+#route-inicio .price{ opacity:.95 }
+#route-inicio .chg{ font-weight:800 }
+#route-inicio .up   { color:#9fffcf; text-shadow:0 0 10px rgba(0,255,170,.35) }
+#route-inicio .down { color:#ffb1c7; text-shadow:0 0 10px rgba(255,79,216,.28) }
+
+@media (max-width:760px){
+  #route-inicio .ti{ padding:7px 10px; gap:8px }
+  #route-inicio .badge{ font-size:.75rem }
+}
+
+/* Ordem de camadas (garante que nada escureça o título) */
+#route-inicio .pct-field { z-index: 1; }
+#route-inicio .hero::before { z-index: 0; }
+#route-inicio .hero-title { position: relative; z-index: 3; }
+#route-inicio .mode-pill, #route-inicio .switch { position: relative; z-index: 2; }
+#route-inicio .mode-pill::before, #route-inicio .switch.on::before { z-index: -1; }
+
+/* ===== INÍCIO em tela cheia (full-bleed no content) ===== */
+
+/* quando o #route-inicio estiver visível, remove o max-width e o padding lateral */
+.content-inner:has(#route-inicio:not([hidden])){
+  max-width: none;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+/* a seção ocupa toda a largura disponível do painel e a altura da viewport
+   (descontando ~64px da topbar; ajuste se sua topbar tiver outro tamanho) */
+#route-inicio{
+  position: relative;
+  width: 100%;
+  min-height: calc(100vh - 64px);
+  margin: 0;
+  overflow: hidden;
+}
+
+/* garante que o fundo e o hero cobrem toda a área */
+#route-inicio .pct-field{ position:absolute; inset:0; }
+#route-inicio .hero{ position:relative; inset:0; min-height:inherit; }
+
+/* ===== Início: ocupar até o fundo ===== */
+
+/* tira o padding de baixo quando o Início está ativo */
+.content-inner:has(#route-inicio:not([hidden])){
+  padding-bottom: 0;
+}
+
+/* fallback se você usou o body[data-route="inicio"] no JS */
+body[data-route="inicio"] .content-inner{
+  padding-bottom: 0;
+}
+
+/* altura da seção = altura total da viewport menos a topbar */
+#route-inicio{
+  /* ajuste este valor se sua topbar for mais alta/baixa */
+  --topbar-h: 64px;
+  min-height: calc(100dvh - var(--topbar-h));
+}
+
+/* hero acompanha a altura da seção */
+#route-inicio .hero{
+  min-height: inherit;
+}
+
+/* ====== Início ocupa a tela toda até o rodapé ====== */
+:root{
+  /* ajuste se sua topbar for mais alta/baixa */
+  --topbar-h: 64px;
+  /* padding padrão que a .content-inner aplica em baixo */
+  --content-pad-b: 28px;
+}
+
+/* tira o respiro de baixo só quando a rota #inicio está ativa */
+body[data-route="inicio"] .content-inner{
+  padding-bottom: 0 !important;
+}
+
+/* compensa o padding do container e estica a seção até o fundo */
+#route-inicio{
+  min-height: calc(100dvh - var(--topbar-h) + var(--content-pad-b));
+  margin-bottom: calc(-1 * var(--content-pad-b));
+}
+
+/* garante que o hero acompanhe a altura da seção */
+#route-inicio .hero{
+  min-height: inherit;
+}
+
+/* ===== Ajuste só para a rota #inicio (preencher até o rodapé) ===== */
+
+:root{ --topbar-h: 64px; }   /* fallback; JS abaixo vai ajustar certinho */
+
+/* tira o respiro de baixo só no início */
+body[data-route="inicio"] .content-inner { padding-bottom: 0 !important; }
+
+/* a seção #inicio ocupa a janela inteira abaixo da topbar */
+#route-inicio{
+  position: relative;
+  min-height: calc(100dvh - var(--topbar-h));
+}
+
+/* o fundo de % cobre toda a seção */
+#route-inicio .pct-field{
+  position: absolute;
+  inset: 0;
+}
+
+/* o hero fica centralizado e usa a altura toda da seção */
+#route-inicio .hero{
+  min-height: calc(100dvh - var(--topbar-h));
+  display: grid;
+  place-content: center;
+  text-align: center;
+}
+
+/* ===== INÍCIO — ocupar a tela toda até o rodapé (forçado) ===== */
+
+/* quando a rota #inicio estiver ativa, tiramos o respiro do container */
+body[data-route="inicio"] .content-inner{
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  padding-bottom: 0 !important;
+  max-width: none !important;
+}
+
+/* a seção #route-inicio ocupa a janela inteira abaixo da topbar */
+#route-inicio{
+  position: relative !important;
+  margin: 0 !important;
+  min-height: calc(100dvh - var(--topbar-h, 64px)) !important;
+  overflow: hidden !important;
+}
+
+/* hero e fundo acompanham a altura da seção */
+#route-inicio .hero{ min-height: inherit !important; }
+#route-inicio .pct-field{ position: absolute !important; inset: 0 !important; }
+
+/* ticker encosta SEMPRE no fundo da janela */
+#route-inicio .ticker{
+  position: fixed !important;
+  left: 0; right: 0; bottom: 0;
+  z-index: 60;
+}
+
+/* --- Início: limpar sombra atrás de CRIPTO, tirar cápsula do “MODO”
+       e deixar ATIVADO roxo→rosa --- */
+#route-inicio .hero::before{ display:none !important; } /* remove o “retângulo” atrás do título */
+#route-inicio .hero-title .white,
+#route-inicio .hero-title .grad{
+  text-shadow:none !important;
+  filter:none !important;
+}
+#route-inicio .hero-kicker{
+  /* vira só texto (sem pill) */
+  background:transparent !important;
+  border:0 !important;
+  box-shadow:none !important;
+  padding:0 !important;
+  margin:0 0 1rem !important;
+  letter-spacing:.45em !important;
+  color:var(--muted) !important;
+  font-weight:800 !important;
+}
+
+/* gradiente do “ATIVADO” (roxo → rosa) */
+#route-inicio .hero-title .grad{
+  background-image:linear-gradient(90deg,#7c3aed,#a855f7,#f472b6) !important;
+  background-size:220% 100% !important;
+  -webkit-background-clip:text !important;
+  background-clip:text !important;
+  color:transparent !important;
+  animation: rrShift 10s linear infinite;
+}
+
+/* --- Mais CORES nas % do fundo (sobrescrevem pos/neg) --- */
+#route-inicio .pct[class*="c-"]{
+  opacity:.56 !important;
+  text-shadow:0 0 18px currentColor, 0 0 42px color-mix(in srgb, currentColor 60%, transparent);
+}
+#route-inicio .pct.c-mint   { color:#a8ffe4 !important; }
+#route-inicio .pct.c-cyan   { color:#8ff3ff !important; }
+#route-inicio .pct.c-sky    { color:#9ad7ff !important; }
+#route-inicio .pct.c-blue   { color:#a5b4ff !important; }
+#route-inicio .pct.c-violet { color:#d0b6ff !important; }
+#route-inicio .pct.c-pink   { color:#ffb6e6 !important; }
+#route-inicio .pct.c-rose   { color:#ffc0d2 !important; }
+#route-inicio .pct.c-amber  { color:#ffe2a8 !important; }
+#route-inicio .pct.c-lime   { color:#d5ff9a !important; }
+
+/* ===== Hotfix Início: sem sombra atrás de CRIPTO e gradiente estático no ATIVADO ===== */
+
+/* tira qualquer halo/retângulo atrás do título */
+#route-inicio .hero::before { 
+  content: none !important; 
+  display: none !important; 
+}
+
+/* garante que não exista pseudo-efeito por trás do “CRIPTO” */
+#route-inicio .hero-title .white::before,
+#route-inicio .hero-title .white::after {
+  content: none !important;
+  display: none !important;
+}
+
+/* remove sombras do texto CRIPTO e ATIVADO */
+#route-inicio .hero-title .white,
+#route-inicio .hero-title .grad {
+  text-shadow: none !important;
+  filter: none !important;
+}
+
+/* ATIVADO com gradiente fixo (sem troca de cor) */
+#route-inicio .hero-title .grad{
+  background-image: linear-gradient(90deg, #7c3aed, #a855f7, #f472b6) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  color: transparent !important;
+  animation: none !important;         /* desliga a animação de cor */
+}
+
+/* ===== Início: MODO branco (sem caixa) ===== */
+#route-inicio .hero-kicker{
+  color:#fff !important;
+  background:none !important;
+  border:none !important;
+  box-shadow:none !important;
+  padding:0 !important;
+  letter-spacing:.5em !important;
+  text-transform:uppercase;
+}
+
+/* ===== Início: porcentagens mais coloridas e visíveis ===== */
+#route-inicio .pct-field{
+  filter: saturate(1.15) brightness(1.05) !important;
+}
+
+#route-inicio .pct{
+  opacity:.72 !important;                 /* +visíveis */
+  text-shadow: none !important;           /* sem “sujeira” escura */
+}
+
+#route-inicio .pct.pos{
+  color:#9fffe6 !important;               /* turquesa mais forte */
+  text-shadow:
+    0 0 18px rgba(0,255,209,.35),
+    0 0 42px rgba(0,225,255,.25) !important;
+}
+
+#route-inicio .pct.neg{
+  color:#ffc1ed !important;               /* rosa mais forte */
+  text-shadow:
+    0 0 18px rgba(255,79,216,.35),
+    0 0 42px rgba(255,130,180,.25) !important;
+}
+
+/* ===== ATIVADO branco (sem gradiente, sem blend/sombra) ===== */
+#route-inicio .hero-title .grad{
+  background: none !important;
+  -webkit-background-clip: initial !important;
+  background-clip: initial !important;
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+  mix-blend-mode: normal !important;
+  filter: none !important;
+  text-shadow: none !important;
+}
+
+/* ===========================
+   Presser Dashboard – Layout 2
+   (Hero + Pills + Painéis)
+   =========================== */
+
+/* Paleta (ajuste se quiser) */
+:root{
+  --press-bg-grad: radial-gradient(1200px 480px at 70% 20%, rgba(124,58,237,.22), rgba(0,0,0,0) 60%);
+  --press-stroke: rgba(255,255,255,.12);
+  --press-stroke-soft: rgba(255,255,255,.08);
+  --press-surface: rgba(255,255,255,.02);
+  --press-text: #fff;
+  --press-text-muted: #c9cbe2;
+  --press-pos: #22c55e;
+  --press-neg: #f43f5e;
+  --press-purple: #8b5cf6;   /* barras positivas */
+  --press-magenta: #a21caf;  /* barras negativas */
+}
+
+/* ===== HERO Valor Patrimonial ===== */
+.hero-balance{
+  position: relative;
+  background: var(--press-bg-grad);
+  border-radius: 18px;
+  padding: 28px 28px 18px;
+  margin-bottom: 18px;
+  border: 1px solid var(--press-stroke-soft);
+}
+.hero-balance .title{
+  font-size: 14px;
+  color: var(--press-text-muted);
+  margin: 0 0 8px 0;
+  font-weight: 600;
+}
+.hero-balance .value{
+  font-size: clamp(42px, 6.5vw, 88px);
+  font-weight: 800; line-height: 1;
+  letter-spacing: .5px;
+  color: var(--press-text);
+  text-shadow: 0 6px 22px rgba(124,58,237,.18);
+  margin: 0 12px 0 0;
+  display: inline-block;
+  vertical-align: baseline;
+}
+.hero-balance .unit{
+  font-size: clamp(14px, 1.5vw, 22px);
+  color: var(--press-text-muted);
+  font-weight: 600;
+  vertical-align: baseline;
+}
+
+/* ===== Pills de KPI ===== */
+.pill-kpis{
+  display: grid;
+  grid-template-columns: repeat(2, minmax(220px, 1fr));
+  gap: 14px;
+  margin: 10px 0 18px;
+}
+.pill{
+  border: 1px solid var(--press-stroke);
+  border-radius: 18px;
+  padding: 16px 18px;
+  background: var(--press-surface);
+}
+.pill .label{
+  font-size: 13px;
+  color: var(--press-text-muted);
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+.pill .value{
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--press-text);
+}
+
+/* ===== Painéis com contorno ===== */
+.panel-outline{
+  border: 1px solid var(--press-stroke);
+  border-radius: 18px;
+  padding: 16px;
+  background: rgba(0,0,0,.18);
+}
+.panel-outline h3{
+  margin: 0 0 10px 0;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+/* ===== Grid inferior (tabela + gráfico) ===== */
+.grid-2{
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: 16px;
+}
+@media (max-width: 1100px){
+  .grid-2{ grid-template-columns: 1fr; }
+}
+
+/* ===== Tabelas (mantém seu estilo, adiciona cores de lucro) ===== */
+.table-scroll{ overflow: auto; }
+table th, table td{ white-space: nowrap; }
+.profit-pos{ color: var(--press-pos); font-weight: 700; }
+.profit-neg{ color: var(--press-neg); font-weight: 700; }
+
+/* ===== Canvas / Cards de gráfico ===== */
+.chart-scroll{ min-height: 320px; }
+
+/* ===== Ajustes finos opcionais ===== */
+/* Borda suave dos cards gerais, caso seu tema use .card */
+.card{
+  border-radius: 18px;
+  border: 1px solid var(--press-stroke-soft);
+}
+
+/* Sidebar link ativo, se quiser um leve roxo (opcional) */
+/*
+.sb-link.is-active{
+  background: linear-gradient(90deg, rgba(139,92,246,.18), rgba(139,92,246,.05) 60%, transparent);
+  border: 1px solid rgba(139,92,246,.35);
+}
+*/
+
+/* ===== Chart.js (cores coerentes com o mock) ===== */
+/* Se você usa classes para colorir barras via CSS (não obrigatório),
+   estas variáveis ajudam a manter consistência com o JS */
+:root{
+  --chart-pos: var(--press-purple);
+  --chart-neg: var(--press-magenta);
+}
+
+/* ==== Hero Patrimonial: manter em uma linha ==== */
+.top-hero{
+  /* dá mais espaço pro valor patrimonial à esquerda */
+  grid-template-columns: 1.3fr 1fr;
+  align-items: center;
+}
+
+.hero-balance .value{
+  /* menor e sem quebra de linha */
+  font-size: clamp(34px, 5vw, 64px);
+  white-space: nowrap;       /* impede quebra entre "USDT" e o valor */
+  letter-spacing: 0.3px;
+  margin-right: 10px;
+}
+.hero-balance .unit{
+  font-size: clamp(12px, 1.4vw, 18px);
+  white-space: nowrap;
+}
+
+/* pequeno ajuste em telas um pouco menores */
+@media (max-width: 1280px){
+  .hero-balance .value{ font-size: clamp(32px, 4.6vw, 56px); }
+}
+
+/* mobile continua 1 coluna */
+@media (max-width: 1100px){
+  .top-hero{ grid-template-columns: 1fr; }
+}
+
+/* ===== Ajustes solicitados ===== */
+
+/* valor patrimonial um pouco maior */
+.hero-balance .value{
+  font-size: clamp(38px, 5.6vw, 72px);
+}
+
+/* gráfico patrimonial menor (container mais baixo) */
+.chart-floating .chart-scroll{
+  min-height: 120px;      /* antes ~180px */
+  height: 120px;          /* força em navegadores que respeitam a altura do pai */
+}
+
+/* dá um pouco mais de espaço pro valor e menos pro gráfico */
+.top-hero{
+  grid-template-columns: 1.35fr 0.9fr;
+}
+@media (max-width: 1100px){
+  .top-hero{ grid-template-columns: 1fr; }
+}
+
+/* Patrimonial menor (altura reduzida) */
+.chart-floating .chart-scroll{
+  min-height: 84px;   /* antes 120px */
+  height: 84px;
+  padding: 0;
+}
+
+/* força o canvas a respeitar a nova altura */
+#chart-patrimonial{
+  height: 84px !important;
+}
+
+/* opcional: dar mais espaço ao número e menos ao gráfico */
+.top-hero{
+  grid-template-columns: 1.45fr 0.8fr;
+}
+
+/* ===== Layout topo: mais espaço pro valor, menos pro gráfico ===== */
+.top-hero{
+  grid-template-columns: 1.7fr 0.7fr;   /* antes ~1.45fr / 0.8fr */
+  align-items: end;                      /* alinha pela base */
+}
+
+/* gráfico mais próximo da caixa de "Acertatividade" (desce um pouco) */
+.chart-floating{
+  margin-top: 14px;      /* aproxima do card abaixo */
+}
+.chart-floating .chart-scroll{
+  height: 78px;          /* mantém baixo e “clean” */
+  min-height: 78px;
+}
+
+/* Valor Patrimonial maior e ocupando mais largura */
+.hero-balance .value{
+  font-size: clamp(94px, 6.8vw, 192px);   /* ↑ aumenta o limite */
+  line-height: 0.95;
+  letter-spacing: 0.2px;
+  white-space: nowrap;                   /* continua em uma linha */
+}
+.hero-balance .unit{
+  margin-left: 8px;
+  font-size: 16px;
+}
+
+/* opcional: reduzir o espaço vertical entre o título "Valor Patrimonial" e o número */
+.hero-balance .title{
+  margin-bottom: 6px;
+}
+
+/* ===== Forçar novo layout do topo ===== */
+
+/* 1) Mais espaço para o Valor Patrimonial; gráfico fica menor */
+.content .content-inner .top-hero{
+  grid-template-columns: minmax(520px, 2fr) minmax(240px, .6fr) !important;
+  align-items: end !important;   /* alinha pela base dos dois blocos */
+}
+
+/* 2) Valor Patrimonial bem maior (sem quebrar linha) */
+.content .content-inner .hero-balance .value{
+  font-size: clamp(50px, 7.6vw, 88px) !important; /* ↑ maior */
+  line-height: 0.92 !important;
+  letter-spacing: 0.2px !important;
+  white-space: nowrap !important;
+}
+
+/* 3) Aproximar o gráfico da caixa de "Acertatividade" e deixá-lo mais baixinho */
+.content .content-inner .chart-floating{
+  margin-top: 26px !important;       /* aproxima do card de baixo */
+}
+.content .content-inner .chart-floating .chart-scroll{
+  height: 70px !important;
+  min-height: 70px !important;
+  padding: 0 !important;
+}
+#chart-patrimonial{
+  height: 70px !important;           /* força o canvas acompanhar */
+}
+
+/* Responsivo: em telas menores volta para 1 coluna */
+@media (max-width: 1100px){
+  .content .content-inner .top-hero{
+    grid-template-columns: 1fr !important;
+    align-items: start !important;
+  }
+}
+
+/* === Empurrar tudo mais para baixo (afastar da topbar) === */
+.content .content-inner{
+  padding-top: 28px !important;     /* ajuste global do respiro superior */
+}
+
+/* === Topo: manter grid e alinhar pela base === */
+.top-hero{
+  grid-template-columns: 1.7fr 0.7fr !important;
+  align-items: end !important;
+  margin-top: 10px !important;      /* respiro extra, caso o padding seja pouco */
+}
+
+/* === Gráfico no "meio" da coluna de Acertatividade === */
+.chart-floating{
+  margin-top: 18px !important;      /* aproxima da caixa de Acertatividade */
+  display: flex !important;
+  justify-content: center !important; /* CENTRALIZA horizontalmente */
+}
+.chart-floating .chart-scroll{
+  width: 92% !important;            /* deixa um respiro lateral */
+  max-width: 620px !important;      /* trava largura para ficar bem no centro */
+  height: 70px !important;
+  min-height: 70px !important;
+  padding: 0 !important;
+}
+#chart-patrimonial{
+  height: 70px !important;
+}
+
+/* Responsivo: em telas menores, volta para uma coluna e mantém o respiro */
+@media (max-width: 1100px){
+  .top-hero{
+    grid-template-columns: 1fr !important;
+    align-items: start !important;
+  }
+  .chart-floating{
+    justify-content: flex-start !important;
+  }
+  .chart-floating .chart-scroll{
+    width: 100% !important;
+    max-width: none !important;
+  }
+}
+
+/* Centraliza o gráfico na coluna da Acertatividade */
+.chart-floating{
+  display: flex !important;
+  justify-content: center !important;   /* centro horizontal */
+}
+
+.chart-floating .chart-scroll{
+  width: 86% !important;                /* controla a largura visível */
+  max-width: 640px !important;          /* mantém elegante em telas grandes */
+  margin: 0 auto !important;
+  height: 70px !important;
+  min-height: 70px !important;
+  padding: 0 !important;
+}
+
+#chart-patrimonial{ height: 70px !important; }
+
+/* Centralizar o gráfico patrimonial na coluna da direita */
+.chart-floating{
+  display: grid !important;
+  place-items: center !important;   /* centro exato */
+  margin-top: 14px !important;
+}
+.chart-floating .chart-scroll{
+  width: 86% !important;            /* controla a largura visível */
+  max-width: 620px !important;
+  height: 70px !important;
+  min-height: 70px !important;
+  padding: 0 !important;
+  margin: 0 auto !important;        /* garante centralização */
+}
+#chart-patrimonial{ height: 70px !important; }
+
+/* Topo: mais espaço à esquerda (valor) e centro vertical dos itens */
+.top-hero{
+  grid-template-columns: 1.75fr 0.65fr !important;
+  align-items: center !important;        /* centro vertical da linha */
+  margin-top: 18px !important;           /* afasta da topbar */
+}
+
+/* Bloco do gráfico: centro absoluto na coluna */
+.chart-floating{
+  display: grid !important;
+  place-items: center !important;        /* centro X/Y */
+  margin: 0 !important;
+  align-self: center !important;         /* garante centro vertical */
+}
+.chart-floating .chart-scroll{
+  width: 86% !important;
+  max-width: 640px !important;
+  height: 72px !important;               /* altura estável */
+  min-height: 72px !important;
+  margin: 0 auto !important;
+  padding: 0 !important;
+}
+#chart-patrimonial{ height: 72px !important; }
+
+/* Centralização e tamanho estável do bloco do gráfico */
+.chart-floating{
+  display: grid !important;
+  place-items: center !important;   /* centro X/Y */
+  margin: 0 !important;
+}
+.chart-floating .chart-scroll{
+  width: 86% !important;
+  max-width: 640px !important;
+  height: 72px !important;
+  min-height: 72px !important;
+  margin: 0 auto !important;
+  padding: 0 !important;
+}
+
+/* Garante que o canvas ocupe o bloco e não colapse */
+#chart-patrimonial{
+  display: block !important;
+  width: 100% !important;   /* o JS vai setar o width real (atributo) */
+  height: 72px !important;  /* o JS vai setar o height real (atributo) */
+}
+
+/* === TOP HERO: alinhar itens pelo topo para deixar o gráfico "lá em cima" === */
+.content .content-inner .top-hero{
+  grid-template-columns: 1.75fr 0.65fr !important;
+  align-items: start !important;           /* topo */
+  margin-top: 18px !important;
+}
+
+/* === GRÁFICO: empurrar para o canto superior direito da coluna === */
+.content .content-inner .chart-floating{
+  justify-self: end !important;            /* direita */
+  align-self: start !important;            /* topo */
+  margin-top: -6px !important;             /* sobe um pouquinho (ajuste fino) */
+  margin-right: 6px !important;            /* encosta melhor no canto */
+  display: block !important;               /* cancela place-items center antigos */
+}
+
+/* container do canvas */
+.content .content-inner .chart-floating .chart-scroll{
+  width: 520px !important;                 /* largura fixa elegante (ajuste à vontade) */
+  max-width: 95% !important;
+  height: 72px !important;
+  min-height: 72px !important;
+  padding: 0 !important;
+  overflow: visible !important;
+}
+
+/* canvas segue o container e não colapsa */
+#chart-patrimonial{
+  display: block !important;
+  width: 100% !important;
+  height: 72px !important;
+}
+
+/* Responsivo: empilha e mantém o gráfico logo abaixo do valor patrimonial */
+@media (max-width: 1100px){
+  .content .content-inner .top-hero{
+    grid-template-columns: 1fr !important;
+    align-items: start !important;
+  }
+  .content .content-inner .chart-floating{
+    justify-self: start !important;
+    margin-top: 8px !important;
+    margin-right: 0 !important;
+  }
+  .content .content-inner .chart-floating .chart-scroll{
+    width: 100% !important;
+  }
+}
+
+/* === tamanho do gráfico patrimonial (AJUSTE AQUI) === */
+:root{
+  --patrimonial-w: 520px;  /* largura do gráfico */
+  --patrimonial-h: 166px;   /* altura do gráfico */
+}
+
+/* aplica o tamanho */
+.content .content-inner .chart-floating .chart-scroll{
+  width: var(--patrimonial-w) !important;
+  height: var(--patrimonial-h) !important;
+  min-height: var(--patrimonial-h) !important;
+}
+
+#chart-patrimonial{
+  height: var(--patrimonial-h) !important;
+}
+
+/* ===== Alinhar "Acertatividade (%)" com "Lucro dos últimos 7 dias" ===== */
+/* defina uma grade única p/ as duas linhas */
+:root{
+  /* ajuste fino da proporção entre coluna esquerda (tabela) e direita (gráfico) */
+  --dash-cols: 1.15fr 1fr;   /* mude aqui se quiser refinar */
+  --dash-gap: 24px;          /* espaçamento entre colunas/linhas */
+}
+
+/* linha dos cards menores (Lucro Mensal / Acertatividade) */
+.metrics{
+  display: grid !important;
+  grid-template-columns: var(--dash-cols) !important;
+  gap: var(--dash-gap) !important;
+  align-items: stretch !important;
+}
+
+/* linha de baixo (Histórico de Operações / Lucro 7 dias) */
+.grid-bottom{
+  display: grid !important;
+  grid-template-columns: var(--dash-cols) !important;
+  gap: var(--dash-gap) !important;
+  align-items: stretch !important;
+}
+
+/* garante que os cartões ocupem toda a coluna sem “pular” */
+.metrics .card,
+.grid-bottom .card{
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+/* (opcional) se algum card tiver margem extra, normaliza */
+.metrics > *{ margin: 0 !important; }
+.grid-bottom > *{ margin: 0 !important; }
+
+/* ====== Alinhar Histórico com Lucro Mensal (mesma grade nas 2 linhas) ====== */
+:root{
+  /* ajuste fino da largura das colunas (mude aqui se quiser) */
+  --dash-col-left: 1.15fr;   /* coluna da esquerda: Lucro Mensal / Histórico */
+  --dash-col-right: 1fr;     /* coluna da direita: Acertatividade / Lucro 7 dias */
+  --dash-gap: 24px;          /* espaçamento entre colunas e entre linhas */
+}
+
+/* linha 1 (métricas): Lucro Mensal | Acertatividade */
+#route-dashboard .metrics{
+  display: grid !important;
+  grid-template-columns: var(--dash-col-left) var(--dash-col-right) !important;
+  gap: var(--dash-gap) !important;
+  align-items: stretch !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* linha 2 (cards de baixo): Histórico | Lucro 7 dias */
+#route-dashboard .grid-bottom{
+  display: grid !important;
+  grid-template-columns: var(--dash-col-left) var(--dash-col-right) !important; /* <-- mesma grade */
+  gap: var(--dash-gap) !important;
+  align-items: stretch !important;
+  margin: var(--dash-gap) 0 0 0 !important;  /* só o respiro vertical entre as linhas */
+  padding: 0 !important;
+}
+
+/* garante que os cards ocupem a coluna inteira e não adicionem margens extras */
+#route-dashboard .metrics > * ,
+#route-dashboard .grid-bottom > * {
+  margin: 0 !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+/* ===== ALINHAR EXATO: usar a MESMA coluna em % nas 2 linhas ===== */
+:root{
+  /* ajuste aqui se quiser mover a divisória: 58% funciona bem em desktop */
+  --dash-col-left-pct: 58%;
+  --dash-gap: 24px;
+}
+
+/* garante que as seções ocupem 100% e não tenham paddings/margens diferentes */
+#route-dashboard .metrics,
+#route-dashboard .grid-bottom{
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  box-sizing: border-box !important;
+}
+
+/* linha 1 (Lucro Mensal | Acertatividade) com a MESMA grade */
+#route-dashboard .metrics{
+  display: grid !important;
+  grid-template-columns: var(--dash-col-left-pct) calc(100% - var(--dash-col-left-pct)) !important;
+  column-gap: var(--dash-gap) !important;
+  row-gap: var(--dash-gap) !important;
+  align-items: stretch !important;
+}
+
+/* linha 2 (Histórico | Lucro 7 dias) com a MESMA grade */
+#route-dashboard .grid-bottom{
+  display: grid !important;
+  grid-template-columns: var(--dash-col-left-pct) calc(100% - var(--dash-col-left-pct)) !important;
+  column-gap: var(--dash-gap) !important;
+  row-gap: var(--dash-gap) !important;
+  align-items: stretch !important;
+}
+
+/* normaliza cards internos para não “empurrarem” a grade */
+#route-dashboard .metrics > *,
+#route-dashboard .grid-bottom > *{
+  margin: 0 !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+/* remove qualquer padding interno inesperado no contêiner da direita */
+#route-dashboard .grid-bottom .chart-card,
+#route-dashboard .metrics .card{
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+/* se algum card tiver um contêiner interno com padding, neutraliza a diferença */
+#route-dashboard .table-card .table-scroll,
+#route-dashboard .chart-card .chart-scroll{
+  margin: 0 !important;
+}
+
+/* responsivo: em telas menores, empilha (continua alinhado) */
+@media (max-width: 1100px){
+  #route-dashboard .metrics,
+  #route-dashboard .grid-bottom{
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* ========= ALINHAR "Histórico de Operações" com "Lucro Mensal (%)" ========= */
+/* Use UMA grade em % para as duas linhas (evita diferenças de arredondamento) */
+:root{
+  /* mexa só aqui para mover a “divisória” esquerda|direita (56–60% costuma ficar bom) */
+  --dash-left-col: 58%;
+  --dash-gap: 24px;
+}
+
+/* Linha 1: Lucro Mensal | Acertatividade (mesma grade) */
+#route-dashboard .metrics{
+  display: grid !important;
+  grid-template-columns: var(--dash-left-col) calc(100% - var(--dash-left-col)) !important;
+  column-gap: var(--dash-gap) !important;
+  row-gap: var(--dash-gap) !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  box-sizing: border-box !important;
+}
+
+/* Linha 2: Histórico | Lucro 7 dias (mesma grade) */
+#route-dashboard .grid-bottom{
+  display: grid !important;
+  grid-template-columns: var(--dash-left-col) calc(100% - var(--dash-left-col)) !important;
+  column-gap: var(--dash-gap) !important;
+  row-gap: var(--dash-gap) !important;
+  width: 100% !important;
+  margin: var(--dash-gap) 0 0 0 !important; /* respiro entre as linhas */
+  padding: 0 !important;
+  box-sizing: border-box !important;
+}
+
+/* Não deixe nenhum card forçar largura própria */
+#route-dashboard .metrics > *,
+#route-dashboard .grid-bottom > *{
+  margin: 0 !important;
+  width: 100% !important;
+  max-width: none !important;
+  box-sizing: border-box !important;
+}
+
+/* Cancela larguras herdadas que “puxam” o histórico para dentro */
+#route-dashboard .table-card,
+#route-dashboard .chart-card,
+#route-dashboard .metric{
+  width: auto !important;
+  max-width: none !important;
+}
+
+/* Se algum wrapper interno tiver padding/margem, não deixe deslocar a borda esquerda */
+#route-dashboard .table-card .table-scroll,
+#route-dashboard .chart-card .chart-scroll{
+  margin-left: 0 !important;
+  padding-left: 0 !important;
+}
+
+/* A coluna esquerda passa a aceitar um valor em PX vindo do JS */
+:root{
+  /* fallback caso o JS ainda não rode */
+  --left-col-px: 820px;
+  --dash-gap: 24px;
+}
+
+/* Linha 1 – usa exatamente a mesma largura da esquerda em PX */
+#route-dashboard .metrics{
+  display: grid !important;
+  grid-template-columns: var(--left-col-px) calc(100% - var(--left-col-px)) !important;
+  column-gap: var(--dash-gap) !important;
+  align-items: stretch !important;
+  margin: 0 !important; padding: 0 !important; box-sizing: border-box !important;
+}
+
+/* Linha 2 – mantém o que já está (ou também usa a var, se preferir) */
+#route-dashboard .grid-bottom{
+  display: grid !important;
+  grid-template-columns: var(--left-col-px) calc(100% - var(--left-col-px)) !important;
+  column-gap: var(--dash-gap) !important;
+  align-items: stretch !important;
+  margin: var(--dash-gap) 0 0 0 !important; padding: 0 !important; box-sizing: border-box !important;
+}
+
+/* Garante que nenhum card “puxe” largura própria */
+#route-dashboard .metrics > *,
+#route-dashboard .grid-bottom > *{
+  width: 100% !important; max-width: none !important; margin: 0 !important; box-sizing: border-box !important;
+}
+
+/* Hero: linha com valor + sparkline */
+.hero-row {
+  display: grid;
+  grid-template-columns: 1fr 520px; /* valor | mini gráfico */
+  align-items: end;
+  gap: 24px;
+  margin-top: 6px;
+}
+
+.hero-vp {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+}
+
+.hero-vp #vp-number {
+  font-size: clamp(54px, 6.8vw, 104px);
+  line-height: 1;
+  font-weight: 800;
+  letter-spacing: 1px;
+  color: #fff;
+  text-shadow: 0 6px 24px rgba(255,255,255,0.08);
+}
+
+.hero-vp .unit {
+  font-size: 16px;
+  font-weight: 700;
+  opacity: .7;
+}
+
+/* Sparkline "flutuando" sem fundo/grades */
+#chart-patrimonial-spark {
+  display: block;
+  width: 100%;
+  height: 110px;
+  filter: drop-shadow(0 6px 12px rgba(155,92,255,.22));
+}
+
+/* Pequeno respiro superior da área toda do topo */
+.content-inner {
+  padding-top: 28px; /* para afastar da barra superior */
+}
+
+/* === Layout Dashboard: KPIs acima do histórico (coluna esquerda) === */
+.grid-dashboard {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr; /* leve preferência à coluna esquerda */
+  gap: 24px;
+  align-items: stretch;
+}
+
+/* coluna esquerda empilha KPIs + tabela */
+.grid-dashboard .col-esq {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  gap: 16px;
+}
+
+/* compacta os KPIs pra servirem de “cabeçalho” da coluna esquerda */
+.pill-kpis.compact {
+  margin: 0;
+}
+
+/* coluna direita: gráfico mais alto ocupando o espaço livre */
+.panel-outline.bars7d-tall {
+  display: flex;
+  flex-direction: column;
+  min-height: 560px;              /* altura maior padrão */
+}
+
+.panel-outline.bars7d-tall .chart-scroll {
+  flex: 1;
+  min-height: 520px;               /* garante altura interna do canvas */
+}
+
+/* Responsivo */
+@media (max-width: 1100px) {
+  .grid-dashboard {
+    grid-template-columns: 1fr;
+  }
+  .panel-outline.bars7d-tall {
+    min-height: 480px;
+  }
+  .panel-outline.bars7d-tall .chart-scroll {
+    min-height: 420px;
+  }
+}
+
+/* KPIs: valor um pouco maior */
+.pill .value{
+  font-size: clamp(18px, 2.2vw, 36px); /* <- AQUI você regula o tamanho */
+  line-height: 1.05;
+}
+
+/* (opcional) deixar o rótulo um tiquinho menor pra destacar o número */
+.pill .label{
+  font-size: 12px;
+}
+
+.route[hidden] { display: none !important; }
+
+/* garante que só a rota ativa mostre display */
+.route { display: none; }
+.route:not([hidden]) { display: block; }
+
+.route { display: none; }
+.route[hidden] { display: none !important; }
+.route:not([hidden]) { display: block !important; }
+
+/* Roteamento: mostra só a rota ativa */
+.route { display: none !important; visibility: hidden; opacity: 0; }
+.route.is-active { display: block !important; visibility: visible; opacity: 1; }
+
+/* Roteamento: mostra só a rota ativa */
+.route { display: none !important; visibility: hidden; opacity: 0; }
+.route.is-active { display: block !important; visibility: visible; opacity: 1; }
+
+/* Router visibility fix */
+.route { display: none; }             /* todas escondidas por padrão */
+.route.is-active { display: block; }  /* apenas a ativa aparece */
+
+.route { display: none; }
+.route.is-active { display: block; }
+
+/* ===== Filtros (Operações) ===== */
+.ops-filters{display:flex;gap:12px;flex-wrap:wrap;margin:8px 0 14px}
+.seg{display:flex;gap:6px;background:rgba(255,255,255,.06);padding:4px;border-radius:12px}
+.seg button{border:0;background:transparent;color:#cbd5e1;padding:8px 12px;border-radius:10px;cursor:pointer;font-weight:600}
+.seg button:hover{background:rgba(255,255,255,.06)}
+.seg button.on{color:#fff;background:linear-gradient(90deg,#9b5cff,#ff4db8)}
+
+/* coloque no seu dashboard.css */
+.ops-toolbar{display:flex;gap:12px;align-items:center;margin:4px 0 16px}
+.ops-toolbar .grp{display:flex;gap:8px}
+.ops-toolbar .chip{
+  background:#2a2535;border:1px solid rgba(255,255,255,.08);
+  color:#e9e7f2;padding:6px 12px;border-radius:999px;font:600 12px/1 Poppins,system-ui;cursor:pointer
+}
+.ops-toolbar .chip.is-active{background:#8a5cff;color:#fff;border-color:#8a5cff}
+
+/* === Filtro do gráfico "Lucro por moeda" (chips iguais aos de Operações) === */
+.coin-filter-wrap{
+  position: absolute;
+  top: 10px;
+  right: 16px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.coin-filter-wrap .chip{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 32px;
+  padding: 0 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.18);
+  background: transparent;
+  color: #e5e7eb;
+  font-weight: 600;
+  font-size: 12px;
+  cursor: pointer;
+  user-select: none;
+  transition: all .15s ease;
+}
+
+.coin-filter-wrap .chip:hover{
+  border-color: rgba(124,58,237,0.60);
+  color: #ffffff;
+}
+
+.coin-filter-wrap .chip.is-active{
+  background: rgba(124,58,237,0.18);
+  border-color: #7c3aed;
+  color: #ffffff;
+  box-shadow: 0 0 0 1px rgba(124,58,237,0.15) inset;
+}
+
+/* Wrapper dos chips no card */
+.coin-filter-wrap{
+  position: absolute;
+  top: 10px;
+  right: 16px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+/* Chips com look dos filtros de Operações */
+.coin-filter-wrap .chip{
+  appearance: none;
+  -webkit-appearance: none;
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.18);
+  color: #e5e7eb;
+  font-weight: 600;
+  font-size: 12px;
+  height: 32px;
+  padding: 0 12px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  user-select: none;
+  transition: all .15s ease;
+  outline: none;
+}
+
+.coin-filter-wrap .chip:hover{
+  border-color: rgba(124,58,237,0.60);
+  color: #ffffff;
+}
+
+.coin-filter-wrap .chip.is-active{
+  background: rgba(124,58,237,0.18);
+  border-color: #7c3aed;
+  color: #ffffff;
+  box-shadow: 0 0 0 1px rgba(124,58,237,0.15) inset;
+}
+
+/* Oculta botões legados, caso ainda existam no HTML */
+#btn-top-coins,
+#btn-bottom-coins,
+[data-coin-filter]:not(.coin-filter-wrap [data-coin-filter]) {
+  display: none !important;
+}
+
+/* === Guarda-chuva anti-flash no card do "Lucro por Moeda" === */
+
+/* Esconde qualquer botão dentro do card que contém o canvas #chart-lucro-moeda */
+.card:has(#chart-lucro-moeda) button,
+.chart-card:has(#chart-lucro-moeda) button {
+  display: none !important;
+}
+
+/* Reexibe SOMENTE os chips novos criados pelo JS */
+.card:has(#chart-lucro-moeda) .coin-filter-wrap .coin-chip,
+.chart-card:has(#chart-lucro-moeda) .coin-filter-wrap .coin-chip {
+  display: inline-flex !important;
+  align-items: center;
+  height: 28px;
+  padding: 0 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.18);
+  background: transparent;
+  color: #e5e7eb;
+  font-weight: 600;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+/* Estado ativo (roxo) */
+.card:has(#chart-lucro-moeda) .coin-filter-wrap .coin-chip.is-active,
+.chart-card:has(#chart-lucro-moeda) .coin-filter-wrap .coin-chip.is-active {
+  background: #7c3aed;
+  border-color: #7c3aed;
+  color: #fff;
+}
+
+/* ---- setas nos KPIs ---- */
+/* garante que o span cabe ao lado */
+
+.kpi-arrow{
+  margin-left: 8px;
+  font-size: 12px;
+  line-height: 1;
+  vertical-align: middle;
+  display: inline-block;
+  transform: translateY(-1px);
+  user-select: none;
+}
+
+.kpi-arrow.up.green   { color: #22c55e; } /* verde */
+.kpi-arrow.down.green { color: #22c55e; }
+.kpi-arrow.up.red     { color: #ef4444; } /* vermelho */
+.kpi-arrow.down.red   { color: #ef4444; }
+
+/* KPI: número e seta lado a lado */
+#rlt-pl-hoje,
+#rlt-wins,
+#rlt-losses,
+#rlt-winrate {
+  display: inline-flex;          /* garante inline na linha do título */
+  align-items: baseline;
+}
+
+.kpi-arrow {
+  display: inline-block;
+  margin-left: 6px;
+  line-height: 1;
+  font-size: 14px;
+  position: relative;
+  top: -1px;                     /* ajuste fino para alinhar visualmente */
+}
+
+/* cores já são setadas via JS, mas se quiser fallback: */
+.kpi-arrow.green { color: #22c55e; }
+.kpi-arrow.red   { color: #ef4444; }
+
+/* Aumenta apenas os números dos cards KPI (não mexe no título) */
+#rlt-pl-hoje,
+#rlt-ntrades,
+#rlt-wins,
+#rlt-losses,
+#rlt-winrate {
+  font-size: 36px;      /* ajuste o tamanho que preferir */
+  font-weight: 800;     /* opcional: deixa mais “bold” */
+  line-height: 1.05;
+}
+
+/* Mantém a seta proporcionalmente menor e bem alinhada */
+.kpi-arrow {
+  font-size: 16px;      /* pode subir pra 18 se preferir */
+  margin-left: 8px;
+  position: relative;
+  top: -2px;
+}
+
+/* (Opcional) responsivo: reduz um pouco em telas pequenas */
+@media (max-width: 640px) {
+  #rlt-pl-hoje,
+  #rlt-ntrades,
+  #rlt-wins,
+  #rlt-losses,
+  #rlt-winrate {
+    font-size: 28px;
+  }
+  .kpi-arrow { font-size: 14px; top: -1px; }
+}
+
+/* Faz o fundo escuro do conteúdo ir até o final da página */
+.app-content,
+.route.is-active {
+  /* cobre a viewport abaixo da topbar */
+  min-height: calc(100vh - var(--topbar-h, 64px));
+  background: #0f1218; /* mesma cor do painel escuro que você usa */
+}
+
+/* Espaço extra no rodapé para o último card não ficar “cortado” */
+.app-content,
+.route {
+  padding-bottom: 72px;
+}
+
+/* Caso seu contêiner do dashboard seja outro (fallback seguro) */
+.content, .page-content, .dashboard-content, .content-surface {
+  background: #0f1218;
+  min-height: calc(100vh - var(--topbar-h, 64px));
+}
+
+/* ===========================
+   Carteiras — espaçamentos
+   =========================== */
+
+/* Mais espaço entre os cards (caixas) */
+#route-carteiras .card {
+  margin-bottom: 28px;         /* espaço entre os blocos */
+}
+#route-carteiras .card:last-of-type {
+  margin-bottom: 56px;         /* respiro extra no final da página */
+}
+
+/* Caso os 2 KPIs (Valor Inicial / Valor Patrimonial) fiquem lado a lado,
+   aumente o gap entre eles sem alterar o layout existente */
+#route-carteiras :where(.kpi-row, .cards-row, .kpi-wrap) {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;                   /* espaço horizontal/vertical entre os cards */
+}
+
+/* Linhas da tabela com mais altura e conforto de leitura */
+#route-carteiras table {
+  border-collapse: separate;   /* permite espaçamento vertical entre linhas */
+  border-spacing: 0 8px;       /* “respiro” entre as linhas do tbody */
+}
+#route-carteiras table th,
+#route-carteiras table td {
+  padding: 14px 18px;          /* células menos apertadas */
+}
+
+/* Dá um respiro após a fileira dos KPIs */
+#route-carteiras .wallet-kpis {
+  margin-bottom: 28px;
+}
+
+/* Afasta qualquer card que contenha tabela (Depósitos/Saques) do que vem antes */
+#route-carteiras .card:has(table) {
+  margin-top: 28px;
+}
+
+/* === Carteiras: números com o mesmo degradê roxo dos KPIs === */
+#wl-inicial,
+#wl-patrimonial {
+  background: linear-gradient(180deg, #b79aff 0%, #9b5cff 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;           /* esconde a cor sólida para mostrar o degradê */
+  font-weight: 800;             /* mesmo peso dos KPIs */
+  text-shadow: 0 0 18px rgba(155, 92, 255, 0.18); /* leve brilho como no dashboard */
+}
+
+/* Carteiras: aumentar o tamanho APENAS dos números */
+#wl-inicial,
+#wl-patrimonial {
+  font-size: clamp(36px, 4.5vw, 60px);  /* cresce em telas grandes e não estoura nas pequenas */
+  font-weight: 800;                     /* mantém o peso forte */
+  line-height: 1.05;                    /* deixa mais “compacto” dentro do card */
+  letter-spacing: 0.3px;                /* micro ajuste de tracking */
+}
+
+/* opcional: garante espaço vertical confortável nos cards de valores */
+.card.wallet-value,
+.wallet-value.card {
+  min-height: 120px;
+}
+
+/* ====== Configurações – layout e estilo ====== */
+.settings-wrap { display:flex; flex-direction:column; gap:20px; }
+.settings-hero.card {
+  display:flex; align-items:center; justify-content:space-between;
+  gap:16px; padding:20px 22px;
+  background: radial-gradient(1200px 180px at 80% -40%, rgba(124,58,237,.12), transparent 70%),
+              var(--card-bg, #12141b);
+}
+.settings-hero h2 { font-size:22px; margin:0 0 4px; }
+.settings-hero .hero-actions .btn { white-space:nowrap; }
+
+.settings-grid {
+  display:grid; gap:18px;
+  grid-template-columns: repeat(12, 1fr);
+}
+.setting-card.card {
+  grid-column: span 6;
+  padding:18px 18px;
+}
+@media (max-width: 1024px){
+  .setting-card.card { grid-column: 1 / -1; }
+}
+
+.card-title { font-weight:700; margin-bottom:12px; font-size:15px; }
+
+.setting-row {
+  display:flex; align-items:center; justify-content:space-between;
+  gap:14px; padding:14px 0; border-top:1px solid rgba(255,255,255,.06);
+}
+.setting-row:first-of-type { border-top:none; padding-top:6px; }
+.setting-row.column { flex-direction:column; align-items:stretch; }
+
+.setting-label { font-weight:600; }
+.setting-desc { color:#aab0bd; font-size:12.5px; margin-top:2px; }
+.muted { color:#9aa0ad; }
+.tiny { font-size:11px; }
+
+.row-actions { display:flex; gap:10px; justify-content:flex-end; }
+
+/* Botões (seguem seu visual) */
+.btn { border:0; padding:10px 14px; border-radius:12px; font-weight:700; cursor:pointer; }
+.btn-primary { background: linear-gradient(180deg, #b78cff, #7c3aed); color:white; }
+.btn-outline { background: transparent; color:#d6d9e3; border:1px solid rgba(255,255,255,.14); }
+.btn:disabled { opacity:.6; cursor:not-allowed; }
+
+.tag {
+  padding:6px 10px; border-radius:999px; font-size:12px; font-weight:700;
+  background:rgba(124,58,237,.18); color:#e3d9ff;
+}
+
+/* Inputs */
+.input {
+  background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.08);
+  color:#e5e7eb; border-radius:12px; padding:10px 12px; outline:none;
+}
+.input:focus { border-color: rgba(124,58,237,.55); }
+
+/* Switch */
+.switch { position:relative; display:inline-block; width:46px; height:26px; }
+.switch input { opacity:0; width:0; height:0; }
+.slider {
+  position:absolute; cursor:pointer; inset:0; background:rgba(255,255,255,.12);
+  transition:.2s; border-radius:999px;
+}
+.slider:before {
+  content:""; position:absolute; height:20px; width:20px; left:3px; top:3px; border-radius:50%;
+  background:white; transition:.2s;
+}
+.switch input:checked + .slider { background:linear-gradient(180deg, #b78cff, #7c3aed); }
+.switch input:checked + .slider:before { transform: translateX(20px); }
+
+/* “Layout compacto” (aplicado só quando togglado) */
+:root.compact .card,
+:root.compact .chart-card { padding-top:14px; padding-bottom:14px; }
+
+/* ===== RESPONSIVIDADE PARA CELULAR ===== */
+@media (max-width: 768px) {
+  /* Ajusta a sidebar */
+  .sidebar {
+    width: 100%;
+    position: relative;
+    height: auto;
+    text-align: center;
+  }
+
+  .sidebar nav {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+  }
+
+  /* Ajusta o container principal */
+  .app {
+    flex-direction: column;
+  }
+
+  /* Painéis e caixas */
+  .painel,
+  .box,
+  .card,
+  .section {
+    width: 90%;
+    margin: 10px auto;
+  }
+
+  /* Ajuste de texto e títulos */
+  h1, h2, h3 {
+    font-size: 1.1rem;
+    text-align: center;
+  }
+
+  /* Botões menores e centralizados */
+  button {
+    width: 100%;
+    margin: 5px 0;
+    font-size: 0.9rem;
+  }
+
+  /* Tabelas responsivas */
+  table {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    border-collapse: collapse;
+  }
+
+  th, td {
+    font-size: 0.85rem;
+    padding: 8px;
+    text-align: left;
+  }
+
+  /* Cabeçalho fixo ajustado */
+  header, .sb-title {
+    text-align: center;
+    padding: 10px;
+  }
+}

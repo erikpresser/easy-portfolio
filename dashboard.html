@@ -1,0 +1,406 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <title>Dashboard – Presser Investment</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Poppins -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- CSS principal -->
+  <link rel="stylesheet" href="dashboard.css">
+
+  <!-- Ajustes pontuais para hero e gráfico flutuante -->
+  <style>
+    .top-hero{
+      display:grid; grid-template-columns: 1.3fr 1fr; gap:16px; align-items:center; margin-bottom: 8px;
+    }
+    @media (max-width:1100px){ .top-hero{ grid-template-columns:1fr; } }
+
+    /* Hero Patrimonial (sem caixa) */
+    .hero-balance{ background:none!important; border:none!important; padding:0!important; margin:0 0 8px 0!important; box-shadow:none!important; }
+    .hero-balance .title{font-size:14px;color:#c9cbe2;margin:0 0 8px 0;font-weight:600;}
+    .hero-balance .value{font-size: clamp(34px, 5vw, 64px); font-weight:800; white-space:nowrap; color:#fff; text-shadow: 0 6px 22px rgba(124,58,237,.18); margin-right:10px;}
+    .hero-balance .unit{font-size:16px;color:#c9cbe2;font-weight:600;white-space:nowrap;}
+
+    /* Gráfico patrimonial flutuante (sem caixa) */
+    .chart-floating{ border:none!important; background:transparent!important; padding:0!important; }
+    .chart-floating .chart-scroll{ min-height:180px; border-radius:18px; }
+  /* ...o que já tem... */
+
+  /* ===== Relatórios: 2 colunas lado a lado (Dia | Mensal) ===== */
+  .rel-2col {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr; /* esquerda maior, direita menor */
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+  @media (max-width: 1100px){
+    .rel-2col { grid-template-columns: 1fr; }
+  }
+  .chart-card .chart-scroll,
+  .chart-card canvas { width: 100%; }
+  </style>
+</head>
+<body>
+
+  <div class="app-layout">
+    <!-- SIDEBAR -->
+    <aside class="sidebar" aria-label="Menu lateral">
+      <div class="sb-top">
+        <button class="sb-toggle" id="sb-toggle" aria-label="Alternar menu">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+        <span class="sb-brand">Presser Investment</span>
+      </div>
+
+      <nav>
+        <a href="#dashboard" class="sb-link is-active"><i class="fa-solid fa-gauge-high"></i><span>Dashboard</span></a>
+        <a href="#operacoes" class="sb-link"><i class="fa-solid fa-arrow-right-arrow-left"></i><span>Operações</span></a>
+        <a href="#relatorios" class="sb-link"><i class="fa-solid fa-chart-column"></i><span>Relatórios</span></a>
+        <a href="#carteiras" class="sb-link"><i class="fa-solid fa-wallet"></i><span>Carteiras</span></a>
+        <a href="#config" class="sb-link"><i class="fa-solid fa-gear"></i><span>Configurações</span></a>
+        <a href="admin.html" class="sb-link only-admin" style="display:none"><i class="fa-solid fa-user-shield"></i><span>Admin</span></a>
+      </nav>
+
+      <div class="sb-bottom">
+        <button id="logout-side" class="sb-logout"><i class="fa-solid fa-right-from-bracket"></i><span>Sair</span></button>
+      </div>
+    </aside>
+
+    <!-- CONTEÚDO -->
+    <main class="content">
+      <header class="topbar">
+        <div class="brand"><span>Dashboard</span></div>
+        <div class="userbox">
+          <span id="user-email" class="email">Carregando...</span>
+          <button id="btn-admin" class="btn admin" style="display:none;">Admin</button>
+          <button id="logout" class="btn">Sair</button>
+        </div>
+      </header>
+
+      <div class="content-inner">
+
+        <!-- ===== ROTA: INÍCIO (neonStorm) ===== -->
+        <section class="route" id="route-inicio" hidden>
+          <div class="pct-field" id="pct-field" aria-hidden="true"></div>
+          <div class="hero" aria-live="polite">
+            <div class="hero-kicker">MODO</div>
+            <h1 class="hero-title"><span class="white">CRIPTO</span><span class="grad">ATIVADO</span></h1>
+            <div class="switch on mode-pill" aria-label="Modo Cripto está ligado"><span class="dot" aria-hidden="true"></span><span class="txt">ON</span></div>
+          </div>
+          <div class="ticker" id="ticker" role="marquee" aria-label="Cotações de cripto simuladas">
+            <div class="ticker-track" id="ticker-track"></div>
+          </div>
+        </section>
+
+        <!-- ===== ROTA: DASHBOARD ===== -->
+        <section class="route is-active" id="route-dashboard">
+          <!-- Topo: Valor + gráfico flutuante -->
+          <section class="top-hero">
+            <div class="hero-balance">
+              <p class="title">Valor Patrimonial</p>
+              <span class="value" id="valor-patrimonial">0,00</span>
+              <span class="unit">USDT</span>
+            </div>
+
+            <article class="chart-floating">
+              <div class="chart-scroll">
+                <canvas id="sparkline-patrimonio" height="120" aria-label="Histórico de Patrimônio"></canvas>
+              </div>
+            </article>
+          </section>
+
+          <!-- GRID INFERIOR — KPIs acima do histórico (coluna esquerda) -->
+          <section class="grid-2 grid-dashboard">
+            <!-- COLUNA ESQUERDA: KPIs + HISTÓRICO -->
+            <div class="col-esq">
+              <!-- KPIs -->
+              <section class="pill-kpis compact">
+                <article class="pill">
+                  <div class="label">Lucro Mensal (%)</div>
+                  <div class="value" id="lucro-mensal">0%</div>
+                </article>
+                <article class="pill">
+                  <div class="label">Acertatividade (%)</div>
+                  <div class="value" id="acertividade">0%</div>
+                </article>
+              </section>
+
+              <!-- Histórico de Operações -->
+              <article class="panel-outline">
+                <h3>Histórico de Operações</h3>
+                <div class="table-scroll">
+                  <table>
+                    <thead>
+                      <tr><th>Data</th><th>Operações</th><th>Lucro (USDT)</th></tr>
+                    </thead>
+                    <tbody id="tbody-trades"></tbody>
+                  </table>
+                </div>
+              </article>
+            </div>
+
+            <!-- COLUNA DIREITA: GRÁFICO 7 DIAS (MAIOR/ALTO) -->
+            <article class="panel-outline bars7d-tall">
+              <h3>Lucro dos últimos 7 dias</h3>
+              <div class="chart-scroll">
+                <canvas id="chart-lucro-dashboard"></canvas>
+              </div>
+            </article>
+          </section>
+        </section>
+
+        <!-- ===== ROTA: OPERAÇÕES ===== -->
+        <section class="route" id="route-operacoes">
+          <div id="ops-toolbar" class="ops-toolbar">
+            <div class="grp">
+              <button class="chip" data-range="7">7D</button>
+              <button class="chip" data-range="14">14D</button>
+              <button class="chip" data-range="30">30D</button>
+              <button class="chip" data-range="90">90D</button>
+              <button class="chip is-active" data-range="all">Total</button>
+            </div>
+            <div class="grp">
+              <button class="chip is-active" data-side="all">Todas</button>
+              <button class="chip" data-side="LONG">Long</button>
+              <button class="chip" data-side="SHORT">Short</button>
+            </div>
+          </div>
+
+          <article class="card full-section">
+            <h2>Histórico de Operações</h2>
+            <p class="section-subtitle">Veja todas as operações realizadas.</p>
+            <div class="table-scroll big">
+              <table>
+                <thead>
+                  <tr><th>Data</th><th>Operação</th><th>Ativo</th><th>Lucro / Prejuízo (USDT)</th></tr>
+                </thead>
+                <tbody id="tbody-trades-full"></tbody>
+              </table>
+            </div>
+          </article>
+        </section>
+
+        <!-- ===== ROTA: RELATÓRIOS ===== -->
+<section class="route" id="route-relatorios">
+
+  <!-- KPIs do dia -->
+  <section class="relatorios-kpis" style="display:grid;grid-template-columns:repeat(5,minmax(160px,1fr));gap:12px;margin-bottom:16px;">
+    <article class="card metric">
+      <div class="label">P&L de hoje</div>
+      <div class="value" id="rlt-pl-hoje">$0</div>
+    </article>
+    <article class="card metric">
+      <div class="label">Nº de trades</div>
+      <div class="value" id="rlt-ntrades">0</div>
+    </article>
+    <article class="card metric">
+      <div class="label">Trades ganhos</div>
+      <div class="value" id="rlt-wins">0</div>
+    </article>
+    <article class="card metric">
+      <div class="label">Trades perdidos</div>
+      <div class="value" id="rlt-losses">0</div>
+    </article>
+    <article class="card metric">
+      <div class="label">Win rate</div>
+      <div class="value" id="rlt-winrate">0%</div>
+    </article>
+  </section>
+
+  <!-- LINHA COM 2 COLUNAS: (ESQ) Lucro por Dia 7D | (DIR) Lucro Mensal -->
+  <div class="rel-2col">
+    <article class="card chart-card">
+      <h3>Lucro por Dia 7D</h3>
+      <div class="chart-scroll">
+        <canvas id="chart-lucro-dia"></canvas>
+      </div>
+    </article>
+
+    <article class="card chart-card">
+      <h3>Lucro Mensal</h3>
+      <div class="chart-scroll">
+        <canvas id="chart-lucro-mensal"></canvas>
+      </div>
+    </article>
+  </div>
+
+  <article class="card chart-card full-width">
+  <div style="display:flex; align-items:center; justify-content:space-between; gap:8px;">
+    <h3 style="margin:0;">Lucro por Moeda</h3>
+
+    <!-- Toolbar exclusiva do 'Lucro por Moeda' -->
+    <div id="bycoin-toolbar" style="display:flex; gap:8px;">
+      <button class="chip is-active" id="btn-bycoin-top">Mais positivas</button>
+      <button class="chip" id="btn-bycoin-bottom">Mais negativas</button>
+    </div>
+  </div>
+
+  <div class="chart-scroll">
+    <canvas id="chart-lucro-moeda"></canvas>
+  </div>
+</article>
+
+</section>
+
+
+        <!-- ===== ROTA: CARTEIRAS ===== -->
+        <section class="route" id="route-carteiras">
+          <section class="metrics wallet-top">
+            <article class="card metric"><div class="label">Valor Inicial</div><div class="value" id="wl-inicial">USDT 0,00</div></article>
+            <article class="card metric"><div class="label">Valor Patrimonial</div><div class="value" id="wl-patrimonial">USDT 0,00</div></article>
+          </section>
+
+          <article class="card wallet-section">
+            <h3>Histórico de Depósitos</h3>
+            <div class="table-scroll">
+              <table>
+                <thead><tr><th>Data</th><th>Valor (USDT)</th></tr></thead>
+                <tbody id="tbody-depositos"></tbody>
+              </table>
+            </div>
+          </article>
+
+          <article class="card wallet-section">
+            <h3>Histórico de Saques</h3>
+            <div class="table-scroll">
+              <table>
+                <thead><tr><th>Data</th><th>Valor (USDT)</th></tr></thead>
+                <tbody id="tbody-saques"></tbody>
+              </table>
+            </div>
+          </article>
+        </section>
+
+        <section id="route-config" class="route" hidden>
+  <div class="settings-wrap">
+    <header class="settings-hero card">
+      <div>
+        <h2>Configurações</h2>
+        <p class="muted">
+          Personalize sua experiência no painel e fale com a gente sempre que precisar.
+        </p>
+      </div>
+      <div class="hero-actions">
+        <a class="btn btn-primary" id="btn-support" href="mailto:suporte@presser-investment.com?subject=Ajuda no painel">Entrar em contato</a>
+      </div>
+    </header>
+
+    <div class="settings-grid">
+      <!-- Preferências -->
+      <div class="setting-card card">
+        <div class="card-title">Preferências</div>
+        <div class="setting-row">
+          <div>
+            <div class="setting-label">Animações</div>
+            <div class="setting-desc">Desative se preferir uma navegação mais “seca”.</div>
+          </div>
+          <label class="switch">
+            <input type="checkbox" id="sw-reduced-motion">
+            <span class="slider"></span>
+          </label>
+        </div>
+
+        <div class="setting-row">
+          <div>
+            <div class="setting-label">Layout compacto</div>
+            <div class="setting-desc">Reduz margens e espaçamentos das listas e cards.</div>
+          </div>
+          <label class="switch">
+            <input type="checkbox" id="sw-compact">
+            <span class="slider"></span>
+          </label>
+        </div>
+
+        <div class="setting-row">
+          <div>
+            <div class="setting-label">Mostrar ticker cripto inicial</div>
+            <div class="setting-desc">Exibe a faixa rolante com cotações na página Início.</div>
+          </div>
+          <label class="switch">
+            <input type="checkbox" id="sw-ticker">
+            <span class="slider"></span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Conta -->
+      <div class="setting-card card">
+        <div class="card-title">Sua conta</div>
+        <div class="setting-row">
+          <div>
+            <div class="setting-label">E-mail</div>
+            <div class="setting-desc" id="cfg-email">—</div>
+          </div>
+          <a class="btn btn-outline" id="btn-logout-cfg">Sair</a>
+        </div>
+
+        <div class="setting-row">
+          <div>
+            <div class="setting-label">Acesso Admin</div>
+            <div class="setting-desc" id="cfg-admin-flag">—</div>
+          </div>
+          <span class="tag" id="cfg-admin-tag">—</span>
+        </div>
+      </div>
+
+      <!-- Notificações -->
+      <div class="setting-card card">
+        <div class="card-title">Notificações</div>
+        <div class="setting-row">
+          <div>
+            <div class="setting-label">Resumo diário por e-mail</div>
+            <div class="setting-desc">Envia P&amp;L do dia, nº de trades e destaques.</div>
+          </div>
+          <label class="switch">
+            <input type="checkbox" id="sw-digest">
+            <span class="slider"></span>
+          </label>
+        </div>
+
+        <div class="setting-row">
+          <div>
+            <div class="setting-label">Alertas de grande variação</div>
+            <div class="setting-desc">Avisa quando o P&amp;L diário ultrapassar ±10%.</div>
+          </div>
+          <label class="switch">
+            <input type="checkbox" id="sw-alerts">
+            <span class="slider"></span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Suporte / Feedback -->
+      <div class="setting-card card">
+        <div class="card-title">Suporte</div>
+        <div class="setting-row column">
+          <div class="setting-label">Dúvidas, ideias ou bugs?</div>
+          <textarea id="cfg-feedback" class="input" rows="4" placeholder="Conte rapidamente o que aconteceu ou sua sugestão…"></textarea>
+          <div class="row-actions">
+            <button class="btn btn-outline" id="btn-limpar-feedback">Limpar</button>
+            <button class="btn btn-primary" id="btn-enviar-feedback">Enviar</button>
+          </div>
+          <div class="tiny muted">* O feedback abre seu aplicativo de e-mail com a mensagem pronta.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+      </div>
+    </main>
+  </div>
+
+  <!-- Libs -->
+  <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- Lógica principal -->
+  <script src="dashboard.js"></script>
+</body>
+</html>
