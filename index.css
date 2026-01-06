@@ -2855,4 +2855,84 @@ img, svg, canvas { max-width: 100%; height: auto; }
   }
 }
 
+/* =========================================================
+   MOBILE DRAWER — BASE44 LOOK (FORÇA TOTAL)
+   Cole no FINAL do CSS
+   ========================================================= */
+@media (max-width: 900px){
+
+  /* 1) Força o painel do menu (o "drawer") a ficar branco */
+  body.nav-open .navbar .nav-links,
+  body.nav-open .nav-links{
+    background: #fff !important;
+    border: 1px solid rgba(15,36,81,.10) !important;
+    border-radius: 18px !important;
+    box-shadow: 0 24px 70px rgba(0,0,0,.22) !important;
+
+    /* mata o layout antigo (grid/centralizado) */
+    display: block !important;
+    gap: 0 !important;
+    padding: 6px 0 !important;
+    margin: 0 !important;
+
+    /* garante scroll bonito se ficar grande */
+    max-height: calc(100dvh - 96px) !important;
+    overflow: auto !important;
+  }
+
+  /* 2) Remove “estilo de botão” dos links dentro do menu */
+  body.nav-open .navbar .nav-links a,
+  body.nav-open .nav-links a{
+    background: transparent !important;
+    color: #0f2451 !important;
+    border: 0 !important;
+    box-shadow: none !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+
+    padding: 16px 16px !important;
+    margin: 0 !important;
+
+    font-weight: 600 !important;
+    font-size: 16px !important;
+    text-decoration: none !important;
+    border-radius: 0 !important;
+  }
+
+  /* 3) Linha separadora entre itens (estilo BASE44) */
+  body.nav-open .navbar .nav-links li:not(:last-child) > a,
+  body.nav-open .nav-links li:not(:last-child) > a{
+    border-bottom: 1px solid rgba(15,36,81,.08) !important;
+  }
+
+  /* 4) Setinha/chevron à direita */
+  body.nav-open .navbar .nav-links a::after,
+  body.nav-open .nav-links a::after{
+    content: "›" !important;
+    font-size: 22px !important;
+    line-height: 1 !important;
+    color: rgba(15,36,81,.35) !important;
+    transform: translateY(-1px) !important;
+  }
+
+  /* 5) Hover/press */
+  body.nav-open .navbar .nav-links a:hover,
+  body.nav-open .nav-links a:hover{
+    background: rgba(15,36,81,.04) !important;
+  }
+  body.nav-open .navbar .nav-links a:active,
+  body.nav-open .nav-links a:active{
+    background: rgba(15,36,81,.07) !important;
+  }
+
+  /* 6) Overlay mais clean */
+  body.nav-open .nav-overlay{
+    background: rgba(15,36,81,.22) !important;
+    backdrop-filter: blur(2px) !important;
+    -webkit-backdrop-filter: blur(2px) !important;
+  }
+}
+
 }
