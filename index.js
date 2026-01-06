@@ -8,36 +8,44 @@ const sb = (window.supabase)
   : null;
 
 /* =========================
-   NAVBAR MOBILE (toggle menu)
+   NAVBAR MOBILE (toggle menu) — ATUALIZADO
    ========================= */
 (() => {
+  const body = document.body;
+  const nav = document.querySelector('.navbar');
   const toggle = document.querySelector('.nav-toggle');
   const overlay = document.querySelector('.nav-overlay');
   const linksWrap = document.querySelector('.nav-links');
+
+  // Se não existir, sai sem quebrar
   if (!toggle || !overlay || !linksWrap) return;
 
+  const isOpen = () => body.classList.contains('nav-open');
+
   const open = () => {
-    document.body.classList.add('nav-open');
+    body.classList.add('nav-open');
     toggle.setAttribute('aria-expanded', 'true');
   };
 
   const close = () => {
-    document.body.classList.remove('nav-open');
+    body.classList.remove('nav-open');
     toggle.setAttribute('aria-expanded', 'false');
   };
 
-  const isOpen = () => document.body.classList.contains('nav-open');
+  const toggleMenu = () => (isOpen() ? close() : open());
 
-  toggle.addEventListener('click', () => {
-    if (isOpen()) close();
-    else open();
+  // Botão hamburguer abre/fecha
+  toggle.addEventListener('click', (e) => {
+    e.stopPropagation();
+    toggleMenu();
   });
 
+  // Clicar no overlay fecha
   overlay.addEventListener('click', close);
 
   // Clicou em "Quem Somos / Estratégia / Contato" -> fecha
   linksWrap.querySelectorAll('a').forEach(a => {
-    a.addEventListener('click', () => close());
+    a.addEventListener('click', close);
   });
 
   // ESC fecha
@@ -45,9 +53,15 @@ const sb = (window.supabase)
     if (e.key === 'Escape') close();
   });
 
-  // se aumentar a tela (desktop), garante que não fica travado aberto
+  // Clique fora da navbar fecha (segurança)
+  document.addEventListener('click', (e) => {
+    if (!isOpen()) return;
+    if (nav && !nav.contains(e.target)) close();
+  });
+
+  // Se aumentar a tela (desktop), garante que não fica travado aberto
   window.addEventListener('resize', () => {
-    if (window.innerWidth > 900) close();
+    if (window.innerWidth >= 901) close();
   });
 })();
 
@@ -533,3 +547,4 @@ document.querySelectorAll('[data-tilt]').forEach(card=>{
   card.addEventListener('touchmove',update,{passive:true});
   card.addEventListener('touchend',reset);
 });
+

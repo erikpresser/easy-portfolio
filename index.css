@@ -3132,4 +3132,7 @@ img, svg, canvas { max-width: 100%; height: auto; }
   }
 }
 
+.nav-overlay { pointer-events: none; }
+body.nav-open .nav-overlay { pointer-events: auto; }
+
 }
