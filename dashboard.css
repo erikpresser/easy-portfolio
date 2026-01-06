@@ -2479,4 +2479,54 @@ table th, table td{ white-space: nowrap; }
   }
 }
 
+/* =========================================================
+   MOBILE — FIX FINAL (valor central + gráfico menor)
+   Cole no FINAL do dashboard.css
+   ========================================================= */
+@media (max-width: 900px){
+
+  /* -------- VALOR PATRIMONIAL CENTRALIZADO -------- */
+  #route-dashboard .top-hero .hero-balance{
+    width: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+  }
+
+  #route-dashboard .top-hero .hero-balance .title{
+    width: 100% !important;
+    text-align: center !important;
+    margin: 0 0 8px 0 !important;
+  }
+
+  /* coloca VALUE + UNIT centralizados como “linha” */
+  #route-dashboard .top-hero .hero-balance .value,
+  #route-dashboard .top-hero .hero-balance .unit{
+    display: inline-block !important;
+    vertical-align: middle !important;
+  }
+
+  /* garante que a linha do número não “puxe” pra esquerda */
+  #route-dashboard .top-hero .hero-balance{
+    gap: 4px !important;
+  }
+
+  /* -------- GRÁFICO SUPERIOR MENOR (SPARKLINE) -------- */
+  /* quebra o min-height do HTML inline */
+  #route-dashboard .top-hero .chart-floating .chart-scroll{
+    min-height: 120px !important;
+    height: 120px !important;
+    padding: 0 !important;
+  }
+
+  /* Chart.js respeitar o container */
+  #route-dashboard .top-hero .chart-floating canvas{
+    display: block !important;
+    width: 100% !important;
+    height: 100% !important;
+  }
+}
+
 }
