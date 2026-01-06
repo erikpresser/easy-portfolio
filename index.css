@@ -2935,4 +2935,34 @@ img, svg, canvas { max-width: 100%; height: auto; }
   }
 }
 
+/* =========================================
+   FIX: TEXTO DO MENU MOBILE EM AZUL-MARINHO
+   ========================================= */
+@media (max-width: 900px){
+
+  /* Texto dos links */
+  body.nav-open .navbar .nav-links a,
+  body.nav-open .nav-links a{
+    color: #0f2451 !important;   /* azul-marinho */
+  }
+
+  /* Se existir <span> ou outros elementos dentro do link */
+  body.nav-open .navbar .nav-links a *,
+  body.nav-open .nav-links a *{
+    color: #0f2451 !important;
+  }
+
+  /* Ícones (se houver) */
+  body.nav-open .navbar .nav-links i,
+  body.nav-open .nav-links i{
+    color: #0f2451 !important;
+  }
+
+  /* Chevron/setinha à direita */
+  body.nav-open .navbar .nav-links a::after,
+  body.nav-open .nav-links a::after{
+    color: rgba(15,36,81,.55) !important;
+  }
+}
+
 }
