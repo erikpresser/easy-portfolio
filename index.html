@@ -16,10 +16,19 @@
   <!-- Seu CSS -->
   <link rel="stylesheet" href="index.css">
 
-  <!-- ======= ADIÇÃO APENAS PARA NAVBAR MOBILE ======= -->
+  <!-- ======= ADIÇÃO APENAS PARA NAVBAR MOBILE (SEM ALTERAR O RESTO) ======= -->
   <style>
-    /* Mantém desktop como está: este bloco só atua no mobile */
+    /* Base: garante que nada do mobile apareça no desktop (evita duplicação) */
+    .nav-toggle { display: none; }
+    .nav-overlay { display: none; }
+
+    /* MOBILE */
     @media (max-width: 900px) {
+      /* Mostra hamburger e overlay no mobile */
+      .nav-toggle { display: inline-flex; }
+      .nav-overlay { display: block; }
+
+      /* Topbar: logo à esquerda, botões + hamburger à direita */
       .navbar .nav-container{
         display:flex;
         align-items:center;
@@ -27,34 +36,33 @@
         gap:12px;
       }
 
-      /* botão hamburger aparece no mobile */
-      .nav-toggle{
-        display:inline-flex !important;
-        align-items:center;
-        justify-content:center;
-      }
-
-      /* Ações (Iniciar Sessão / Criar Conta) ficam ao lado do hamburger */
-      .navbar .nav-right{
-        display:flex;
-        align-items:center;
-        gap:10px;
-      }
+      /* Mantém os botões fora do menu (sempre na topbar) */
       .navbar .auth-actions{
         display:flex !important;
         align-items:center;
         gap:10px;
+        margin-left:auto;
+        position:relative;
+        z-index:1003;
       }
 
-      /* Menu (nav-links) vira drawer azul marinho com links brancos */
+      /* Hamburger à direita dos botões */
+      .navbar .nav-toggle{
+        margin-left:10px;
+        position:relative;
+        z-index:1003;
+      }
+
+      /* MENU (apenas Quem Somos / Estratégia / Contato) */
       .navbar .nav-links{
         position:fixed;
-        top:78px;               /* ajuste fino se sua navbar tiver outra altura */
         left:12px;
         right:12px;
+        top:78px;               /* ajuste fino se necessário */
         z-index:1002;
+
         margin:0;
-        padding:14px 14px;
+        padding:14px;
         list-style:none;
 
         display:none;           /* fechado por padrão */
@@ -72,17 +80,14 @@
 
       .navbar .nav-links a{
         display:block;
-        color:#ffffff !important;
+        color:#ffffff !important; /* branco */
         text-decoration:none;
         font-weight:600;
         padding:10px 10px;
         border-radius:10px;
       }
-      .navbar .nav-links a:active{
-        opacity:.9;
-      }
 
-      /* Overlay do menu */
+      /* Overlay */
       .nav-overlay{
         position:fixed;
         inset:0;
@@ -109,25 +114,21 @@
         <img src="LOGO2.png" alt="Presser Investment Logo">
       </a>
 
+      <!-- Botão menu mobile -->
+      <button class="nav-toggle" type="button" aria-label="Abrir menu" aria-expanded="false">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+
       <ul class="nav-links">
         <li><a href="#sobre">Quem Somos?</a></li>
         <li><a href="#estrategia">Estratégia</a></li>
         <li><a href="#contato-final">Contato</a></li>
       </ul>
 
-      <!-- ======= ADIÇÃO APENAS PARA NAVBAR MOBILE (estrutura do lado direito) ======= -->
-      <div class="nav-right">
-        <div class="auth-actions">
-          <button id="btn-login" class="btn-ghost" type="button">Iniciar Sessão</button>
-          <button id="btn-signup" class="btn-primary" type="button">Criar Conta</button>
-        </div>
-
-        <!-- Botão menu mobile -->
-        <button class="nav-toggle" type="button" aria-label="Abrir menu" aria-expanded="false">
-          <i class="fa-solid fa-bars"></i>
-        </button>
+      <div class="auth-actions">
+        <button id="btn-login" class="btn-ghost" type="button">Iniciar Sessão</button>
+        <button id="btn-signup" class="btn-primary" type="button">Criar Conta</button>
       </div>
-      <!-- ======= FIM DA ADIÇÃO ======= -->
     </div>
   </nav>
 
@@ -196,104 +197,103 @@
     </div>
   </section>
 
+  <section id="nn-pro">
+    <div class="nn-wrap">
 
-   <section id="nn-pro">
-  <div class="nn-wrap">
+      <!-- LEGENDA NO TOPO -->
+      <header class="nn-head">
+        <h2 id="nn-title">Nossos Números</h2>
+        <p class="nn-sub">Transparência total: veja o que entregamos, mês a mês.</p>
+      </header>
 
-    <!-- LEGENDA NO TOPO -->
-    <header class="nn-head">
-      <h2 id="nn-title">Nossos Números</h2>
-      <p class="nn-sub">Transparência total: veja o que entregamos, mês a mês.</p>
-    </header>
+      <!-- GRID DO BLOCO -->
+      <div class="nn-grid">
+        <!-- Gauge -->
+        <aside class="nn-gauge-card" data-success="72">
+          <div class="nn-gauge-wrap">
+            <svg class="nn-gauge" viewBox="0 0 260 160" role="img" aria-label="Taxa de Sucesso">
+              <defs>
+                <linearGradient id="nnGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%"  stop-color="#2aa8ff"/>
+                  <stop offset="100%" stop-color="#28ffd3"/>
+                </linearGradient>
+              </defs>
+              <g class="nn-ticks"></g>
+              <path class="nn-track" d="M30,140 A100,100 0 0,1 230,140"/>
+              <path class="nn-value" d="M30,140 A100,100 0 0,1 230,140" stroke="url(#nnGrad)"/>
+            </svg>
 
-    <!-- GRID DO BLOCO -->
-    <div class="nn-grid">
-      <!-- Gauge -->
-      <aside class="nn-gauge-card" data-success="72">
-        <div class="nn-gauge-wrap">
-          <svg class="nn-gauge" viewBox="0 0 260 160" role="img" aria-label="Taxa de Sucesso">
-            <defs>
-              <linearGradient id="nnGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%"  stop-color="#2aa8ff"/>
-                <stop offset="100%" stop-color="#28ffd3"/>
-              </linearGradient>
-            </defs>
-            <g class="nn-ticks"></g>
-            <path class="nn-track" d="M30,140 A100,100 0 0,1 230,140"/>
-            <path class="nn-value" d="M30,140 A100,100 0 0,1 230,140" stroke="url(#nnGrad)"/>
-          </svg>
-
-          <div class="nn-center">
-            <b id="nnPct">72%</b>
-            <small>Taxa de Sucesso (12m)</small>
+            <div class="nn-center">
+              <b id="nnPct">72%</b>
+              <small>Taxa de Sucesso (12m)</small>
+            </div>
           </div>
+        </aside>
+
+        <!-- KPIs -->
+        <div class="nn-kpis">
+          <article class="nn-card">
+            <div class="nn-card-top">
+              <span class="nn-ico">
+                <svg viewBox="0 0 24 24" width="16" height="16">
+                  <path d="M12 12a5 5 0 1 0-5-5 5 5 0 0 0 5 5Zm7 9v-1a6 6 0 0 0-6-6H11a6 6 0 0 0-6 6v1"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+              </span>
+              <span class="nn-card-title">Clientes Ativos</span>
+            </div>
+            <div class="nn-card-value"><b>50+</b></div>
+            <canvas class="nn-spark" width="360" height="70" aria-hidden="true"></canvas>
+            <small class="nn-note">Base qualificada</small>
+          </article>
+
+          <article class="nn-card">
+            <div class="nn-card-top">
+              <span class="nn-ico">
+                <svg viewBox="0 0 24 24" width="16" height="16">
+                  <rect x="3" y="6" width="18" height="12" rx="2" ry="2" fill="none" stroke="currentColor" stroke-width="2"/>
+                  <circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="2"/>
+                </svg>
+              </span>
+              <span class="nn-card-title">Volume Negociado</span>
+            </div>
+            <div class="nn-card-value"><b>US$ 10M+</b></div>
+            <canvas class="nn-spark" width="360" height="70" aria-hidden="true"></canvas>
+            <small class="nn-note">Crescimento constante</small>
+          </article>
+
+          <article class="nn-card">
+            <div class="nn-card-top">
+              <span class="nn-ico">
+                <svg viewBox="0 0 24 24" width="16" height="16">
+                  <path d="M4 16l6-6 3 3 7-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+              </span>
+              <span class="nn-card-title">Retorno Médio</span>
+            </div>
+            <div class="nn-card-value"><b>5–15% / mês</b></div>
+            <canvas class="nn-spark" width="360" height="70" aria-hidden="true"></canvas>
+            <small class="nn-note">Faixa disciplinada</small>
+          </article>
+
+          <article class="nn-card">
+            <div class="nn-card-top">
+              <span class="nn-ico">
+                <svg viewBox="0 0 24 24" width="16" height="16">
+                  <circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="2"/>
+                  <path d="M9 12l2 2 4-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+              </span>
+              <span class="nn-card-title">Win Rate</span>
+            </div>
+            <div class="nn-card-value"><b>72%</b></div>
+            <canvas class="nn-spark" width="360" height="70" aria-hidden="true"></canvas>
+            <small class="nn-note">Últimos 12 meses</small>
+          </article>
         </div>
-      </aside>
-
-      <!-- KPIs -->
-      <div class="nn-kpis">
-        <article class="nn-card">
-          <div class="nn-card-top">
-            <span class="nn-ico">
-              <svg viewBox="0 0 24 24" width="16" height="16">
-                <path d="M12 12a5 5 0 1 0-5-5 5 5 0 0 0 5 5Zm7 9v-1a6 6 0 0 0-6-6H11a6 6 0 0 0-6 6v1"
-                      fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-              </svg>
-            </span>
-            <span class="nn-card-title">Clientes Ativos</span>
-          </div>
-          <div class="nn-card-value"><b>50+</b></div>
-          <canvas class="nn-spark" width="360" height="70" aria-hidden="true"></canvas>
-          <small class="nn-note">Base qualificada</small>
-        </article>
-
-        <article class="nn-card">
-          <div class="nn-card-top">
-            <span class="nn-ico">
-              <svg viewBox="0 0 24 24" width="16" height="16">
-                <rect x="3" y="6" width="18" height="12" rx="2" ry="2" fill="none" stroke="currentColor" stroke-width="2"/>
-                <circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="2"/>
-              </svg>
-            </span>
-            <span class="nn-card-title">Volume Negociado</span>
-          </div>
-          <div class="nn-card-value"><b>US$ 10M+</b></div>
-          <canvas class="nn-spark" width="360" height="70" aria-hidden="true"></canvas>
-          <small class="nn-note">Crescimento constante</small>
-        </article>
-
-        <article class="nn-card">
-          <div class="nn-card-top">
-            <span class="nn-ico">
-              <svg viewBox="0 0 24 24" width="16" height="16">
-                <path d="M4 16l6-6 3 3 7-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-              </svg>
-            </span>
-            <span class="nn-card-title">Retorno Médio</span>
-          </div>
-          <div class="nn-card-value"><b>5–15% / mês</b></div>
-          <canvas class="nn-spark" width="360" height="70" aria-hidden="true"></canvas>
-          <small class="nn-note">Faixa disciplinada</small>
-        </article>
-
-        <article class="nn-card">
-          <div class="nn-card-top">
-            <span class="nn-ico">
-              <svg viewBox="0 0 24 24" width="16" height="16">
-                <circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="2"/>
-                <path d="M9 12l2 2 4-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-              </svg>
-            </span>
-            <span class="nn-card-title">Win Rate</span>
-          </div>
-          <div class="nn-card-value"><b>72%</b></div>
-          <canvas class="nn-spark" width="360" height="70" aria-hidden="true"></canvas>
-          <small class="nn-note">Últimos 12 meses</small>
-        </article>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
   <!-- Manifesto (v6) -->
   <section class="v6" id="manifesto">
@@ -382,12 +382,12 @@
 
         <ul class="steps">
           <li>
-  <span class="ico"><i class="fa-solid fa-file-lines"></i></span>
-  <div>
-    <b>Solicite acesso</b>
-    <span>Envie seus dados básicos.</span>
-  </div>
-</li>
+            <span class="ico"><i class="fa-solid fa-file-lines"></i></span>
+            <div>
+              <b>Solicite acesso</b>
+              <span>Envie seus dados básicos.</span>
+            </div>
+          </li>
 
           <li>
             <span class="ico">
