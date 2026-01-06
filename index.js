@@ -17,53 +17,49 @@ const sb = (window.supabase)
   const overlay = document.querySelector('.nav-overlay');
   const linksWrap = document.querySelector('.nav-links');
 
-  // Se não existir, sai sem quebrar
   if (!toggle || !overlay || !linksWrap) return;
 
   const isOpen = () => body.classList.contains('nav-open');
-
-  const open = () => {
-    body.classList.add('nav-open');
-    toggle.setAttribute('aria-expanded', 'true');
-  };
 
   const close = () => {
     body.classList.remove('nav-open');
     toggle.setAttribute('aria-expanded', 'false');
   };
 
-  const toggleMenu = () => (isOpen() ? close() : open());
+  const open = () => {
+    body.classList.add('nav-open');
+    toggle.setAttribute('aria-expanded', 'true');
+  };
 
-  // Botão hamburguer abre/fecha
+  // GARANTE FECHADO AO ENTRAR
+  close();
+  document.addEventListener('DOMContentLoaded', close);
+
   toggle.addEventListener('click', (e) => {
     e.stopPropagation();
-    toggleMenu();
+    isOpen() ? close() : open();
   });
 
-  // Clicar no overlay fecha
   overlay.addEventListener('click', close);
 
-  // Clicou em "Quem Somos / Estratégia / Contato" -> fecha
   linksWrap.querySelectorAll('a').forEach(a => {
     a.addEventListener('click', close);
   });
 
-  // ESC fecha
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') close();
   });
 
-  // Clique fora da navbar fecha (segurança)
   document.addEventListener('click', (e) => {
     if (!isOpen()) return;
     if (nav && !nav.contains(e.target)) close();
   });
 
-  // Se aumentar a tela (desktop), garante que não fica travado aberto
   window.addEventListener('resize', () => {
     if (window.innerWidth >= 901) close();
   });
 })();
+
 
 /* ==============================
    AUTENTICAÇÃO (login/cadastro)
