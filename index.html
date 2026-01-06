@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -26,6 +27,11 @@
         <img src="LOGO2.png" alt="Presser Investment Logo">
       </a>
 
+      <!-- Botão menu mobile -->
+      <button class="nav-toggle" type="button" aria-label="Abrir menu" aria-expanded="false">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+
       <ul class="nav-links">
         <li><a href="#sobre">Quem Somos?</a></li>
         <li><a href="#estrategia">Estratégia</a></li>
@@ -38,6 +44,9 @@
       </div>
     </div>
   </nav>
+
+  <!-- Overlay do menu (mobile) -->
+  <div class="nav-overlay" aria-hidden="true"></div>
 
   <!-- Espaço para compensar menu fixo -->
   <div class="spacer"></div>
@@ -338,6 +347,9 @@
           </span>
           <b>Janela de Entrada</b>
         </header>
+
+        <!-- Meta do countdown (mobile/robusto) -->
+        <span id="countdown-end" data-end="+10d" hidden></span>
 
         <div class="countdown" id="countdown">
           <div class="slot"><span class="num" data-unit="days">10</span><span class="lbl">Dias</span></div>

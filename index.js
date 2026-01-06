@@ -7,6 +7,38 @@ const sb = (window.supabase)
   ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
   : null;
 
+/* ==========================
+   NAV MOBILE (hamburger)
+   ========================== */
+(function initMobileNav(){
+  const toggle = document.querySelector('.nav-toggle');
+  const overlay = document.querySelector('.nav-overlay');
+  const links = Array.from(document.querySelectorAll('.nav-links a'));
+
+  if (!toggle || !overlay) return;
+
+  function open(){
+    document.body.classList.add('nav-open');
+    toggle.setAttribute('aria-expanded', 'true');
+  }
+  function close(){
+    document.body.classList.remove('nav-open');
+    toggle.setAttribute('aria-expanded', 'false');
+  }
+  function isOpen(){
+    return document.body.classList.contains('nav-open');
+  }
+
+  toggle.addEventListener('click', () => (isOpen() ? close() : open()));
+  overlay.addEventListener('click', close);
+  links.forEach(a => a.addEventListener('click', close));
+
+  // se mudar pra desktop, fecha menu
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 900) close();
+  });
+})();
+
 /* ==============================
    AUTENTICAÇÃO (login/cadastro)
    ============================== */
