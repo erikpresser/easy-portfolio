@@ -127,11 +127,9 @@ body {
             margin: 0 20px;
         }
 
-        nav ul li a {
-            color: white;
-            text-decoration: none;
-            font-weight: bold;
-        }
+        /* Não use branco global no site inteiro */
+.navbar .nav-links a { color: #0f2451; }
+
 
         nav ul li a:hover {
             text-decoration: underline;
@@ -3073,6 +3071,37 @@ img, svg, canvas { max-width: 100%; height: auto; }
   nav ul.nav-links li a *,
   nav ul.nav-links li *{
     color: #0f2451 !important;
+  }
+}
+
+/* ============================================================
+   FIX DEFINITIVO — MENU MOBILE (texto azul-marinho)
+   Cole como ÚLTIMA regra do CSS
+   ============================================================ */
+@media (max-width: 900px){
+
+  /* Força o painel branco (Base44 look) */
+  body.nav-open .nav-links{
+    background: #ffffff !important;
+  }
+
+  /* Sobrescreve QUALQUER regra tipo: nav ul li a { color: white; } */
+  body.nav-open nav ul li a,
+  body.nav-open .navbar nav ul li a,
+  body.nav-open .nav-links li a,
+  body.nav-open .nav-links a{
+    color: #0f2451 !important;
+    -webkit-text-fill-color: #0f2451 !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+
+  /* Tudo dentro do link (span, strong, etc) */
+  body.nav-open .nav-links li a *,
+  body.nav-open .nav-links a *{
+    color: #0f2451 !important;
+    -webkit-text-fill-color: #0f2451 !important;
+    opacity: 1 !important;
   }
 }
 
