@@ -571,5 +571,26 @@
 
   <!-- Seu JS (apenas uma vez, no fim do body) -->
   <script src="index.js"></script>
+
+  <script>
+  // Força o menu mobile começar FECHADO sempre (evita nav-open travado ao carregar/voltar)
+  (function () {
+    function forceCloseNav() {
+      document.body.classList.remove('nav-open');
+      const toggle = document.querySelector('.nav-toggle');
+      if (toggle) toggle.setAttribute('aria-expanded', 'false');
+    }
+
+    // ao carregar
+    document.addEventListener('DOMContentLoaded', forceCloseNav);
+
+    // ao voltar pelo cache do navegador (bfcache), comum no mobile
+    window.addEventListener('pageshow', forceCloseNav);
+
+    // segurança extra: se algum script setar nav-open cedo demais
+    setTimeout(forceCloseNav, 0);
+  })();
+</script>
+
 </body>
 </html>
