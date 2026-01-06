@@ -3003,4 +3003,56 @@ img, svg, canvas { max-width: 100%; height: auto; }
   }
 }
 
+/* ============================================================
+   FIX DEFINITIVO — TEXTO DO MENU MOBILE (AZUL MARINHO)
+   ============================================================ */
+@media (max-width: 900px){
+
+  /* UL do menu */
+  body.nav-open nav .nav-links,
+  body.nav-open .navbar .nav-links,
+  body.nav-open .nav-links{
+    background: #ffffff !important;
+  }
+
+  /* LI */
+  body.nav-open nav .nav-links li,
+  body.nav-open .navbar .nav-links li,
+  body.nav-open .nav-links li{
+    color: #0f2451 !important;
+  }
+
+  /* LINKS */
+  body.nav-open nav .nav-links li a,
+  body.nav-open .navbar .nav-links li a,
+  body.nav-open .nav-links li a{
+    color: #0f2451 !important;   /* azul-marinho */
+    font-weight: 700 !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+
+  /* QUALQUER COISA DENTRO DO LINK (span, div, p, etc) */
+  body.nav-open nav .nav-links li a *,
+  body.nav-open .navbar .nav-links li a *,
+  body.nav-open .nav-links li a *{
+    color: #0f2451 !important;
+    opacity: 1 !important;
+  }
+
+  /* ÍCONES */
+  body.nav-open .nav-links i,
+  body.nav-open .nav-links svg{
+    color: #0f2451 !important;
+    fill: #0f2451 !important;
+  }
+
+  /* REMOVE TRANSPARÊNCIAS QUE ESTEJAM ESCONDENDO */
+  body.nav-open .nav-links,
+  body.nav-open .nav-links *{
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+}
+
 }
