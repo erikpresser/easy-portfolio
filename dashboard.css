@@ -2529,4 +2529,62 @@ table th, table td{ white-space: nowrap; }
   }
 }
 
+/* =========================================================
+   MOBILE — Centralizar Valor Patrimonial + reduzir sparkline
+   (cole no FINAL do dashboard.css)
+   ========================================================= */
+@media (max-width: 900px){
+
+  /* 1) Garantir que o topo vire 1 coluna no mobile */
+  #route-dashboard .top-hero{
+    grid-template-columns: 1fr !important;
+    gap: 10px !important;
+    align-items: stretch !important;
+  }
+
+  /* 2) Centralizar "Valor Patrimonial" + número no meio (sem mexer no HTML) */
+  #route-dashboard .hero-balance{
+    width: 100% !important;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    align-items: baseline !important;
+    text-align: center !important;
+  }
+
+  /* título em linha própria */
+  #route-dashboard .hero-balance .title{
+    flex: 0 0 100% !important;
+    text-align: center !important;
+    margin: 0 0 6px 0 !important;
+  }
+
+  /* zera o margin-right que estava puxando o número */
+  #route-dashboard .hero-balance .value{
+    margin-right: 0 !important;
+  }
+
+  /* 3) Reduzir sparkline DE VERDADE:
+        - quebra o min-height inline do HTML
+        - define altura fixa menor
+        - dá altura explícita pro canvas (clientHeight menor => JS desenha menor)
+  */
+  #route-dashboard .chart-floating{
+    width: 100% !important;
+  }
+
+  #route-dashboard .chart-floating .chart-scroll{
+    min-height: 110px !important; /* quebra o 180px do HTML */
+    height: 110px !important;
+    overflow: hidden !important;
+    border-radius: 16px !important;
+  }
+
+  #route-dashboard #sparkline-patrimonio{
+    height: 110px !important;     /* isso é o que o JS lê via clientHeight */
+    width: 100% !important;
+    display: block !important;
+  }
+}
+
 }
