@@ -2587,4 +2587,60 @@ table th, table td{ white-space: nowrap; }
   }
 }
 
+/* ==========================
+   DASHBOARD — AJUSTES MOBILE
+   (não afeta desktop)
+========================== */
+@media (max-width: 768px){
+
+  /* Valor Patrimonial no estilo da imagem 2:
+     - Título em cima (esquerda)
+     - Número grande + USDT na mesma linha
+  */
+  #route-dashboard .hero-balance{
+    display: flex !important;
+    flex-wrap: wrap !important;
+    align-items: baseline !important;
+    justify-content: flex-start !important;
+    text-align: left !important;
+    width: 100%;
+  }
+
+  #route-dashboard .hero-balance .title{
+    flex: 0 0 100% !important;
+    text-align: left !important;
+    margin: 0 0 8px 0 !important;
+  }
+
+  #route-dashboard .hero-balance .value{
+    flex: 1 1 auto !important;
+    line-height: 1 !important;
+    white-space: nowrap !important;
+  }
+
+  #route-dashboard .hero-balance .unit{
+    flex: 0 0 auto !important;
+    margin-left: 12px !important;
+    white-space: nowrap !important;
+  }
+
+  /* Sparkline menor + sem cortar a ponta final */
+  #route-dashboard .chart-floating .chart-scroll{
+    height: 120px !important;
+    min-height: 120px !important;
+
+    /* respiro pra não cortar o final do traço/sombra */
+    padding: 0 14px !important;
+    box-sizing: border-box !important;
+
+    overflow: hidden; /* mantém arredondado sem vazar */
+  }
+
+  #route-dashboard .chart-floating canvas{
+    width: 100% !important;
+    height: 100% !important;
+    display: block !important;
+  }
+}
+
 }
