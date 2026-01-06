@@ -2360,4 +2360,16 @@ img, svg, canvas { max-width: 100%; height: auto; }
   }
 }
 
+/* ===== MOBILE NAV VISIBILITY ===== */
+.nav-toggle {
+  display: none;
+}
+
+/* Mobile real */
+@media (max-width: 900px) {
+  .nav-toggle {
+    display: inline-flex !important;
+  }
+}
+
 }
