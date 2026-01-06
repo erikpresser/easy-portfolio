@@ -8,57 +8,82 @@ const sb = (window.supabase)
   : null;
 
 /* =========================
-   NAVBAR MOBILE (toggle menu) — ATUALIZADO
+   NAVBAR MOBILE (toggle menu) — FIX DEFINITIVO
    ========================= */
 (() => {
   const body = document.body;
-  const nav = document.querySelector('.navbar');
-  const toggle = document.querySelector('.nav-toggle');
-  const overlay = document.querySelector('.nav-overlay');
-  const linksWrap = document.querySelector('.nav-links');
 
-  if (!toggle || !overlay || !linksWrap) return;
+  function initNav(){
+    const nav = document.querySelector('.navbar');
+    const toggle = document.querySelector('.nav-toggle');
+    const overlay = document.querySelector('.nav-overlay');
+    const linksWrap = document.querySelector('.nav-links');
+    if (!toggle || !overlay || !linksWrap) return;
 
-  const isOpen = () => body.classList.contains('nav-open');
+    const isOpen = () => body.classList.contains('nav-open');
 
-  const close = () => {
-    body.classList.remove('nav-open');
-    toggle.setAttribute('aria-expanded', 'false');
-  };
+    const close = () => {
+      body.classList.remove('nav-open');
+      toggle.setAttribute('aria-expanded', 'false');
+    };
 
-  const open = () => {
-    body.classList.add('nav-open');
-    toggle.setAttribute('aria-expanded', 'true');
-  };
+    const open = () => {
+      body.classList.add('nav-open');
+      toggle.setAttribute('aria-expanded', 'true');
+    };
 
-  // GARANTE FECHADO AO ENTRAR
-  close();
-  document.addEventListener('DOMContentLoaded', close);
+    // 1) SEMPRE começa fechado
+    close();
 
-  toggle.addEventListener('click', (e) => {
-    e.stopPropagation();
-    isOpen() ? close() : open();
-  });
+    // 2) Se o navegador "restaurar" a página (mobile), garante fechado também
+    window.addEventListener('pageshow', close);
 
-  overlay.addEventListener('click', close);
+    // Toggle
+    toggle.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      isOpen() ? close() : open();
+    });
 
-  linksWrap.querySelectorAll('a').forEach(a => {
-    a.addEventListener('click', close);
-  });
+    // Clique no overlay fecha
+    overlay.addEventListener('click', (e) => {
+      e.preventDefault();
+      close();
+    });
 
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') close();
-  });
+    // Clicou em links do menu fecha
+    linksWrap.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => close());
+    });
 
-  document.addEventListener('click', (e) => {
-    if (!isOpen()) return;
-    if (nav && !nav.contains(e.target)) close();
-  });
+    // ESC fecha
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') close();
+    });
 
-  window.addEventListener('resize', () => {
-    if (window.innerWidth >= 901) close();
-  });
+    // Clique fora do nav fecha (mas não fecha se clicar dentro do menu)
+    document.addEventListener('click', (e) => {
+      if (!isOpen()) return;
+      if (nav && !nav.contains(e.target)) close();
+    }, true);
+
+    // Mudou para desktop: fecha e limpa estado
+    window.addEventListener('resize', () => {
+      if (window.innerWidth >= 901) close();
+    });
+
+    // Segurança extra: se algum CSS/JS deixar aberto por race condition
+    setTimeout(close, 0);
+  }
+
+  // Garante que o DOM existe antes de pegar elementos
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initNav, { once: true });
+  } else {
+    initNav();
+  }
 })();
+
 
 
 /* ==============================
