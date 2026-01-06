@@ -2234,4 +2234,130 @@ img, svg, canvas { max-width: 100%; height: auto; }
   }
 }
 
+/* =========================
+   NAVBAR MOBILE (FIX)
+   ========================= */
+@media (max-width: 900px){
+
+  /* estrutura do topo */
+  .navbar{
+    max-width: 100% !important;
+    width: 100%;
+    padding: 10px 12px;
+  }
+
+  .nav-container{
+    display: grid !important;
+    grid-template-columns: 1fr auto auto; /* logo | auth | burger */
+    align-items: center;
+    gap: 10px;
+  }
+
+  /* logo menor no mobile */
+  .nav-logo img{
+    height: 46px !important;
+    width: auto;
+  }
+
+  /* BOTÕES login/cadastro VISÍVEIS no mobile */
+  .auth-actions{
+    display: flex !important;
+    align-items: center;
+    gap: 8px;
+    justify-content: flex-end;
+  }
+
+  .auth-actions .btn-ghost,
+  .auth-actions .btn-primary{
+    padding: 10px 12px !important;
+    font-size: 12.5px !important;
+    border-radius: 999px;
+    white-space: nowrap;
+  }
+
+  /* Botão hamburguer (aba) */
+  .nav-toggle{
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    border: 1px solid rgba(15,36,81,.18);
+    background: #fff;
+    color: #0f2451;
+    cursor: pointer;
+  }
+
+  .nav-toggle i{
+    font-size: 18px;
+  }
+
+  /* Links viram MENU (drawer) */
+  .nav-links{
+    position: fixed;
+    top: 70px; /* abaixo da navbar */
+    left: 12px;
+    right: 12px;
+
+    display: grid !important;
+    gap: 10px;
+
+    padding: 14px;
+    margin: 0;
+
+    background: #ffffff;
+    border: 1px solid rgba(15,36,81,.12);
+    border-radius: 16px;
+    box-shadow: 0 18px 60px rgba(0,0,0,.18);
+
+    /* fechado por padrão */
+    opacity: 0;
+    transform: translateY(-8px);
+    pointer-events: none;
+    transition: opacity .18s ease, transform .18s ease;
+    z-index: 2200;
+  }
+
+  .nav-links li{
+    margin: 0 !important;
+  }
+
+  .nav-links a{
+    display: block;
+    padding: 12px 12px;
+    border-radius: 12px;
+    background: rgba(15,36,81,.04);
+    color: #0f2451;
+    text-decoration: none;
+    font-weight: 700;
+  }
+
+  .nav-links a:active{
+    transform: scale(.99);
+  }
+
+  /* Overlay */
+  .nav-overlay{
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.45);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .18s ease;
+    z-index: 2100;
+  }
+
+  /* Estado ABERTO */
+  body.nav-open .nav-links{
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+  body.nav-open .nav-overlay{
+    opacity: 1;
+    pointer-events: auto;
+  }
+}
+
 }

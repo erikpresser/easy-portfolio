@@ -7,33 +7,45 @@ const sb = (window.supabase)
   ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
   : null;
 
-/* ==========================
-   NAV MOBILE (hamburger)
-   ========================== */
-(function initMobileNav(){
+/* =========================
+   NAVBAR MOBILE (toggle menu)
+   ========================= */
+(() => {
   const toggle = document.querySelector('.nav-toggle');
   const overlay = document.querySelector('.nav-overlay');
-  const links = Array.from(document.querySelectorAll('.nav-links a'));
+  const linksWrap = document.querySelector('.nav-links');
+  if (!toggle || !overlay || !linksWrap) return;
 
-  if (!toggle || !overlay) return;
-
-  function open(){
+  const open = () => {
     document.body.classList.add('nav-open');
     toggle.setAttribute('aria-expanded', 'true');
-  }
-  function close(){
+  };
+
+  const close = () => {
     document.body.classList.remove('nav-open');
     toggle.setAttribute('aria-expanded', 'false');
-  }
-  function isOpen(){
-    return document.body.classList.contains('nav-open');
-  }
+  };
 
-  toggle.addEventListener('click', () => (isOpen() ? close() : open()));
+  const isOpen = () => document.body.classList.contains('nav-open');
+
+  toggle.addEventListener('click', () => {
+    if (isOpen()) close();
+    else open();
+  });
+
   overlay.addEventListener('click', close);
-  links.forEach(a => a.addEventListener('click', close));
 
-  // se mudar pra desktop, fecha menu
+  // Clicou em "Quem Somos / Estratégia / Contato" -> fecha
+  linksWrap.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => close());
+  });
+
+  // ESC fecha
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') close();
+  });
+
+  // se aumentar a tela (desktop), garante que não fica travado aberto
   window.addEventListener('resize', () => {
     if (window.innerWidth > 900) close();
   });
