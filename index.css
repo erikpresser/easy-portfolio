@@ -2372,4 +2372,31 @@ img, svg, canvas { max-width: 100%; height: auto; }
   }
 }
 
+@media (max-width: 900px) {
+  /* garante que a logo apareça sempre no mobile */
+  .navbar .nav-logo{
+    display: inline-flex !important;
+    align-items: center;
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  .navbar .nav-logo img{
+    display: block !important;
+    max-height: 34px;   /* ajuste fino: 30~40 */
+    width: auto;
+    height: auto;
+    object-fit: contain;
+  }
+
+  /* garante que o botão não "puxe" tudo e que fique na direita */
+  .navbar .nav-toggle{
+    margin-left: auto !important;
+  }
+
+  /* se seus botões estiverem empurrando e você NÃO quer eles na topbar do mobile,
+     descomente a linha abaixo para esconder no mobile */
+  /* .navbar .auth-actions{ display:none !important; } */
+}
+
 }
