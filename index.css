@@ -2074,4 +2074,164 @@ a:focus-visible, button:focus-visible{outline:2px solid var(--brand); outline-of
     text-align: center;
     padding: 10px;
   }
+
+  /* =========================================================
+   MOBILE PATCH — Presser Investment (cole no FINAL do CSS)
+   ========================================================= */
+
+/* Segurança contra overflow lateral em mobile */
+html, body { max-width: 100%; }
+body { overflow-x: hidden; }
+img, svg, canvas { max-width: 100%; height: auto; }
+
+/* Navbar deve ocupar 100% da tela; container é que limita */
+.navbar{
+  width: 100%;
+  max-width: none;          /* remove o max-width que “encolhe” o nav */
+  margin: 0;
+  position: fixed;          /* você já usa spacer; mantém padrão fixo */
+  top: 0; left: 0; right: 0;
+  z-index: 1200;
+  background: rgba(255,255,255,.92);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+/* Container da navbar centralizado */
+.nav-container{
+  width: min(1200px, 92%);
+  margin: 0 auto;
+  height: 80px;             /* casa com seu .spacer */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+/* Logo não pode estourar */
+.nav-logo img{
+  height: 56px;
+  width: auto;
+}
+
+/* Botão hamburguer (vamos adicionar no HTML) */
+.nav-toggle{
+  display: none;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  border: 1px solid rgba(15,36,81,.18);
+  background: #fff;
+  color: #0f2451;
+  cursor: pointer;
+}
+
+/* Overlay do menu (vamos adicionar no HTML) */
+.nav-overlay{
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.45);
+  z-index: 1190;
+}
+
+/* Drawer do menu (ul) no mobile */
+@media (max-width: 900px){
+
+  /* Mostra o hamburguer e esconde links inline */
+  .nav-toggle{ display: inline-flex; align-items:center; justify-content:center; }
+
+  .nav-links{
+    position: fixed;
+    top: 80px;               /* abaixo da navbar */
+    right: 0;
+    width: min(360px, 88vw);
+    height: calc(100dvh - 80px);
+    background: #fff;
+    border-left: 1px solid rgba(15,36,81,.12);
+    box-shadow: -18px 0 60px rgba(0,0,0,.18);
+    padding: 16px;
+    margin: 0;
+
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    transform: translateX(105%);
+    transition: transform .22s ease;
+    z-index: 1200;
+  }
+
+  .nav-links a{
+    display: block;
+    padding: 12px 12px;
+    border-radius: 12px;
+    font-weight: 700;
+    background: rgba(15,36,81,.04);
+  }
+
+  /* Auth actions vão para baixo do menu (vamos reposicionar via HTML/JS se necessário) */
+  .auth-actions{
+    position: fixed;
+    right: 0;
+    top: calc(80px + 220px); /* ajuste fino depois que eu ver o JS/estrutura final */
+    width: min(360px, 88vw);
+    padding: 0 16px 16px;
+    display: grid;
+    gap: 10px;
+
+    transform: translateX(105%);
+    transition: transform .22s ease;
+    z-index: 1200;
+    background: transparent;
+  }
+
+  .auth-actions .btn-primary,
+  .auth-actions .btn-ghost{
+    width: 100%;
+    justify-content: center;
+    padding: 12px 16px;
+  }
+
+  /* Estado aberto (JS vai colocar .nav-open no body) */
+  body.nav-open .nav-links{ transform: translateX(0); }
+  body.nav-open .auth-actions{ transform: translateX(0); }
+  body.nav-open .nav-overlay{ display: block; }
+
+  /* Evita scroll do site quando menu estiver aberto */
+  body.nav-open{ overflow: hidden; }
+}
+
+/* HERO mobile: tipografia e espaçamento */
+@media (max-width: 600px){
+  .hero{
+    min-height: 74vh;
+    padding: 54px 16px;
+  }
+  .stats-title2{
+    font-size: 2.1rem;   /* hoje está 3.5rem e pode ficar grande demais em 360px */
+    line-height: 1.15;
+    max-width: 22ch;
+  }
+  .botao-investir{
+    width: min(420px, 92vw);
+    padding: 14px 18px;
+    font-size: 16px;
+  }
+}
+
+/* Seções com padding global muito alto: reduz no mobile */
+@media (max-width: 600px){
+  section{ padding: 36px 16px; } /* substitui o padding:50px global */
+}
+
+/* CTA dupla (Por que escolher): vira full width */
+@media (max-width: 600px){
+  .why__cta{ width: 100%; }
+  .why__cta .btn{
+    width: min(420px, 92vw);
+    text-align: center;
+  }
+}
+
 }
