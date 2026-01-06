@@ -3055,4 +3055,25 @@ img, svg, canvas { max-width: 100%; height: auto; }
   }
 }
 
+/* ============================================================
+   FIX DEFINITIVO: cor do texto do menu mobile (azul marinho)
+   ============================================================ */
+@media (max-width: 900px){
+
+  /* Sobrescreve a regra antiga: nav ul li a { color: white; } */
+  nav ul.nav-links li a,
+  nav ul.nav-links li a:link,
+  nav ul.nav-links li a:visited,
+  nav ul.nav-links li a:hover,
+  nav ul.nav-links li a:active{
+    color: #0f2451 !important;
+  }
+
+  /* Se existir qualquer tag dentro do <a> (span, strong, etc) */
+  nav ul.nav-links li a *,
+  nav ul.nav-links li *{
+    color: #0f2451 !important;
+  }
+}
+
 }
