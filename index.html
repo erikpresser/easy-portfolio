@@ -107,31 +107,40 @@
 </head>
 <body>
 
-  <!-- Navbar -->
-<nav class="navbar">
-  <div class="nav-container">
-    <a href="#home" class="nav-logo">
-      <img src="LOGO2.png" alt="Presser Investment Logo">
-    </a>
+   <!-- Navbar -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="#home" class="nav-logo">
+        <img src="LOGO2.png" alt="Presser Investment Logo">
+      </a>
 
-    <!-- Botão menu mobile -->
-    <button class="nav-toggle" type="button" aria-label="Abrir menu" aria-expanded="false">
-      <i class="fa-solid fa-bars"></i>
-    </button>
+      <!-- Lado direito (botões + hamburguer) -->
+      <div class="nav-right">
+        <div class="auth-actions">
+          <button id="btn-login" class="btn-ghost" type="button">Iniciar Sessão</button>
+          <button id="btn-signup" class="btn-primary" type="button">Criar Conta</button>
+        </div>
 
-    <ul class="nav-links" aria-label="Menu principal">
-      <li><a href="#sobre">Quem Somos?</a></li>
-      <li><a href="#estrategia">Estratégia</a></li>
-      <li><a href="#contato-final">Contato</a></li>
+        <!-- Botão menu mobile -->
+        <button class="nav-toggle" type="button" aria-label="Abrir menu" aria-expanded="false">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+      </div>
 
-      <!-- AUTH dentro da aba (mobile) e alinhado à direita no desktop -->
-      <li class="nav-auth">
-        <button id="btn-login" class="btn-ghost" type="button">Iniciar Sessão</button>
-        <button id="btn-signup" class="btn-primary" type="button">Criar Conta</button>
-      </li>
-    </ul>
-  </div>
-</nav>
+      <!-- Menu (vira dropdown no mobile) -->
+      <ul class="nav-links">
+        <li><a href="#sobre">Quem Somos?</a></li>
+        <li><a href="#estrategia">Estratégia</a></li>
+        <li><a href="#contato-final">Contato</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Overlay do menu (mobile) -->
+  <div class="nav-overlay" aria-hidden="true"></div>
+
+  <!-- Espaço para compensar menu fixo -->
+  <div class="spacer"></div>
 
 <!-- Overlay do menu (mobile) -->
 <div class="nav-overlay" aria-hidden="true"></div>
