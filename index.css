@@ -3135,4 +3135,15 @@ img, svg, canvas { max-width: 100%; height: auto; }
 .nav-overlay { pointer-events: none; }
 body.nav-open .nav-overlay { pointer-events: auto; }
 
+/* ===== FIX ABA FIXA: menu mobile só aparece com body.nav-open ===== */
+@media (max-width: 900px){
+  .navbar .nav-links{ 
+    display: none !important;           /* some de verdade quando fechado */
+  }
+  body.nav-open .navbar .nav-links{ 
+    display: flex !important;           /* aparece quando abrir */
+  }
+}
+
+
 }
