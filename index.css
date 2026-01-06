@@ -3105,4 +3105,31 @@ img, svg, canvas { max-width: 100%; height: auto; }
   }
 }
 
+/* ==============================
+   DESKTOP ONLY — auth volta pra direita
+   (não altera mobile)
+   ============================== */
+@media (min-width: 901px){
+
+  /* garante que o container é flex */
+  .nav-container{
+    display: flex !important;
+    align-items: center !important;
+  }
+
+  /* ordem: logo (1) | links (2) | auth (3) */
+  .nav-logo{ order: 1; }
+
+  .nav-links{
+    order: 2;
+    margin-left: auto !important;  /* empurra links + auth para a direita */
+  }
+
+  .auth-actions,
+  .nav-auth{                         /* caso no seu HTML esteja como nav-auth */
+    order: 3;
+    margin-left: 12px !important;    /* espaço entre links e botões */
+  }
+}
+
 }
