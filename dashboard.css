@@ -3099,4 +3099,50 @@ table th, table td{ white-space: nowrap; }
   }
 }
 
+/* =========================
+   RELATÓRIOS — KPIs MOBILE
+   3 em cima + 2 embaixo
+   ========================= */
+
+@media (max-width: 768px){
+
+  .relatorios-kpis{
+    grid-template-columns: repeat(6, 1fr) !important;
+    gap: 10px !important;
+    margin-bottom: 12px !important;
+  }
+
+  /* Topo: 3 primeiros */
+  .relatorios-kpis article:nth-child(1),
+  .relatorios-kpis article:nth-child(2),
+  .relatorios-kpis article:nth-child(3){
+    grid-column: span 2;
+  }
+
+  /* Embaixo: 2 últimos */
+  .relatorios-kpis article:nth-child(4),
+  .relatorios-kpis article:nth-child(5){
+    grid-column: span 3;
+  }
+
+  /* Cards menores */
+  .relatorios-kpis .card.metric{
+    padding: 10px 10px !important;
+    min-height: 70px !important;
+    border-radius: 14px !important;
+  }
+
+  .relatorios-kpis .label{
+    font-size: 11px !important;
+    line-height: 1.1;
+    opacity: .9;
+  }
+
+  .relatorios-kpis .value{
+    font-size: 20px !important;
+    line-height: 1.05;
+    margin-top: 6px;
+  }
+}
+
 }
