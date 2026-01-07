@@ -3145,4 +3145,42 @@ table th, table td{ white-space: nowrap; }
   }
 }
 
+/* =========================
+   RELATÓRIOS — BOTÕES MOBILE
+   Evita sobrepor o título
+   ========================= */
+
+@media (max-width: 768px){
+
+  /* Container do cabeçalho do card (título + botões) */
+  .card .card-header{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding-right: 6px;
+  }
+
+  /* Título */
+  .card .card-title{
+    font-size: 14px !important;
+    line-height: 1.1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* Botões: "Mais positivas" / "Mais negativas" */
+  .card .btn,
+  .card .btn-filter,
+  .card .btn-toggle{
+    padding: 4px 8px !important;
+    font-size: 11px !important;
+    border-radius: 10px !important;
+    min-height: 22px !important;
+    line-height: 1 !important;
+    white-space: nowrap;
+  }
+
+}
+
 }
