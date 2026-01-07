@@ -2851,7 +2851,7 @@ table th, table td{ white-space: nowrap; }
 
   /* Gráficos do dashboard */
   #route-dashboard .chart-scroll{
-    min-height: 320px !important;  /* antes estava muito baixo */
+    min-height: 420px !important;  /* antes estava muito baixo */
   }
 
   /* Canvas ocupa toda a altura */
