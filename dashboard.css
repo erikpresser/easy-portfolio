@@ -3019,4 +3019,31 @@ table th, table td{ white-space: nowrap; }
   }
 }
 
+/* =========================
+   MOBILE – CHIPS ULTRA COMPACTOS
+   ========================= */
+@media (max-width: 768px){
+
+  /* Container */
+  #ops-toolbar{
+    padding: 4px 6px !important;
+    gap: 4px !important;
+  }
+
+  #ops-toolbar .grp{
+    gap: 4px !important;
+    flex-wrap: wrap !important;
+  }
+
+  /* Botões (chips) */
+  #ops-toolbar .chip{
+    padding: 3px 6px !important;      /* menos largura */
+    font-size: 9px !important;        /* texto menor */
+    line-height: 1 !important;
+    min-height: 20px !important;      /* altura menor */
+    border-radius: 999px !important;
+    max-width: fit-content !important;
+  }
+}
+
 }
