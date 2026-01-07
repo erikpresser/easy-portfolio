@@ -3407,4 +3407,21 @@ table th, table td{ white-space: nowrap; }
   }
 }
 
+/* CARTEIRAS — Empilhar cards no mobile */
+@media (max-width: 768px) {
+
+  /* Container dos dois cards superiores */
+  #route-carteiras .metrics.wallet-top {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+
+  /* Cada card ocupa 100% da largura */
+  #route-carteiras .card.wallet-section {
+    width: 100% !important;
+  }
+
+}
+
 }
