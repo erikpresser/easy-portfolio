@@ -3268,4 +3268,59 @@ table th, table td{ white-space: nowrap; }
 
 }
 
+/* RELATÓRIOS — Lucro por Moeda (MOBILE) */
+@media (max-width: 768px){
+
+  /* Força o header do card a virar coluna (título em cima, toolbar embaixo) */
+  #bycoin-toolbar{
+    width: 100% !important;
+    display: flex !important;
+    justify-content: flex-start !important;
+    gap: 6px !important;
+    margin-top: 6px !important;
+  }
+
+  /* Encontra o "header" via: h3 + toolbar dentro do mesmo container */
+  #bycoin-toolbar{
+    flex-wrap: nowrap !important;
+  }
+
+  /* Botões menores */
+  #btn-bycoin-top,
+  #btn-bycoin-bottom{
+    padding: 4px 10px !important;
+    font-size: 11px !important;
+    height: 24px !important;
+    line-height: 1 !important;
+    border-radius: 999px !important;
+    white-space: nowrap !important;
+  }
+
+  /* Garante que o título não seja espremido pelo toolbar */
+  #bycoin-toolbar{
+    order: 2 !important;
+  }
+
+  /* Tenta pegar o H3 do mesmo card e manter em cima */
+  #bycoin-toolbar ~ *{
+    order: 3 !important;
+  }
+
+  /* Deixa o título acima: força o container do H3/toolbar a virar coluna */
+  .chart-card.full-width > div{
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    justify-content: flex-start !important;
+    gap: 6px !important;
+  }
+
+  .chart-card.full-width h3{
+    order: 1 !important;
+    margin: 0 !important;
+    font-size: 14px !important;
+    line-height: 1.2 !important;
+  }
+}
+
 }
