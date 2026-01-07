@@ -2844,4 +2844,20 @@ table th, table td{ white-space: nowrap; }
   }
 }
 
+/* =========================================================
+   MOBILE — Gráficos mais altos
+========================================================= */
+@media (max-width: 768px){
+
+  /* Gráficos do dashboard */
+  #route-dashboard .chart-scroll{
+    min-height: 320px !important;  /* antes estava muito baixo */
+  }
+
+  /* Canvas ocupa toda a altura */
+  #route-dashboard canvas{
+    height: 100% !important;
+  }
+}
+
 }

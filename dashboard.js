@@ -642,22 +642,28 @@ function buildChart(canvasId, label, dataObj) {
     }
   }
 
-  return new Chart(ctx, {
-    type: "bar",
-    data: {
-      labels,
-      datasets: [{
-        label,
-        data: values,
-        borderWidth: 0,
-        borderRadius: 6,
-        barThickness: 40,
-        maxBarThickness: 64,
-        categoryPercentage: 0.82,
-        backgroundColor: barGradient,
-        hoverBackgroundColor: barGradient,
-      }]
-    },
+  const isMobile = window.innerWidth <= 768;
+
+return new Chart(ctx, {
+  type: "bar",
+  data: {
+    labels,
+    datasets: [{
+      label,
+      data: values,
+      borderWidth: 0,
+      borderRadius: 6,
+
+      /* ===== Ajuste para Mobile ===== */
+      barThickness: isMobile ? 18 : 40,
+      maxBarThickness: isMobile ? 28 : 64,
+      categoryPercentage: isMobile ? 0.6 : 0.82,
+
+      backgroundColor: barGradient,
+      hoverBackgroundColor: barGradient,
+    }]
+  },
+
     options: {
       responsive: true,
       maintainAspectRatio: false,
