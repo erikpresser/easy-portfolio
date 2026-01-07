@@ -3046,4 +3046,49 @@ table th, table td{ white-space: nowrap; }
   }
 }
 
+/* =========================
+   MOBILE – OPS TOOLBAR (FORÇA CHIP PEQUENO)
+   ========================= */
+@media (max-width: 768px){
+
+  /* garante que os grupos não empilhem em coluna com botões "full width" */
+  body #route-operacoes #ops-toolbar{
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 6px !important;
+    padding: 6px !important;
+  }
+
+  body #route-operacoes #ops-toolbar .grp{
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 6px !important;
+    justify-content: flex-start !important;
+    align-items: center !important;
+  }
+
+  /* AQUI está o ponto: impedir esticarem */
+  body #route-operacoes #ops-toolbar .chip{
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    /* NÃO DEIXA ESTICAR */
+    flex: 0 0 auto !important;
+    width: auto !important;
+    min-width: 0 !important;
+    max-width: none !important;
+
+    /* DIMINUI TAMANHO */
+    padding: 4px 8px !important;
+    font-size: 10px !important;
+    line-height: 1 !important;
+    height: 22px !important;
+    border-radius: 999px !important;
+
+    /* remove qualquer limite escondido */
+    letter-spacing: 0 !important;
+  }
+}
+
 }
