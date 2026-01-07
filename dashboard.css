@@ -2786,4 +2786,62 @@ table th, table td{ white-space: nowrap; }
   }
 }
 
+/* =========================================================
+   MOBILE — TOPBAR (email + botões menores)
+========================================================= */
+@media (max-width: 768px){
+
+  /* Reduz altura geral da topbar */
+  .topbar{
+    padding: 8px 10px !important;
+    min-height: 52px !important;
+  }
+
+  /* Caixa do usuário mais compacta */
+  .topbar .userbox{
+    display: flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    max-width: 100% !important;
+  }
+
+  /* ===== Email menor e com corte (ellipsis) ===== */
+  .topbar .userbox .email{
+    max-width: 140px !important;     /* limita largura */
+    font-size: 12px !important;      /* menor */
+    opacity: 0.85 !important;
+
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+  }
+
+  /* ===== Botões "Admin" e "Sair" menores ===== */
+  .topbar .userbox .btn{
+    padding: 5px 10px !important;
+    font-size: 11px !important;
+    line-height: 1 !important;
+    border-radius: 8px !important;
+    min-height: 28px !important;
+  }
+
+  /* Botão Admin ainda mais compacto */
+  .topbar .userbox .btn.admin{
+    padding: 5px 8px !important;
+    font-size: 11px !important;
+  }
+
+  /* Se ainda faltar espaço, esconde texto e mantém botão */
+  @media (max-width: 380px){
+    .topbar .userbox .email{
+      max-width: 100px !important;
+    }
+
+    .topbar .userbox .btn{
+      padding: 5px 8px !important;
+      font-size: 10px !important;
+    }
+  }
+}
+
 }
