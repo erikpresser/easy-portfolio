@@ -27,12 +27,17 @@ function openModal(newMode){
 // abrir modal
 btnLogin?.addEventListener("click", ()=> openModal("login"));
 btnSignup?.addEventListener("click", ()=> openModal("signup"));
+
 // trocar modo
 linkToLogin?.addEventListener("click", (e)=>{ e.preventDefault(); openModal("login"); });
 linkToSignup?.addEventListener("click", (e)=>{ e.preventDefault(); openModal("signup"); });
+
 // fechar
 closeModal?.addEventListener("click", ()=> modal.style.display = "none");
 window.addEventListener("click", (e)=> { if (e.target === modal) modal.style.display = "none"; });
+
+// (opcional) se você tiver o fluxo de "esqueci minha senha" em outro lugar, ignore
+// linkForgot?.addEventListener("click", ...)
 
 form?.addEventListener("submit", async (e)=>{
   e.preventDefault();
@@ -44,6 +49,13 @@ form?.addEventListener("submit", async (e)=>{
   const email = document.getElementById("email").value.trim();
   const password = document.getElementById("password").value;
 
+  // Redirect pós-confirmação de e-mail (clique no link do Supabase)
+  // Preferimos o domínio oficial; se estiver em preview, usa o origin atual.
+  const EMAIL_REDIRECT_TO =
+    (window.location.hostname.includes("presserinvestment.com"))
+      ? "https://presserinvestment.com/index.html"
+      : (window.location.origin + "/index.html");
+
   try{
     if(mode === "login"){
       const { error } = await sb.auth.signInWithPassword({ email, password });
@@ -51,12 +63,22 @@ form?.addEventListener("submit", async (e)=>{
       msg.textContent = "Login realizado. Redirecionando...";
       window.location.href = "dashboard.html";
     } else {
-      const { error } = await sb.auth.signUp({ email, password });
+      const { error } = await sb.auth.signUp({
+        email,
+        password,
+        options: {
+          emailRedirectTo: EMAIL_REDIRECT_TO
+        }
+      });
+
       if (error) throw error;
+
       msg.textContent = "Conta criada! Verifique seu e-mail para confirmar.";
+      // Se quiser, você pode trocar automaticamente para "login" após signup:
+      // openModal("login");
     }
   }catch(err){
-    msg.textContent = "Erro: " + (err?.message || 'tente novamente');
+    msg.textContent = "Erro: " + (err?.message || "tente novamente");
   }finally{
     submitBtn.disabled = false;
     submitBtn.textContent = "Continuar";
