@@ -7,6 +7,10 @@ const sb = (window.supabase)
   ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
   : null;
 
+// === URL FIXA PARA RESET PASSWORD (PUBLICADA NO GITHUB PAGES) ===
+// (Tem que estar também no Supabase -> Auth -> URL Configuration -> Redirect URLs)
+const RESET_REDIRECT_URL = "https://presserinvestment.com/reset-password.html";
+
 /* =========================
    NAVBAR MOBILE (toggle menu) — FIX DEFINITIVO
    ========================= */
@@ -144,7 +148,12 @@ form?.addEventListener("submit", async (e)=>{
   }
 });
 
-// esqueci a senha
+// ======================================================
+// ESQUECI A SENHA (CORRIGIDO)
+// - NÃO redireciona para a mesma página (origin+pathname)
+// - Redireciona para reset-password.html (publicado)
+// - Tem que estar permitido em Auth -> Redirect URLs
+// ======================================================
 linkForgot?.addEventListener("click", async (e)=>{
   e.preventDefault();
   if (!sb) { if (msg) msg.textContent = "Serviço indisponível no momento."; return; }
@@ -152,11 +161,19 @@ linkForgot?.addEventListener("click", async (e)=>{
   if (msg) msg.textContent = "Processando...";
   const email = document.getElementById("email")?.value.trim();
   if(!email){ if (msg) msg.textContent = "Digite seu e-mail primeiro."; return; }
-  const { error } = await sb.auth.resetPasswordForEmail(email, {
-    redirectTo: window.location.origin + window.location.pathname
-  });
-  if(error) msg.textContent = "Erro: " + error.message;
-  else msg.textContent = "Se o e-mail existir, enviaremos instruções de reset.";
+
+  try {
+    const { error } = await sb.auth.resetPasswordForEmail(email, {
+      redirectTo: RESET_REDIRECT_URL
+    });
+
+    if (error) throw error;
+
+    // Mensagem neutra (boa prática: não confirma se o e-mail existe)
+    msg.textContent = "Se o e-mail existir, enviaremos instruções de reset.";
+  } catch (err) {
+    msg.textContent = "Erro: " + (err?.message || "tente novamente");
+  }
 });
 
 /* =========================================
@@ -568,4 +585,3 @@ document.querySelectorAll('[data-tilt]').forEach(card=>{
   card.addEventListener('touchmove',update,{passive:true});
   card.addEventListener('touchend',reset);
 });
-
