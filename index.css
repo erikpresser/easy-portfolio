@@ -3218,5 +3218,85 @@ body.nav-open .nav-overlay { pointer-events: auto; }
   }
 }
 
+/* =========================================
+   FIX — BOTÕES DO TOPO (Iniciar Sessão / Criar Conta)
+   Cole no FINAL do CSS
+   ========================================= */
+
+/* wrapper dos botões (se existir no seu HTML) */
+.auth-actions,
+.auth-buttons,
+.nav-auth{
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+}
+
+/* força estilo consistente nos dois botões */
+.navbar .btn-ghost,
+.navbar .btn-primary,
+nav .btn-ghost,
+nav .btn-primary{
+  all: unset; /* zera heranças e conflitos */
+  box-sizing: border-box;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  font-family: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  font-weight: 800;
+  font-size: 14px;
+  line-height: 1;
+
+  padding: 12px 18px;
+  border-radius: 999px;
+  white-space: nowrap;
+
+  cursor: pointer;
+  user-select: none;
+
+  transition: transform .15s ease, filter .15s ease, background .15s ease;
+}
+
+/* Iniciar Sessão (outline branco) */
+.navbar .btn-ghost,
+nav .btn-ghost{
+  background: #ffffff;
+  color: #0f2451;
+  border: 1px solid rgba(15,36,81,.40);
+  box-shadow: 0 8px 18px rgba(15,36,81,.10);
+}
+.navbar .btn-ghost:hover,
+nav .btn-ghost:hover{
+  filter: brightness(0.98);
+  transform: translateY(-1px);
+}
+
+/* Criar Conta (azul marinho cheio) */
+.navbar .btn-primary,
+nav .btn-primary{
+  background: #0f2451;
+  color: #ffffff;
+  border: 1px solid rgba(15,36,81,.0);
+  box-shadow: 0 10px 22px rgba(15,36,81,.22);
+}
+.navbar .btn-primary:hover,
+nav .btn-primary:hover{
+  filter: brightness(1.06);
+  transform: translateY(-1px);
+}
+
+/* Mobile: reduz pra caber */
+@media (max-width: 600px){
+  .navbar .btn-ghost,
+  .navbar .btn-primary,
+  nav .btn-ghost,
+  nav .btn-primary{
+    padding: 10px 12px;
+    font-size: 12px;
+  }
+}
+
 
 }
