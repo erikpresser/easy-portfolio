@@ -3327,5 +3327,49 @@ nav .nav-logo img{
   }
 }
 
+/* ================================
+   NEON BACKGROUND - NOSSOS NÚMEROS
+   ================================ */
+
+#nn-pro,
+.nossos-numeros,
+.section-numeros,
+.section--numbers {
+  position: relative !important;
+  background: radial-gradient(
+      60% 40% at 50% 30%,
+      rgba(0, 242, 255, 0.18),
+      rgba(0, 0, 0, 0) 70%
+    ),
+    linear-gradient(180deg, #071b3a 0%, #050f24 100%) !important;
+  overflow: hidden !important;
+}
+
+/* Camada de glow */
+#nn-pro::before,
+.nossos-numeros::before,
+.section-numeros::before,
+.section--numbers::before {
+  content: "";
+  position: absolute;
+  inset: -20%;
+  background:
+    radial-gradient(circle at 50% 30%, rgba(0, 242, 255, 0.35), transparent 60%),
+    radial-gradient(circle at 20% 60%, rgba(0, 140, 255, 0.25), transparent 65%),
+    radial-gradient(circle at 80% 60%, rgba(0, 255, 200, 0.18), transparent 65%);
+  filter: blur(80px);
+  opacity: 0.9;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Garante que o conteúdo fique acima do glow */
+#nn-pro > *,
+.nossos-numeros > *,
+.section-numeros > *,
+.section--numbers > * {
+  position: relative !important;
+  z-index: 1 !important;
+}
 
 }
