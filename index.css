@@ -3372,4 +3372,46 @@ nav .nav-logo img{
   z-index: 1 !important;
 }
 
+/* =====================================
+   NEON BACKGROUND - NÃO PERCA MAIS TEMPO
+   ===================================== */
+
+#cta-tempo,
+.nao-perca-tempo,
+.section-tempo,
+.section--cta {
+  position: relative !important;
+  background:
+    radial-gradient(60% 45% at 40% 35%, rgba(0, 240, 255, 0.18), transparent 65%),
+    linear-gradient(180deg, #071b3a 0%, #050f24 100%) !important;
+  overflow: hidden !important;
+}
+
+/* Glow azul neon */
+#cta-tempo::before,
+.nao-perca-tempo::before,
+.section-tempo::before,
+.section--cta::before {
+  content: "";
+  position: absolute;
+  inset: -25%;
+  background:
+    radial-gradient(circle at 35% 35%, rgba(0, 242, 255, 0.45), transparent 60%),
+    radial-gradient(circle at 75% 55%, rgba(0, 140, 255, 0.30), transparent 65%),
+    radial-gradient(circle at 50% 80%, rgba(0, 255, 200, 0.20), transparent 70%);
+  filter: blur(90px);
+  opacity: 0.95;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Garante que o conteúdo fique acima do glow */
+#cta-tempo > *,
+.nao-perca-tempo > *,
+.section-tempo > *,
+.section--cta > * {
+  position: relative !important;
+  z-index: 1 !important;
+}
+
 }
