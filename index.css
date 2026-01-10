@@ -1993,15 +1993,15 @@ a:focus-visible, button:focus-visible{outline:2px solid var(--brand); outline-of
   background-repeat: no-repeat;
 }
 
-/* ===== RESPONSIVIDADE PARA CELULAR ===== */
 @media (max-width: 768px) {
-  /* Ajusta a sidebar */
   .sidebar {
     width: 100%;
     position: relative;
     height: auto;
     text-align: center;
   }
+} 
+
 
   .sidebar nav {
     display: flex;
@@ -3129,12 +3129,8 @@ body.nav-open .nav-overlay { pointer-events: auto; }
   align-items: center;
 }
 
-/* ===== HERO BUTTON — NAVY + ANIMAÇÃO (PATCH FINAL) ===== */
-.hero .botao-container{
-  overflow: visible !important;
-}
-
-.hero .botao-investir{
+/* ===== FORÇA BOTÃO AZUL MARINHO + ANIMAÇÃO (GLOBAL) ===== */
+.botao-investir{
   position: relative !important;
   display: inline-flex !important;
   align-items: center !important;
@@ -3152,24 +3148,18 @@ body.nav-open .nav-overlay { pointer-events: auto; }
   border: none !important;
   border-radius: 999px !important;
 
-  padding: 14px 26px !important; /* mantém o tamanho “padrão” */
+  padding: 14px 26px !important;
   cursor: pointer !important;
   outline: none !important;
 
   box-shadow: 12px 12px 24px rgba(7, 27, 58, 0.55) !important;
   transition: transform .3s ease, box-shadow .3s ease !important;
 
-  isolation: isolate !important;  /* garante camadas dos pseudos */
+  isolation: isolate !important;
   z-index: 0 !important;
 }
 
-/* mata qualquer hover antigo que trocava pra #28a0a4 */
-.hero .botao-investir:hover{
-  background: linear-gradient(90deg, #071b3a 0%, #0f2f63 100%) !important;
-}
-
-/* aro externo */
-.hero .botao-investir::before{
+.botao-investir::before{
   content: "" !important;
   position: absolute !important;
   top: 50% !important;
@@ -3188,8 +3178,7 @@ body.nav-open .nav-overlay { pointer-events: auto; }
   z-index: -1 !important;
 }
 
-/* pulso */
-.hero .botao-investir::after{
+.botao-investir::after{
   content: "" !important;
   position: absolute !important;
   top: 50% !important;
@@ -3205,18 +3194,18 @@ body.nav-open .nav-overlay { pointer-events: auto; }
   animation: presserRing 1.5s infinite !important;
 }
 
-.hero .botao-investir:hover,
-.hero .botao-investir:focus{
+.botao-investir:hover,
+.botao-investir:focus{
   transform: translateY(-6px) !important;
 }
 
-.hero .botao-investir:hover::before,
-.hero .botao-investir:focus::before{
+.botao-investir:hover::before,
+.botao-investir:focus::before{
   opacity: 1 !important;
 }
 
-.hero .botao-investir:hover::after,
-.hero .botao-investir:focus::after{
+.botao-investir:hover::after,
+.botao-investir:focus::after{
   animation: none !important;
   display: none !important;
 }
@@ -3226,14 +3215,5 @@ body.nav-open .nav-overlay { pointer-events: auto; }
   100% { width: 300px; height: 300px; opacity: 0; }
 }
 
-/* mobile */
-@media (max-width: 600px){
-  .hero .botao-investir{
-    width: 100% !important;
-    max-width: 320px !important;
-    font-size: 14px !important;
-    padding: 14px 18px !important;
-  }
-}
 
 }
