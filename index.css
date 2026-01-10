@@ -3370,4 +3370,119 @@ body.nav-open .nav-overlay { pointer-events: auto; }
   }
 }
 
+/* ===============================
+   BOTÃO HERO – ANIMAÇÃO + AZUL MARINHO
+   (SEM ALTERAR LAYOUT)
+================================ */
+
+/* Garante que o container não corte a animação */
+.hero .botao-container{
+  overflow: visible;
+}
+
+/* Estilo base do botão */
+.hero .botao-investir{
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  font-family: 'Poppins', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 1.3px;
+  text-transform: uppercase;
+
+  color: #ffffff;
+  background: linear-gradient(90deg, #071b3a 0%, #0f2f63 100%);
+  border: none;
+  border-radius: 999px;
+
+  padding: 12px 24px; /* mantém tamanho original */
+  cursor: pointer;
+  outline: none;
+
+  box-shadow: 0 10px 24px rgba(7, 27, 58, 0.55);
+  transition: transform .3s ease, box-shadow .3s ease;
+  z-index: 1;
+}
+
+/* ARO EXTERNO (hover/focus) */
+.hero .botao-investir::before{
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  width: calc(100% + 12px);
+  height: calc(100% + 12px);
+
+  border-radius: 999px;
+  border: 2px solid #1e4f91;
+  box-shadow: 0 0 40px rgba(30, 79, 145, 0.6);
+
+  opacity: 0;
+  transition: opacity .3s ease;
+  z-index: -1;
+}
+
+/* PULSO (ring animado) */
+.hero .botao-investir::after{
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 2px solid #1e4f91;
+
+  z-index: -2;
+  animation: presserRing 1.5s infinite;
+}
+
+/* Hover */
+.hero .botao-investir:hover,
+.hero .botao-investir:focus{
+  transform: translateY(-4px);
+}
+
+.hero .botao-investir:hover::before,
+.hero .botao-investir:focus::before{
+  opacity: 1;
+}
+
+.hero .botao-investir:hover::after,
+.hero .botao-investir:focus::after{
+  animation: none;
+  display: none;
+}
+
+/* Animação */
+@keyframes presserRing{
+  0%{
+    width: 28px;
+    height: 28px;
+    opacity: 1;
+  }
+  100%{
+    width: 260px;
+    height: 260px;
+    opacity: 0;
+  }
+}
+
+/* Mobile – não estoura layout */
+@media (max-width: 600px){
+  .hero .botao-investir{
+    max-width: 320px;
+    width: 100%;
+    font-size: 14px;
+    padding: 12px 18px;
+  }
+}
+
 }
