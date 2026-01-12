@@ -918,6 +918,27 @@ function renderMoneyRows(tbodyId, rows){
     `<tr><td>${fmtDate(r.data)}</td><td>${fmtUSDT2(Number(r.valor||0))}</td></tr>`
   ).join("");
 }
+
+/* =========================================================================
+   ✅ NOVO (NÃO REMOVE NADA): soma depósitos/saques para entrar no Patrimônio
+   ========================================================================= */
+async function sumWalletTable(tableName, userId){
+  const { data, error } = await sb
+    .from(tableName)
+    .select("valor")
+    .eq("user_id", userId)
+    .limit(10000);
+
+  if (error) throw error;
+
+  return (data || []).reduce((s, r) => s + Number(r.valor || 0), 0);
+}
+async function getNetFlows(userId){
+  const deposits = await sumWalletTable("wallet_deposits", userId);
+  const withdrawals = await sumWalletTable("wallet_withdrawals", userId);
+  return { deposits, withdrawals, net: deposits - withdrawals };
+}
+
 async function loadWallet(user){
   try{
     const { data: m } = await sb.from("metrics")
@@ -1035,9 +1056,17 @@ async function loadData(user){
       dailyRaw[iso]=(dailyRaw[iso]||0)+Number(r.lucro||0);
     });
 
-    // Valor Patrimonial AUTOMÁTICO (sincronizado pelos trades)
+    // ==========================================================
+    // ✅ ATUALIZADO (NÃO REMOVE NADA): trades + depósitos - saques
+    // ==========================================================
     const totalLucro = trades.reduce((s,r)=>s + Number(r.lucro||0), 0);
-    const patrAutomatico = Number(m.valor_inicial || 0) + totalLucro;
+    const flows = await getNetFlows(user.id); // { deposits, withdrawals, net }
+
+    const patrAutomatico =
+      Number(m.valor_inicial || 0) +
+      totalLucro +
+      Number(flows.net || 0);
+
     __PATRIMONIO_ATUAL = patrAutomatico;
     setValorPatrimonial(patrAutomatico);
 

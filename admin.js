@@ -1,6 +1,6 @@
 // === CHAVES DO PROJETO (mesmas do site) ===
 const SUPABASE_URL = "https://dmydhaompvanujvpkngz.supabase.co";
-const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRteWRoYW9tcHZhbnVqdnBrbmd6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTU3NDEzNjUsImV4cCI6MjA3MTMxNzM2NX0.xPxalOxi4PR0z7Jo9m2JodFF4Z8Eiw0U-pAxDMFvvV0";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXalOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRteWRoYW9tcHZhbnVqdnBrbmd6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTU3NDEzNjUsImV4cCI6MjA3MTMxNzM2NX0.xPxalOxi4PR0z7Jo9m2JodFF4Z8Eiw0U-pAxDMFvvV0";
 const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 // === Tabelas existentes ===
@@ -73,6 +73,66 @@ function uniqueBy(arr, keyFn){
   return out;
 }
 
+/* =========================================================================
+   ✅ NOVO (sem remover nada): Recalcular VP baseado em:
+   valor_inicial + SUM(trades.lucro) + SUM(depositos) - SUM(saques)
+   E opcionalmente impedir saque > VP atual
+   ========================================================================= */
+
+async function sumColumnByUser(tableName, userId, colName){
+  const { data, error } = await sb
+    .from(tableName)
+    .select(colName)
+    .eq('user_id', userId)
+    .limit(10000);
+
+  if (error) throw error;
+  return (data || []).reduce((s, r) => s + Number(r?.[colName] || 0), 0);
+}
+
+async function computeAutoVP(userId){
+  const { data: m, error: eM } = await sb
+    .from(T_METRICS)
+    .select('valor_inicial')
+    .eq('user_id', userId)
+    .maybeSingle();
+
+  if (eM) throw eM;
+
+  const valorInicial = Number(m?.valor_inicial || 0);
+
+  const lucroTrades = await sumColumnByUser(T_TRADES, userId, 'lucro');
+  const totalDeps   = await sumColumnByUser(T_DEPS,   userId, 'valor');
+  const totalSaqs   = await sumColumnByUser(T_SAQS,   userId, 'valor');
+
+  const vp = valorInicial + Number(lucroTrades || 0) + Number(totalDeps || 0) - Number(totalSaqs || 0);
+
+  return {
+    valor_inicial: valorInicial,
+    lucro_trades: Number(lucroTrades || 0),
+    deposits: Number(totalDeps || 0),
+    withdrawals: Number(totalSaqs || 0),
+    valor_patrimonial: vp
+  };
+}
+
+async function syncMetricsVP(userId){
+  const snap = await computeAutoVP(userId);
+  const payload = {
+    user_id: userId,
+    valor_patrimonial: Number(snap.valor_patrimonial || 0),
+    updated_at: new Date().toISOString()
+  };
+  const { error } = await sb.from(T_METRICS).upsert(payload, { onConflict: 'user_id' });
+  if (error) throw error;
+
+  // mantém o input VP do admin atualizado (sem mexer em outros campos)
+  const VP = document.getElementById('vp');
+  if (VP) VP.value = payload.valor_patrimonial;
+
+  return snap;
+}
+
 // ===== Segurança =====
 async function requireAdmin(){
   const { data:{ user } } = await sb.auth.getUser();
@@ -105,13 +165,20 @@ function updateSelectedInfo(){
   const txt = sel?.options?.[sel.selectedIndex]?.textContent || ''; if (p) p.textContent = txt?`Cliente selecionado: ${txt}`:'';
 }
 function clearLists(){ ['tbody-trades','tbody-deps','tbody-saqs'].forEach(id=>{ const el=document.getElementById(id); if (el) el.innerHTML=''; }); }
+
 async function loadClientData(){
   if(!selectedUserId) return;
+
   const { data:m } = await sb.from(T_METRICS).select('valor_inicial,valor_patrimonial,lucro_mensal_pct,acertividade').eq('user_id', selectedUserId).maybeSingle();
   const VI=document.getElementById('vi'), VP=document.getElementById('vp'), LM=document.getElementById('lm'), AC=document.getElementById('ac');
-  if (VI) VI.value = m?.valor_inicial ?? ''; if (VP) VP.value = m?.valor_patrimonial ?? ''; if (LM) LM.value = m?.lucro_mensal_pct ?? ''; if (AC) AC.value = m?.acertividade ?? '';
+  if (VI) VI.value = m?.valor_inicial ?? '';
+  if (VP) VP.value = m?.valor_patrimonial ?? '';
+  if (LM) LM.value = m?.lucro_mensal_pct ?? '';
+  if (AC) AC.value = m?.acertividade ?? '';
+
   const { data:tRows } = await sb.from(T_TRADES).select('id,data,operacao,lucro').eq('user_id', selectedUserId).order('data',{ascending:false}).limit(50);
-    // --- Habilitar/desabilitar botões de Depósito/Saque para usuários específicos ---
+
+  // --- Habilitar/desabilitar botões de Depósito/Saque para usuários específicos ---
   try {
     // busca o perfil do usuário selecionado para checar nome/email/identidade
     const { data: profile } = await sb.from('profiles').select('user_id, email, full_name').eq('user_id', selectedUserId).maybeSingle();
@@ -140,12 +207,20 @@ async function loadClientData(){
     if (btnDep) btnDep.disabled = true;
     if (btnSaq) btnSaq.disabled = true;
   }
+
   renderTrades(tRows||[]);
+
   const { data:dRows } = await sb.from(T_DEPS).select('data,valor').eq('user_id', selectedUserId).order('data',{ascending:false}).limit(50);
   renderMoneyList('tbody-deps', dRows||[]);
+
   const { data:sRows } = await sb.from(T_SAQS).select('data,valor').eq('user_id', selectedUserId).order('data',{ascending:false}).limit(50);
   renderMoneyList('tbody-saqs', sRows||[]);
+
+  // ✅ NOVO: após carregar tudo, sincroniza VP automático (sem remover nada)
+  // Isso resolve: depósito soma no patrimônio e saque subtrai.
+  try { await syncMetricsVP(selectedUserId); } catch(e){ console.warn('[dbg] syncMetricsVP(loadClientData):', e?.message||e); }
 }
+
 function renderTrades(rows){
   const tbody=document.getElementById('tbody-trades'); if (!tbody) return;
   tbody.innerHTML=''; if (!rows.length){ setMsg('msg-trades','Nenhuma operação lançada.'); return; }
@@ -165,6 +240,8 @@ function renderTrades(rows){
       const { error } = await sb.from(T_TRADES).delete().eq('id', id).eq('user_id', selectedUserId);
       if (error){ alert('Erro ao excluir.'); return; }
       await loadClientData();
+      // ✅ NOVO: garante VP atualizado ao deletar trade
+      try { await syncMetricsVP(selectedUserId); } catch(_){}
     });
   });
 }
@@ -189,6 +266,9 @@ async function saveMetrics(){
   const { error } = await sb.from(T_METRICS).upsert(payload,{ onConflict:'user_id' });
   if (error){ console.error(error); setMsg('msg-metrics','Erro ao salvar.','err'); return; }
   setMsg('msg-metrics','Métricas salvas com sucesso.','ok'); setTimeout(()=>setMsg('msg-metrics',''),2500);
+
+  // ✅ NOVO: se o admin mexer no valor_inicial, re-sync do VP automático
+  try { await syncMetricsVP(selectedUserId); } catch(_){}
 }
 
 // ===== Lançar trade (APENAS Dashboard) =====
@@ -204,6 +284,8 @@ async function addTrade(){
   setMsg('msg-trade','Operação lançada no Dashboard.','ok');
   document.getElementById('trade-op').value=''; document.getElementById('trade-profit').value='';
   await loadClientData();
+  // ✅ NOVO: trade altera VP, então re-sync
+  try { await syncMetricsVP(selectedUserId); } catch(_){}
 }
 
 // ===== Depósito/Saque (aba Operações) =====
@@ -212,18 +294,46 @@ async function addDeposit(){
   const d=document.getElementById('dep-date').value || todayISO();
   const v=parseNumber(document.getElementById('dep-value').value);
   if (v==null){ setMsg('msg-dep','Informe o valor.','err'); return; }
+
   const { error } = await sb.from(T_DEPS).insert({ user_id:selectedUserId, data:new Date(d).toISOString(), valor:v });
   if (error){ console.error(error); setMsg('msg-dep','Erro ao lançar depósito.','err'); return; }
-  setMsg('msg-dep','Depósito lançado!','ok'); document.getElementById('dep-value').value=''; await loadClientData();
+
+  // ✅ NOVO: depósito soma no VP (sincroniza métricas)
+  try { await syncMetricsVP(selectedUserId); } catch(e){ console.warn('[dbg] syncMetricsVP(dep):', e?.message||e); }
+
+  setMsg('msg-dep','Depósito lançado!','ok');
+  document.getElementById('dep-value').value='';
+  await loadClientData();
 }
+
 async function addWithdrawal(){
   if(!selectedUserId) return;
   const d=document.getElementById('saq-date').value || todayISO();
   const v=parseNumber(document.getElementById('saq-value').value);
   if (v==null){ setMsg('msg-saq','Informe o valor.','err'); return; }
+
+  // ✅ NOVO: impede saque maior que o patrimônio atual calculado
+  try{
+    const snap = await computeAutoVP(selectedUserId);
+    const vpNow = Number(snap?.valor_patrimonial || 0);
+    if (v > vpNow){
+      setMsg('msg-saq',`Saque maior que o patrimônio atual (${fmtUSDT2(vpNow)}).`, 'err');
+      return;
+    }
+  }catch(e){
+    console.warn('[dbg] computeAutoVP(saq) falhou:', e?.message||e);
+    // se falhar a validação, segue como estava (não bloqueia), para não quebrar a operação
+  }
+
   const { error } = await sb.from(T_SAQS).insert({ user_id:selectedUserId, data:new Date(d).toISOString(), valor:v });
   if (error){ console.error(error); setMsg('msg-saq','Erro ao lançar saque.','err'); return; }
-  setMsg('msg-saq','Saque lançado!','ok'); document.getElementById('saq-value').value=''; await loadClientData();
+
+  // ✅ NOVO: saque subtrai do VP (sincroniza métricas)
+  try { await syncMetricsVP(selectedUserId); } catch(e){ console.warn('[dbg] syncMetricsVP(saq):', e?.message||e); }
+
+  setMsg('msg-saq','Saque lançado!','ok');
+  document.getElementById('saq-value').value='';
+  await loadClientData();
 }
 
 /* =========================================================================
