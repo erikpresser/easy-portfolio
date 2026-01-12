@@ -1,6 +1,6 @@
 // === CHAVES DO PROJETO (mesmas do site) ===
 const SUPABASE_URL = "https://dmydhaompvanujvpkngz.supabase.co";
-const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXalOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRteWRoYW9tcHZhbnVqdnBrbmd6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTU3NDEzNjUsImV4cCI6MjA3MTMxNzM2NX0.xPxalOxi4PR0z7Jo9m2JodFF4Z8Eiw0U-pAxDMFvvV0";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRteWRoYW9tcHZhbnVqdnBrbmd6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTU3NDEzNjUsImV4cCI6MjA3MTMxNzM2NX0.xPxalOxi4PR0z7Jo9m2JodFF4Z8Eiw0U-pAxDMFvvV0";
 const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 // === Tabelas existentes ===
@@ -137,9 +137,21 @@ async function syncMetricsVP(userId){
 async function requireAdmin(){
   const { data:{ user } } = await sb.auth.getUser();
   if (!user){ window.location.href='index.html'; return null; }
-  const emailEl = document.getElementById('admin-email'); if (emailEl) emailEl.textContent = user.email||'';
-  const { data: prof, error } = await sb.from('profiles').select('is_admin').eq('user_id', user.id).maybeSingle();
-  if (error || !prof?.is_admin){ alert('Acesso restrito a administradores.'); window.location.href='dashboard.html'; return null; }
+
+  const emailEl = document.getElementById('admin-email');
+  if (emailEl) emailEl.textContent = user.email||'';
+
+  const { data: prof, error } = await sb
+    .from('profiles')
+    .select('is_admin')
+    .eq('user_id', user.id)
+    .maybeSingle();
+
+  if (error || !prof?.is_admin){
+    alert('Acesso restrito a administradores.');
+    window.location.href='dashboard.html';
+    return null;
+  }
   return user;
 }
 
@@ -169,21 +181,33 @@ function clearLists(){ ['tbody-trades','tbody-deps','tbody-saqs'].forEach(id=>{ 
 async function loadClientData(){
   if(!selectedUserId) return;
 
-  const { data:m } = await sb.from(T_METRICS).select('valor_inicial,valor_patrimonial,lucro_mensal_pct,acertividade').eq('user_id', selectedUserId).maybeSingle();
+  const { data:m } = await sb
+    .from(T_METRICS)
+    .select('valor_inicial,valor_patrimonial,lucro_mensal_pct,acertividade')
+    .eq('user_id', selectedUserId)
+    .maybeSingle();
+
   const VI=document.getElementById('vi'), VP=document.getElementById('vp'), LM=document.getElementById('lm'), AC=document.getElementById('ac');
   if (VI) VI.value = m?.valor_inicial ?? '';
   if (VP) VP.value = m?.valor_patrimonial ?? '';
   if (LM) LM.value = m?.lucro_mensal_pct ?? '';
   if (AC) AC.value = m?.acertividade ?? '';
 
-  const { data:tRows } = await sb.from(T_TRADES).select('id,data,operacao,lucro').eq('user_id', selectedUserId).order('data',{ascending:false}).limit(50);
+  const { data:tRows } = await sb
+    .from(T_TRADES)
+    .select('id,data,operacao,lucro')
+    .eq('user_id', selectedUserId)
+    .order('data',{ascending:false})
+    .limit(50);
 
   // --- Habilitar/desabilitar botões de Depósito/Saque para usuários específicos ---
   try {
-    // busca o perfil do usuário selecionado para checar nome/email/identidade
-    const { data: profile } = await sb.from('profiles').select('user_id, email, full_name').eq('user_id', selectedUserId).maybeSingle();
+    const { data: profile } = await sb
+      .from('profiles')
+      .select('user_id, email, full_name')
+      .eq('user_id', selectedUserId)
+      .maybeSingle();
 
-    // regra: habilita se for Erik Presser OU se for Presser Investment (verifica full_name ou email ou rótulo)
     const isErik = profile && (
       (profile.full_name && profile.full_name.toLowerCase().includes('erik')) ||
       (profile.email && profile.email.toLowerCase().includes('erik'))
@@ -201,7 +225,6 @@ async function loadClientData(){
     if (btnSaq) btnSaq.disabled = !shouldEnable;
   } catch (e) {
     console.warn('Erro ao verificar perfil para habilitar botões:', e);
-    // por segurança, desabilita
     const btnDep = document.getElementById('add-dep');
     const btnSaq = document.getElementById('add-saq');
     if (btnDep) btnDep.disabled = true;
@@ -210,15 +233,25 @@ async function loadClientData(){
 
   renderTrades(tRows||[]);
 
-  const { data:dRows } = await sb.from(T_DEPS).select('data,valor').eq('user_id', selectedUserId).order('data',{ascending:false}).limit(50);
+  const { data:dRows } = await sb
+    .from(T_DEPS)
+    .select('data,valor')
+    .eq('user_id', selectedUserId)
+    .order('data',{ascending:false})
+    .limit(50);
   renderMoneyList('tbody-deps', dRows||[]);
 
-  const { data:sRows } = await sb.from(T_SAQS).select('data,valor').eq('user_id', selectedUserId).order('data',{ascending:false}).limit(50);
+  const { data:sRows } = await sb
+    .from(T_SAQS)
+    .select('data,valor')
+    .eq('user_id', selectedUserId)
+    .order('data',{ascending:false})
+    .limit(50);
   renderMoneyList('tbody-saqs', sRows||[]);
 
-  // ✅ NOVO: após carregar tudo, sincroniza VP automático (sem remover nada)
-  // Isso resolve: depósito soma no patrimônio e saque subtrai.
-  try { await syncMetricsVP(selectedUserId); } catch(e){ console.warn('[dbg] syncMetricsVP(loadClientData):', e?.message||e); }
+  // ✅ NOVO: sincroniza VP automático
+  try { await syncMetricsVP(selectedUserId); }
+  catch(e){ console.warn('[dbg] syncMetricsVP(loadClientData):', e?.message||e); }
 }
 
 function renderTrades(rows){
@@ -240,15 +273,25 @@ function renderTrades(rows){
       const { error } = await sb.from(T_TRADES).delete().eq('id', id).eq('user_id', selectedUserId);
       if (error){ alert('Erro ao excluir.'); return; }
       await loadClientData();
-      // ✅ NOVO: garante VP atualizado ao deletar trade
+      // ✅ NOVO: garante VP atualizado
       try { await syncMetricsVP(selectedUserId); } catch(_){}
     });
   });
 }
 function renderMoneyList(tbodyId, rows){
   const tb=document.getElementById(tbodyId); if (!tb) return;
-  tb.innerHTML=''; if(!rows.length){ const tr=document.createElement('tr'); tr.innerHTML='<td colspan="2" class="muted">Sem registros.</td>'; tb.appendChild(tr); return; }
-  rows.forEach(r=>{ const tr=document.createElement('tr'); tr.innerHTML=`<td>${fmtDate(r.data)}</td><td>${fmtUSDT2(r.valor)}</td>`; tb.appendChild(tr); });
+  tb.innerHTML='';
+  if(!rows.length){
+    const tr=document.createElement('tr');
+    tr.innerHTML='<td colspan="2" class="muted">Sem registros.</td>';
+    tb.appendChild(tr);
+    return;
+  }
+  rows.forEach(r=>{
+    const tr=document.createElement('tr');
+    tr.innerHTML=`<td>${fmtDate(r.data)}</td><td>${fmtUSDT2(r.valor)}</td>`;
+    tb.appendChild(tr);
+  });
 }
 
 // ===== Salvar métricas =====
@@ -263,11 +306,13 @@ async function saveMetrics(){
   if (valor_patrimonial!=null) payload.valor_patrimonial=valor_patrimonial;
   if (lucro_mensal_pct!=null) payload.lucro_mensal_pct=lucro_mensal_pct;
   if (acertividade!=null) payload.acertividade=acertividade;
+
   const { error } = await sb.from(T_METRICS).upsert(payload,{ onConflict:'user_id' });
   if (error){ console.error(error); setMsg('msg-metrics','Erro ao salvar.','err'); return; }
-  setMsg('msg-metrics','Métricas salvas com sucesso.','ok'); setTimeout(()=>setMsg('msg-metrics',''),2500);
+  setMsg('msg-metrics','Métricas salvas com sucesso.','ok');
+  setTimeout(()=>setMsg('msg-metrics',''),2500);
 
-  // ✅ NOVO: se o admin mexer no valor_inicial, re-sync do VP automático
+  // ✅ NOVO: se mexer no valor_inicial, re-sync do VP automático
   try { await syncMetricsVP(selectedUserId); } catch(_){}
 }
 
@@ -282,7 +327,8 @@ async function addTrade(){
   const { error } = await sb.from(T_TRADES).insert({ user_id:selectedUserId, data:iso, operacao:op, lucro:pr });
   if (error){ console.error(error); setMsg('msg-trade','Erro ao lançar.','err'); return; }
   setMsg('msg-trade','Operação lançada no Dashboard.','ok');
-  document.getElementById('trade-op').value=''; document.getElementById('trade-profit').value='';
+  document.getElementById('trade-op').value='';
+  document.getElementById('trade-profit').value='';
   await loadClientData();
   // ✅ NOVO: trade altera VP, então re-sync
   try { await syncMetricsVP(selectedUserId); } catch(_){}
@@ -298,7 +344,7 @@ async function addDeposit(){
   const { error } = await sb.from(T_DEPS).insert({ user_id:selectedUserId, data:new Date(d).toISOString(), valor:v });
   if (error){ console.error(error); setMsg('msg-dep','Erro ao lançar depósito.','err'); return; }
 
-  // ✅ NOVO: depósito soma no VP (sincroniza métricas)
+  // ✅ NOVO: depósito soma no VP
   try { await syncMetricsVP(selectedUserId); } catch(e){ console.warn('[dbg] syncMetricsVP(dep):', e?.message||e); }
 
   setMsg('msg-dep','Depósito lançado!','ok');
@@ -322,13 +368,13 @@ async function addWithdrawal(){
     }
   }catch(e){
     console.warn('[dbg] computeAutoVP(saq) falhou:', e?.message||e);
-    // se falhar a validação, segue como estava (não bloqueia), para não quebrar a operação
+    // se falhar, segue como estava
   }
 
   const { error } = await sb.from(T_SAQS).insert({ user_id:selectedUserId, data:new Date(d).toISOString(), valor:v });
   if (error){ console.error(error); setMsg('msg-saq','Erro ao lançar saque.','err'); return; }
 
-  // ✅ NOVO: saque subtrai do VP (sincroniza métricas)
+  // ✅ NOVO: saque subtrai do VP
   try { await syncMetricsVP(selectedUserId); } catch(e){ console.warn('[dbg] syncMetricsVP(saq):', e?.message||e); }
 
   setMsg('msg-saq','Saque lançado!','ok');
@@ -343,7 +389,8 @@ async function addWithdrawal(){
 // ---- Modal simples (dep/saq pool) ----
 const PoolModal = {
   mode:null, userId:null,
-  open({mode, userId, title}){ this.mode=mode; this.userId=userId;
+  open({mode, userId, title}){
+    this.mode=mode; this.userId=userId;
     const m=document.getElementById('pool-modal');
     document.getElementById('pool-modal-title').textContent = title||'Ajustar Cliente';
     document.getElementById('pool-modal-date').value = todayISO();
@@ -359,7 +406,12 @@ async function poolLoadUserSelect(){
   const sel=document.getElementById('pool-sel-user'); if(!sel) return;
   const { data, error } = await sb.from('profiles').select('user_id,email,full_name').order('email',{ascending:true});
   sel.innerHTML=''; if (error){ console.warn(error); return; }
-  (data||[]).forEach(u=>{ const opt=document.createElement('option'); opt.value=u.user_id; opt.textContent=u.email+(u.full_name?` — ${u.full_name}`:''); sel.appendChild(opt); });
+  (data||[]).forEach(u=>{
+    const opt=document.createElement('option');
+    opt.value=u.user_id;
+    opt.textContent=u.email+(u.full_name?` — ${u.full_name}`:'');
+    sel.appendChild(opt);
+  });
 }
 
 // ---- Remover cliente do pool ----
@@ -384,7 +436,6 @@ async function poolLoadSummaryAndList(){
   if (!tbody) return;
   if (msgC) msgC.textContent='';
 
-  // Clientes (cru)
   const { data: pcRaw, error } = await sb.from(T_POOL_CLIENTS)
     .select('user_id,patrimonio,split_client_pct,split_presser_pct');
   if (mySeq!==poolListSeq) return;
@@ -399,42 +450,43 @@ async function poolLoadSummaryAndList(){
     console.error(error); if (msgC) msgC.textContent='Erro ao carregar clientes do pool.'; if (tbody) tbody.innerHTML=''; return;
   }
 
-  // Perfis (para email)
   const ids=(pcRaw||[]).map(r=>r.user_id);
-  let profiles=[]; if (ids.length){ const { data:pf } = await sb.from('profiles').select('user_id,email,full_name').in('user_id', ids); if (mySeq!==poolListSeq) return; profiles=pf||[]; }
+  let profiles=[];
+  if (ids.length){
+    const { data:pf } = await sb.from('profiles').select('user_id,email,full_name').in('user_id', ids);
+    if (mySeq!==poolListSeq) return;
+    profiles=pf||[];
+  }
   const mapP=new Map(profiles.map(p=>[p.user_id,p]));
 
-  // Última operação do pool
   const { data:lastOpArr } = await sb.from(T_POOL_OPS).select('id,date,operacao,repasse_presser').order('date',{ascending:false}).limit(1);
   const lastOp = (lastOpArr&&lastOpArr[0])||null;
 
-  // Monta lista rotulada e dedup por email
   let pcLabeled=(pcRaw||[]).map(r=>{
     const prof=mapP.get(r.user_id); const label=(prof?.email||r.user_id||'').trim();
     return { ...r, label };
   }).filter(r=>r.label.toLowerCase()!=='presser investment');
   pcLabeled = uniqueBy(pcLabeled, r => (r.label||'').toLowerCase());
 
-  // Patrimônio "virtual" Presser (acumulado de todas as operações)
   const { data: opsAll } = await sb.from(T_POOL_OPS).select('repasse_presser');
   if (mySeq!==poolListSeq) return;
   const presserTotal = (opsAll||[]).reduce((s,r)=> s + Number(r.repasse_presser||0), 0);
 
-  // KPIs com Presser incluída no montante
   const poolTotalWithoutPresser = pcLabeled.reduce((s,r)=> s + Number(r.patrimonio||0), 0);
   const poolTotal = poolTotalWithoutPresser + Math.max(0, presserTotal);
-  const nClients = pcLabeled.length + 1; // + Presser
+  const nClients = pcLabeled.length + 1;
 
-  // split padrão (somente clientes reais)
   let sameSplit=true, sC=null, sP=null;
-  pcLabeled.forEach(r=>{ if (sC==null){ sC=r.split_client_pct; sP=r.split_presser_pct; } else if (sC!==r.split_client_pct||sP!==r.split_presser_pct){ sameSplit=false; }});
+  pcLabeled.forEach(r=>{
+    if (sC==null){ sC=r.split_client_pct; sP=r.split_presser_pct; }
+    else if (sC!==r.split_client_pct||sP!==r.split_presser_pct){ sameSplit=false; }
+  });
 
   if (totalEl) totalEl.textContent = fmtUSDT2(poolTotal);
   if (nEl) nEl.textContent = String(nClients);
   if (splitCEl) splitCEl.textContent = sameSplit&&sC!=null?String(sC):"—";
   if (splitPEl) splitPEl.textContent = sameSplit&&sP!=null?String(sP):"—";
 
-  // "Lucro Última Operação" por cliente real (ledger da data da última op)
   let lastByUser = new Map();
   if (lastOp){
     const { data: ledRows } = await sb.from(T_POOL_LEDGER)
@@ -444,7 +496,6 @@ async function poolLoadSummaryAndList(){
     (ledRows||[]).forEach(r=> lastByUser.set(r.user_id, Number(r.amount||0)));
   }
 
-  // Render clientes reais
   tbody.innerHTML='';
   pcLabeled.forEach(r=>{
     const pct = poolTotal>0 ? (Number(r.patrimonio||0)/poolTotal)*100 : 0;
@@ -464,7 +515,6 @@ async function poolLoadSummaryAndList(){
     tbody.appendChild(tr);
   });
 
-  // Linha da Presser
   const presserPct = poolTotal>0 ? (Math.max(0, presserTotal)/poolTotal)*100 : 0;
   const presserLast = lastOp ? Number(lastOp.repasse_presser||0) : 0;
 
@@ -478,7 +528,6 @@ async function poolLoadSummaryAndList(){
     <td class="muted">—</td>`;
   tbody.appendChild(trP);
 
-  // binds
   tbody.querySelectorAll('button[data-act]').forEach(btn=>{
     const act=btn.dataset.act, uid=btn.dataset.id;
     if (act==='dep'||act==='saq'){
@@ -486,7 +535,9 @@ async function poolLoadSummaryAndList(){
         const title = act==='dep'?'Lançar Depósito (Pool)':'Lançar Saque (Pool)';
         PoolModal.open({mode:act,userId:uid,title});
       });
-    } else if (act==='del-client'){ btn.addEventListener('click', ()=> poolRemoveClient(uid)); }
+    } else if (act==='del-client'){
+      btn.addEventListener('click', ()=> poolRemoveClient(uid));
+    }
   });
 }
 
@@ -505,14 +556,18 @@ async function poolAddOrUpdateClient(){
   if (!cur){ payload.created_at=new Date().toISOString(); payload.patrimonio=iniDep||0; }
 
   const { error } = await sb.from(T_POOL_CLIENTS).upsert(payload,{ onConflict:'user_id' });
-  if (error){ if (safeTableError(error)){ setMsg('pool-msg-add','Crie as tabelas do Pool no Supabase.','err'); return; } console.error(error); setMsg('pool-msg-add','Erro ao salvar no Pool.','err'); return; }
+  if (error){
+    if (safeTableError(error)){ setMsg('pool-msg-add','Crie as tabelas do Pool no Supabase.','err'); return; }
+    console.error(error); setMsg('pool-msg-add','Erro ao salvar no Pool.','err'); return;
+  }
 
   if (!cur && iniDep && iniDep>0){
     await sb.from(T_POOL_LEDGER).insert({ user_id:selUser.value, date:new Date().toISOString(), type:'dep', amount:round4(iniDep), meta:{note:'dep_inicial'} });
   }
 
   setMsg('pool-msg-add','Salvo no Pool.','ok');
-  document.getElementById('pool-initial-dep').value=''; await poolLoadSummaryAndList();
+  document.getElementById('pool-initial-dep').value='';
+  await poolLoadSummaryAndList();
 }
 
 // ---- Modal dep/saq ----
@@ -548,18 +603,19 @@ async function poolAddOperation(){
   try{
     await poolApplyOperation({ dateISO:new Date(d).toISOString(), operacao:op, pnlTotal:pnl });
     setMsg('pool-msg','Operação lançada no Pool.','ok');
-    const opEl=document.getElementById('pool-op'); const pnlEl=document.getElementById('pool-pnl'); if (opEl) opEl.value=''; if (pnlEl) pnlEl.value='';
+    const opEl=document.getElementById('pool-op');
+    const pnlEl=document.getElementById('pool-pnl');
+    if (opEl) opEl.value='';
+    if (pnlEl) pnlEl.value='';
   }catch(e){ console.error(e); setMsg('pool-msg','Erro ao lançar no Pool.','err'); }
 }
 
 // ---- Rateio de operação (inclui Presser como participante 100%) ----
 async function poolApplyOperation({ dateISO, operacao, pnlTotal }){
-  // clientes reais
   const { data: pcRaw, error } = await sb.from(T_POOL_CLIENTS).select('user_id,patrimonio,split_client_pct,split_presser_pct');
   if (error){ if (safeTableError(error)) return; throw error; }
   const pc = dedupeByUserId(pcRaw);
 
-  // patrimônio atual da Presser (acumulado)
   const { data: opsAll } = await sb.from(T_POOL_OPS).select('repasse_presser');
   const presserPat = (opsAll||[]).reduce((s,r)=> s + Number(r.repasse_presser||0), 0);
 
@@ -571,14 +627,13 @@ async function poolApplyOperation({ dateISO, operacao, pnlTotal }){
 
   const isGain = pnlTotal >= 0;
 
-  let presserFee = 0;             // % da Presser (fee sobre shares)
-  let presserCapShare = 0;        // participação por capital próprio
-  let distributedToClients = 0;   // soma a clientes
+  let presserFee = 0;
+  let presserCapShare = 0;
+  let distributedToClients = 0;
 
   const updates = [];
   const ledgers = [];
 
-  // clientes reais
   pc.forEach(r=>{
     const weight = Number(r.patrimonio||0) / poolTotal;
     if (isGain){
@@ -593,18 +648,16 @@ async function poolApplyOperation({ dateISO, operacao, pnlTotal }){
       updates.push({ user_id:r.user_id, patrimonio:novo });
       ledgers.push({ user_id:r.user_id, date:dateISO, type:'pnl_pos', amount:clientGain, meta:{ operacao }});
     } else {
-      const loss = round4(pnlTotal * weight); // negativo
+      const loss = round4(pnlTotal * weight);
       const novo = Math.max(0, round4(Number(r.patrimonio||0) + loss));
       updates.push({ user_id:r.user_id, patrimonio:novo });
       ledgers.push({ user_id:r.user_id, date:dateISO, type:'pnl_neg', amount:loss, meta:{ operacao }});
     }
   });
 
-  // participação por capital da Presser (100% do share dela)
   const presserWeight = Math.max(0, presserPat) / poolTotal;
-  presserCapShare = round4(pnlTotal * presserWeight); // pode ser negativo
+  presserCapShare = round4(pnlTotal * presserWeight);
 
-  // aplica updates dos clientes
   for (const u of updates){
     const { error:eU } = await sb.from(T_POOL_CLIENTS).update({ patrimonio:u.patrimonio, updated_at:new Date().toISOString() }).eq('user_id', u.user_id);
     if (eU) throw eU;
@@ -614,7 +667,6 @@ async function poolApplyOperation({ dateISO, operacao, pnlTotal }){
     if (eL) throw eL;
   }
 
-  // registra operação: repasse_presser = fee + participação por capital
   const repassePresser = round4((isGain ? presserFee : 0) + presserCapShare);
 
   const { error:eO } = await sb.from(T_POOL_OPS).insert({
@@ -671,7 +723,8 @@ async function poolLoadHistory(){
 function poolBindUI(){
   const addBtn=document.getElementById('pool-add-client'); if (addBtn) addBtn.addEventListener('click', poolAddOrUpdateClient);
   const mOk=document.getElementById('pool-modal-confirm'); const mNo=document.getElementById('pool-modal-cancel');
-  if (mOk) mOk.addEventListener('click', poolModalConfirm); if (mNo) mNo.addEventListener('click', poolModalCancel);
+  if (mOk) mOk.addEventListener('click', poolModalConfirm);
+  if (mNo) mNo.addEventListener('click', poolModalCancel);
   const poolBtn=document.getElementById('pool-add-op'); if (poolBtn) poolBtn.addEventListener('click', poolAddOperation);
 }
 async function poolInit(){ await poolLoadUserSelect(); await poolLoadSummaryAndList(); await poolLoadHistory(); }
@@ -683,7 +736,12 @@ async function poolInit(){ await poolLoadUserSelect(); await poolLoadSummaryAndL
   currentUser = await requireAdmin(); if(!currentUser) return;
 
   const btnLogout=document.getElementById('logout');
-  if (btnLogout){ btnLogout.addEventListener('click', async()=>{ await sb.auth.signOut(); window.location.href='index.html'; }); }
+  if (btnLogout){
+    btnLogout.addEventListener('click', async()=>{
+      await sb.auth.signOut();
+      window.location.href='index.html';
+    });
+  }
 
   // ---- ABA OPERAÇÕES ----
   const refBtn=document.getElementById('refresh-users');
@@ -691,7 +749,11 @@ async function poolInit(){ await poolLoadUserSelect(); await poolLoadSummaryAndL
   const selUsr=document.getElementById('sel-user');
   if (refBtn) refBtn.addEventListener('click', ()=> loadUsers(srcInp?.value||''));
   if (srcInp) srcInp.addEventListener('input', e=> loadUsers(e.target.value));
-  if (selUsr) selUsr.addEventListener('change', e=>{ selectedUserId=e.target.value||null; updateSelectedInfo(); loadClientData(); });
+  if (selUsr) selUsr.addEventListener('change', e=>{
+    selectedUserId=e.target.value||null;
+    updateSelectedInfo();
+    loadClientData();
+  });
 
   const bSave=document.getElementById('save-metrics');
   const bTrade=document.getElementById('add-trade');
@@ -711,8 +773,14 @@ async function poolInit(){ await poolLoadUserSelect(); await poolLoadSummaryAndL
   // ---- ABA CLIENTES (POOL) ----
   poolBindUI();
   document.querySelectorAll('.side-link').forEach(btn=>{
-    btn.addEventListener('click', ()=>{ if (btn.dataset.tab==='clientes'){ poolInit().catch(e=>console.warn('poolInit:', e?.message||e)); } });
+    btn.addEventListener('click', ()=>{
+      if (btn.dataset.tab==='clientes'){
+        poolInit().catch(e=>console.warn('poolInit:', e?.message||e));
+      }
+    });
   });
   const panelClientes=document.getElementById('tab-clientes');
-  if (panelClientes && panelClientes.classList.contains('is-active')){ poolInit().catch(()=>{}); }
+  if (panelClientes && panelClientes.classList.contains('is-active')){
+    poolInit().catch(()=>{});
+  }
 })();
