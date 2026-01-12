@@ -1209,10 +1209,21 @@ function stopInicio() {
 /* =========================================================================
    Init
    ========================================================================= */
+function maskEmail(email){
+  if(!email || typeof email !== "string") return "";
+  const [local, domain] = email.split("@");
+  if(!domain) return email;
+
+  const first3 = (local || "").slice(0, 3);
+  return `${first3}...@${domain}`;
+}
+
 (async()=>{
   const { data:{user} } = await sb.auth.getUser();
   if(!user){ window.location.href="index.html"; return; }
-  const el=document.getElementById("user-email"); if(el) el.textContent=user.email||"";
+
+  const el = document.getElementById("user-email");
+  if(el) el.textContent = maskEmail(user.email || "");
 
   try{
     const { data:prof }=await sb.from("profiles").select("user_id,is_admin").eq("user_id",user.id).maybeSingle();
