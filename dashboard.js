@@ -1221,6 +1221,29 @@ function stopInicio() {
       const link=document.querySelector(".only-admin");
       if(btn) btn.style.display="inline-block";
       if(link) link.style.display="flex";
+
+      /* ============================================================
+         ✅ FIX: botão Admin deve abrir admin.html (não rota/hash)
+         Colocado aqui para bindar só quando for admin.
+         ============================================================ */
+      (function bindAdminButton(){
+        const btnAdmin =
+          document.getElementById("btn-admin") ||
+          document.querySelector(".only-admin");
+
+        if (!btnAdmin) return;
+
+        // evita bind duplicado se o script for recarregado
+        if (btnAdmin.dataset.boundAdmin === "1") return;
+        btnAdmin.dataset.boundAdmin = "1";
+
+        btnAdmin.addEventListener("click", (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          window.location.href = "admin.html";
+        }, { passive:false });
+      })();
+      /* ============================================================ */
     }
   }catch(e){ console.warn("[dbg] admin check:", e); }
 
