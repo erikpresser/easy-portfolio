@@ -193,6 +193,13 @@ async function loadClientData(){
   if (LM) LM.value = m?.lucro_mensal_pct ?? '';
   if (AC) AC.value = m?.acertividade ?? '';
 
+  const { data:tRows } = await sb
+  .from(T_TRADES)
+  .select('id,data,operacao,lucro')
+  .eq('user_id', selectedUserId)
+  .order('data',{ascending:false})
+  .limit(50);
+  
     // ✅ Render: operações (trades)
   renderTrades(tRows || []);
 
