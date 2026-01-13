@@ -193,12 +193,31 @@ async function loadClientData(){
   if (LM) LM.value = m?.lucro_mensal_pct ?? '';
   if (AC) AC.value = m?.acertividade ?? '';
 
-  const { data:tRows } = await sb
-    .from(T_TRADES)
-    .select('id,data,operacao,lucro')
+    // ✅ Render: operações (trades)
+  renderTrades(tRows || []);
+
+  // ✅ Carregar + render: depósitos
+  const { data: dRows, error: eDeps } = await sb
+    .from(T_DEPS)
+    .select('id,data,valor')
     .eq('user_id', selectedUserId)
-    .order('data',{ascending:false})
+    .order('data', { ascending: false })
     .limit(50);
+
+  if (eDeps) console.warn('deps error:', eDeps);
+  renderMoneyList('tbody-deps', dRows || []);
+
+  // ✅ Carregar + render: saques
+  const { data: sRows, error: eSaqs } = await sb
+    .from(T_SAQS)
+    .select('id,data,valor')
+    .eq('user_id', selectedUserId)
+    .order('data', { ascending: false })
+    .limit(50);
+
+  if (eSaqs) console.warn('saqs error:', eSaqs);
+  renderMoneyList('tbody-saqs', sRows || []);
+
 
   // ✅ SEM RESTRIÇÕES: Depósito/Saque liberados para qualquer cliente selecionado
 const btnDep = document.getElementById('add-dep');
