@@ -200,54 +200,12 @@ async function loadClientData(){
     .order('data',{ascending:false})
     .limit(50);
 
-  // --- Habilitar/desabilitar botões de Depósito/Saque para usuários específicos ---
-  try {
-    const { data: profile } = await sb
-      .from('profiles')
-      .select('user_id, email, full_name')
-      .eq('user_id', selectedUserId)
-      .maybeSingle();
+  // ✅ SEM RESTRIÇÕES: Depósito/Saque liberados para qualquer cliente selecionado
+const btnDep = document.getElementById('add-dep');
+const btnSaq = document.getElementById('add-saq');
+if (btnDep) btnDep.disabled = false;
+if (btnSaq) btnSaq.disabled = false;
 
-    const isErik = profile && (
-      (profile.full_name && profile.full_name.toLowerCase().includes('erik')) ||
-      (profile.email && profile.email.toLowerCase().includes('erik'))
-    );
-    const isPresserInvestment = profile && (
-      (profile.full_name && profile.full_name.toLowerCase().includes('presser investment')) ||
-      (profile.email && profile.email.toLowerCase().includes('presser'))
-    );
-
-    const shouldEnable = !!(isErik || isPresserInvestment);
-
-    const btnDep = document.getElementById('add-dep');
-    const btnSaq = document.getElementById('add-saq');
-    if (btnDep) btnDep.disabled = !shouldEnable;
-    if (btnSaq) btnSaq.disabled = !shouldEnable;
-  } catch (e) {
-    console.warn('Erro ao verificar perfil para habilitar botões:', e);
-    const btnDep = document.getElementById('add-dep');
-    const btnSaq = document.getElementById('add-saq');
-    if (btnDep) btnDep.disabled = true;
-    if (btnSaq) btnSaq.disabled = true;
-  }
-
-  renderTrades(tRows||[]);
-
-  const { data:dRows } = await sb
-    .from(T_DEPS)
-    .select('data,valor')
-    .eq('user_id', selectedUserId)
-    .order('data',{ascending:false})
-    .limit(50);
-  renderMoneyList('tbody-deps', dRows||[]);
-
-  const { data:sRows } = await sb
-    .from(T_SAQS)
-    .select('data,valor')
-    .eq('user_id', selectedUserId)
-    .order('data',{ascending:false})
-    .limit(50);
-  renderMoneyList('tbody-saqs', sRows||[]);
 
   // ✅ NOVO: sincroniza VP automático
   try { await syncMetricsVP(selectedUserId); }
