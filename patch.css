@@ -246,4 +246,54 @@
   }
 }
 
+/* ================================
+   AJUSTE FINAL - JANELA DE ENTRADA
+================================ */
+
+/* Container principal: 2 colunas */
+.hero-navy .cta-container {
+  display: grid !important;
+  grid-template-columns: 1fr 420px !important; /* texto | card menor */
+  align-items: start !important;
+  gap: 48px !important;
+  width: 100% !important;
+}
+
+/* Coluna esquerda */
+.hero-navy .cta-container .left {
+  width: 100% !important;
+  max-width: none !important;
+}
+
+/* Card da direita (Janela de Entrada) */
+.hero-navy .cta-container .card {
+  width: 100% !important;
+  max-width: 420px !important;   /* <<< AQUI DIMINUI */
+  justify-self: end !important;
+  padding: 20px !important;      /* menos “gorda” */
+  border-radius: 16px !important;
+}
+
+/* Ajuste interno para não estourar */
+.hero-navy .cta-container .countdown {
+  gap: 10px !important;
+}
+
+.hero-navy .cta-container .slot {
+  padding: 10px 8px !important;
+  font-size: 13px !important;
+}
+
+/* MOBILE: volta a empilhar */
+@media (max-width: 900px) {
+  .hero-navy .cta-container {
+    grid-template-columns: 1fr !important;
+  }
+
+  .hero-navy .cta-container .card {
+    max-width: 100% !important;
+    justify-self: stretch !important;
+  }
+}
+
 }
