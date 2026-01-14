@@ -1733,11 +1733,12 @@ main.auth-shell .coins-marquee .coins-row{
   transition: filter .3s ease, drop-shadow .3s ease;
 }
 
-/* Quando passa da linha: fica neon */
 .coin.is-neon .coin-img {
-  filter: grayscale(0%) brightness(1.2);
-  drop-shadow: 0 0 10px rgba(0, 150, 255, 0.8);
+  filter: grayscale(0%) brightness(1.25)
+          drop-shadow(0 0 10px rgba(0,150,255,.85))
+          drop-shadow(0 0 24px rgba(0,150,255,.45));
 }
+
 
 /* Texto abaixo */
 .coin-label {
