@@ -1497,3 +1497,66 @@ body{
   filter: drop-shadow(0 0 18px rgba(80,170,255,.7)) !important;
   z-index: 1000001 !important;
 }
+
+/* =========================================
+   OVERRIDE FINAL — CENTRALIZAR MOEDAS NO MEIO
+   ========================================= */
+
+.coins-marquee{
+  position: fixed !important;
+  left: 0 !important;
+  top: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+
+  z-index: 999999 !important;
+  pointer-events: none !important;
+
+  /* CHAVE: centraliza verticalmente o conteúdo */
+  display: flex !important;
+  align-items: center !important;   /* MEIO (vertical) */
+  justify-content: flex-start !important;
+}
+
+.coins-track{
+  position: relative !important;   /* não “briga” com top antigo */
+  left: 0 !important;
+  top: auto !important;
+  transform: none !important;
+
+  width: 100% !important;
+  overflow: visible !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+.coins-row{
+  position: relative !important;
+  top: auto !important;
+  transform: none !important;
+  margin: 0 !important;
+
+  display: flex !important;
+  align-items: center !important;
+  white-space: nowrap !important;
+}
+
+/* Scan line central, altura controlada (pra não ficar gigante) */
+.scan-line{
+  position: fixed !important;
+  left: 50vw !important;
+  top: 50vh !important;
+  transform: translate(-50%, -50%) !important;
+
+  width: 3px !important;
+  height: 180px !important;
+  z-index: 1000000 !important;
+}
+
+main.auth-shell .coins-marquee,
+main.auth-shell .coins-marquee .coins-track,
+main.auth-shell .coins-marquee .coins-row{
+  top: auto !important;
+  transform: none !important;
+  margin-top: 0 !important;
+}
