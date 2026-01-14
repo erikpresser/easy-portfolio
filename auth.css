@@ -1560,3 +1560,59 @@ main.auth-shell .coins-marquee .coins-row{
   transform: none !important;
   margin-top: 0 !important;
 }
+
+/* =========================================
+   COINS — FIX FINAL (centro + movimento)
+   ========================================= */
+
+.coins-marquee{
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 999999;
+  pointer-events: none;
+
+  display: flex;
+  align-items: center;   /* centro vertical */
+  justify-content: flex-start;
+}
+
+.coins-track{
+  width: 100%;
+  overflow: visible;
+  display: flex;
+  align-items: center;
+}
+
+/* IMPORTANTE:
+   NÃO colocar transform:none aqui, senão mata a animação */
+.coins-row{
+  display: flex;
+  align-items: center;
+  gap: 48px; /* ajuste se quiser */
+  white-space: nowrap;
+  will-change: transform;
+}
+
+/* classe que você já usa no HTML: <div class="coins-row moving" ...> */
+.coins-row.moving{
+  animation: coinsMarquee 26s linear infinite;
+}
+
+/* Direita -> Esquerda (entra fora da tela à direita e sai à esquerda) */
+@keyframes coinsMarquee{
+  0%   { transform: translateX(110vw); }
+  100% { transform: translateX(-220vw); }
+}
+
+/* Linha (scan) — agora vamos posicionar via JS no meio do painel azul */
+.scan-line{
+  position: fixed;
+  top: 50vh;
+  transform: translate(-50%, -50%);
+  width: 3px;
+  height: 180px;
+  z-index: 1000000;
+  opacity: .9;
+}

@@ -1,6 +1,7 @@
 // ==============================
 // Presser Investment — auth.js
-// Tabs + Coins (prata -> neon ao cruzar a scan-line) + Demo submits
+// Tabs + Coins (prata -> neon ao cruzar a scan-line no MEIO do painel azul)
+// + Demo submits
 // ==============================
 
 // Tabs
@@ -25,26 +26,41 @@ goLogin?.addEventListener("click", (e) => { e.preventDefault(); openTab("login")
 
 
 // ==============================
-// Coins: prata -> NEON ao cruzar a scan-line (divisão)
-// (VERSÃO CORRIGIDA: is-neon + loop estável)
+// Coins: prata -> NEON ao cruzar a scan-line
+// (scan-line posicionada no meio do painel azul, não no meio da tela)
 // ==============================
 const marquee = document.querySelector(".coins-marquee");
 const scan = document.querySelector(".scan-line");
+const leftPanel = document.querySelector("section.left"); // painel azul (se existir)
 
-// seleciona moedas APENAS dentro do marquee
-const coins = marquee ? Array.from(marquee.querySelectorAll(".coin")) : [];
+let coins = marquee ? Array.from(marquee.querySelectorAll(".coin")) : [];
+
+function positionScanLine(){
+  if(!scan) return;
+
+  // Se houver painel esquerdo, usa o meio dele.
+  // Se não houver, cai para o meio da tela.
+  let scanX = window.innerWidth / 2;
+
+  if(leftPanel){
+    const r = leftPanel.getBoundingClientRect();
+    scanX = r.left + (r.width / 2);
+  }
+
+  scan.style.left = `${scanX}px`;
+}
 
 function updateCoinColors(){
   if(!marquee || !scan || coins.length === 0) return;
 
   const scanRect = scan.getBoundingClientRect();
-  const scanX = scanRect.left; // posição real da linha (divisão)
+  const scanX = scanRect.left;
 
   coins.forEach((coin) => {
     const r = coin.getBoundingClientRect();
     const coinCenterX = r.left + (r.width / 2);
 
-    // Se o centro da moeda já passou para a esquerda da linha, fica neon
+    // Neon quando o centro já passou para a esquerda da linha
     const passed = coinCenterX < scanX;
     coin.classList.toggle("is-neon", passed);
   });
@@ -54,6 +70,7 @@ function updateCoinColors(){
 let rafId = null;
 
 function loop(){
+  positionScanLine();
   updateCoinColors();
   rafId = requestAnimationFrame(loop);
 }
@@ -78,8 +95,15 @@ document.addEventListener("visibilitychange", () => {
   else startLoop();
 });
 
-// atualiza em resize (e evita “desincronia” visual)
+// atualiza em resize
 window.addEventListener("resize", () => {
+  positionScanLine();
+  updateCoinColors();
+});
+
+// garante posição correta logo no load
+window.addEventListener("load", () => {
+  positionScanLine();
   updateCoinColors();
 });
 
@@ -96,7 +120,6 @@ loginForm?.addEventListener("submit", async (e) => {
   e.preventDefault();
   if(loginHint) loginHint.textContent = "Validando credenciais...";
 
-  // Aqui você chama seu Supabase (signInWithPassword) e redireciona pro dashboard
   setTimeout(() => {
     if(loginHint) loginHint.textContent = "Login OK. Redirecionando...";
     // window.location.href = "dashboard.html";
@@ -107,7 +130,6 @@ signupForm?.addEventListener("submit", async (e) => {
   e.preventDefault();
   if(signupHint) signupHint.textContent = "Criando conta...";
 
-  // Aqui você chama seu Supabase (signUp) e confirma e-mail se necessário
   setTimeout(() => {
     if(signupHint) signupHint.textContent = "Conta criada. Verifique seu e-mail ou faça login.";
     openTab("login");
