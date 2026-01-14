@@ -3417,48 +3417,4 @@ nav .nav-logo img{
 .left{ flex: 1; }
 .card{ width: 480px; max-width: 100%; }
 
-/* =========================================
-   FIX DEFINITIVO — "Janela de Entrada" AO LADO
-   ========================================= */
-
-.hero-navy .cta-container{
-  display: grid !important;
-  grid-template-columns: minmax(0, 1fr) 480px !important;
-  gap: 48px !important;
-  align-items: start !important;
-
-  width: 100% !important;
-  max-width: none !important;
-}
-
-/* coluna da esquerda */
-.hero-navy .cta-container > .left{
-  min-width: 0 !important;
-  grid-column: 1 !important;
-}
-
-/* card da direita */
-.hero-navy .cta-container > .card{
-  grid-column: 2 !important;
-  width: 480px !important;
-  max-width: 480px !important;
-  justify-self: end !important;
-}
-
-/* MOBILE: empilha */
-@media (max-width: 980px){
-  .hero-navy .cta-container{
-    grid-template-columns: 1fr !important;
-  }
-
-  .hero-navy .cta-container > .card{
-    grid-column: 1 !important;
-    width: 100% !important;
-    max-width: 100% !important;
-    justify-self: stretch !important;
-  }
-}
-
-
-
 }
