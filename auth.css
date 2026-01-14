@@ -769,3 +769,66 @@ body{
   bottom: -26px;         /* afasta o texto da moeda */
   font-size: 13px;       /* um pouco maior */
 }
+
+/* =========================================
+   NEON AZUL REAL quando passou da linha
+   (usa a classe .is-neon do JS)
+   ========================================= */
+
+/* garante contexto pro overlay */
+.coin-face{
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+/* overlay azul neon (tinta) — aparece só no estado neon */
+.coin-face::after{
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+
+  /* a "tinta" azul */
+  background: radial-gradient(circle at 50% 50%,
+    rgba(0, 170, 255, .55) 0%,
+    rgba(0, 170, 255, .18) 45%,
+    rgba(0, 170, 255, 0) 70%
+  );
+
+  opacity: 0;
+  mix-blend-mode: screen;
+  transition: opacity .18s linear;
+}
+
+/* padrão (prata) */
+.coin-img{
+  filter: grayscale(1) brightness(.95) contrast(1.05) !important;
+  transition: filter .18s linear, transform .18s linear !important;
+}
+
+/* QUANDO PASSOU: fica azul neon */
+.coin.is-neon .coin-img{
+  filter: grayscale(0) brightness(1.15) contrast(1.12) !important;
+  transform: scale(1.06) !important;
+
+  /* glow pesado azul */
+  filter:
+    grayscale(0)
+    brightness(1.18)
+    contrast(1.14)
+    drop-shadow(0 0 10px rgba(0,170,255,.95))
+    drop-shadow(0 0 26px rgba(0,170,255,.55))
+    drop-shadow(0 0 46px rgba(0,170,255,.25)) !important;
+}
+
+/* liga o overlay azul */
+.coin.is-neon .coin-face::after{
+  opacity: 1;
+}
+
+/* label também fica neon */
+.coin.is-neon .coin-label{
+  color: rgba(170, 220, 255, 1) !important;
+  text-shadow: 0 0 14px rgba(0,170,255,.55) !important;
+}

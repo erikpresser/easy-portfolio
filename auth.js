@@ -111,7 +111,8 @@ function updateCoinColors(){
     fill = Math.max(0, Math.min(1, fill));
 
     // aplica classe quando começou a tocar (ou depois)
-    coin.classList.toggle("is-neon", fill > 0);
+    coin.classList.toggle("is-neon", fill >= 1);
+
 
     // opcional: expõe para CSS (se você quiser usar brilho progressivo)
     coin.style.setProperty("--fill", fill.toFixed(3));
