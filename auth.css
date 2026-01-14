@@ -891,3 +891,22 @@ body{
   color: rgba(191,219,254,1) !important;
   text-shadow: 0 0 14px rgba(96,165,250,.55) !important;
 }
+
+/* ===========================
+   MARQUEE: sem delay + mais lento
+   =========================== */
+
+/* deixa a fila já “na borda da divisão” (sem esperar entrar) */
+.coins-row{
+  animation: marqueeFromSplit 22s linear infinite !important; /* MAIS LENTO */
+}
+
+/* começa em 0 (já visível), vai até sumir na esquerda */
+@keyframes marqueeFromSplit{
+  from { transform: translateX(0%); }
+  to   { transform: translateX(-100%); }
+}
+
+.coins-row{
+  gap: 26px !important;
+}
