@@ -748,14 +748,14 @@ body{
 
 /* container da moeda */
 .coin{
-  width: 180px;          /* antes: ~120px */
-  height: 180px;
+  width: 165px;          /* antes: ~120px */
+  height: 165px;
 }
 
 /* “face” da moeda */
 .coin-face{
-  width: 170px;          /* antes: ~100px */
-  height: 170px;
+  width: 140px;          /* antes: ~100px */
+  height: 140px;
 }
 
 /* imagem dentro da moeda */
