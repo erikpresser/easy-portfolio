@@ -1666,3 +1666,82 @@ main.auth-shell .coins-marquee .coins-row{
   z-index: 60;
   pointer-events: none;
 }
+
+/* ==============================
+   MARQUEE DE MOEDAS — MOVIMENTO
+   ============================== */
+
+.coins-marquee {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 20;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.coins-track {
+  width: 100%;
+  overflow: hidden;
+}
+
+.coins-row {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  width: max-content;
+  animation: coinsScroll 30s linear infinite;
+}
+
+/* animação da direita para a esquerda */
+@keyframes coinsScroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* ==============================
+   MOEDAS
+   ============================== */
+
+.coin {
+  width: 120px;
+  text-align: center;
+  transition: filter .3s ease, transform .3s ease;
+}
+
+.coin-face {
+  width: 100px;
+  height: 100px;
+  margin: 0 auto;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.coin-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: grayscale(100%) brightness(1);
+  transition: filter .3s ease, drop-shadow .3s ease;
+}
+
+/* Quando passa da linha: fica neon */
+.coin.is-neon .coin-img {
+  filter: grayscale(0%) brightness(1.2);
+  drop-shadow: 0 0 10px rgba(0, 150, 255, 0.8);
+}
+
+/* Texto abaixo */
+.coin-label {
+  margin-top: 6px;
+  font-size: 12px;
+  color: #9bb7ff;
+}
