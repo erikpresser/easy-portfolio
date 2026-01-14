@@ -649,13 +649,13 @@ body{
 }
 
 /* ==========================
-   SCAN LINE — CENTRO DA MOEDA
+   SCAN LINE — DOURADA (MAIOR)
    ========================== */
 
 .scan-line{
-  position: fixed;   /* posição X controlada via JS */
-  width: 7px;
-  height: 120px;     /* igual (ou ligeiramente maior) que a moeda */
+  position: fixed;               /* X e Y controlados via JS */
+  width: 9px;                    /* mais larga */
+  height: 180px;                 /* MAIOR que antes */
   border-radius: 999px;
 
   background: linear-gradient(
@@ -668,11 +668,12 @@ body{
   );
 
   box-shadow:
-    0 0 18px rgba(255,200,90,.55),
-    0 0 40px rgba(255,180,58,.25);
+    0 0 22px rgba(255,200,90,.65),
+    0 0 48px rgba(255,180,58,.35);
 
   pointer-events: none;
   z-index: 9;
+  opacity: .98;
 }
 
 /* ==========================
