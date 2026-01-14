@@ -209,4 +209,41 @@
   }
 }
 
+/* ================================
+   HERO - ENTRADA (FORÇAR LADO A LADO)
+================================ */
+
+.hero-navy .cta-container {
+  display: grid !important;
+  grid-template-columns: 1fr 480px !important; /* texto | card */
+  align-items: start !important;
+  gap: 48px !important;
+  width: 100% !important;
+}
+
+/* Coluna esquerda */
+.hero-navy .cta-container .left {
+  width: 100% !important;
+  max-width: none !important;
+}
+
+/* Card da direita */
+.hero-navy .cta-container .card {
+  width: 100% !important;
+  max-width: 480px !important;
+  justify-self: end !important;
+}
+
+/* MOBILE: empilha novamente */
+@media (max-width: 900px) {
+  .hero-navy .cta-container {
+    grid-template-columns: 1fr !important;
+  }
+
+  .hero-navy .cta-container .card {
+    max-width: 100% !important;
+    justify-self: stretch !important;
+  }
+}
+
 }
