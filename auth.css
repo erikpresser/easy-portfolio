@@ -1215,3 +1215,43 @@ body{
   filter: grayscale(0) brightness(1.2) drop-shadow(0 0 12px #3fa9ff) !important;
   transform: scale(1.08) !important;
 }
+
+/* ==============================
+   FIX: COINS ABOVE BACKGROUND
+   ============================== */
+
+.coins-marquee {
+  position: absolute !important;
+  inset: 0 !important;
+  pointer-events: none !important;
+  z-index: 20 !important; /* traz para frente */
+}
+
+.coins-track {
+  position: relative !important;
+  z-index: 21 !important;
+}
+
+.coins-row {
+  position: relative !important;
+  z-index: 22 !important;
+}
+
+/* cada moeda */
+.coin {
+  position: relative !important;
+  z-index: 23 !important;
+}
+
+/* linha central */
+.scan-line {
+  position: absolute !important;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2px;
+  background: linear-gradient(to bottom, transparent, #3fa9ff, transparent);
+  box-shadow: 0 0 14px rgba(63,169,255,0.9);
+  z-index: 30 !important; /* acima das moedas */
+}
