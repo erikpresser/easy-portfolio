@@ -494,3 +494,108 @@ body{
     grid-column: 1 !important;
   }
 }
+
+/* ===========================
+   MOEDAS: MAIOR + SEM QUADRO
+   + TITULO CENTRALIZADO EM CIMA
+   =========================== */
+
+/* 1) centraliza o título e coloca ele “no meio”, acima das moedas */
+.left-inner{
+  max-width: 760px !important;
+}
+
+.headline{
+  text-align: center !important;
+  margin: 26px 0 16px !important;
+}
+
+/* 2) tira o “card quadrado” do coin-stage e deixa só uma faixa azul por trás */
+.coin-stage{
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+}
+
+/* cria um fundo azul suave atrás das moedas */
+.coin-stage::before{
+  content: "" !important;
+  position: absolute !important;
+  left: 0 !important;
+  right: 0 !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  height: 150px !important;
+  border-radius: 26px !important;
+  background: linear-gradient(90deg,
+    rgba(37,99,235,.18),
+    rgba(96,165,250,.10),
+    rgba(37,99,235,.18)
+  ) !important;
+  filter: blur(0px) !important;
+  border: 1px solid rgba(255,255,255,.10) !important;
+  pointer-events: none !important;
+}
+
+/* garante que o conteúdo fique acima do fundo */
+.coin-stage{
+  position: relative !important;
+}
+
+/* 3) moedas maiores e sem “quadrado” externo */
+.coin{
+  width: 110px !important;
+  height: 110px !important;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+/* mantém só o “disco” da moeda */
+.coin-face{
+  width: 86px !important;
+  height: 86px !important;
+  font-size: 1.9rem !important;
+  border-radius: 999px !important;
+}
+
+/* deixa o label mais discreto e alinhado */
+.coin-label{
+  bottom: -22px !important;
+  font-size: .74rem !important;
+  opacity: .85 !important;
+}
+
+/* ajuste do trilho (pra caber melhor com moedas maiores) */
+.coin-row.moving{
+  gap: 22px !important;
+  padding: 18px 10px 34px !important;
+}
+
+/* scan-line um pouco mais alto pra ficar “premium” */
+.scan-line{
+  width: 7px !important;
+  opacity: .9 !important;
+  filter: drop-shadow(0 0 18px rgba(96,165,250,.60)) !important;
+}
+
+/* responsivo */
+@media (max-width: 980px){
+  .headline{
+    text-align: left !important; /* no mobile pode voltar pro padrão */
+  }
+  .coin-stage::before{
+    height: 130px !important;
+  }
+  .coin{
+    width: 96px !important;
+    height: 96px !important;
+  }
+  .coin-face{
+    width: 74px !important;
+    height: 74px !important;
+    font-size: 1.7rem !important;
+  }
+}
