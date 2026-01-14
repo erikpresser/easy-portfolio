@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Presser Investment | Acesso</title>
+
+  <!-- Fonte (opcional) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="auth.css?v=1">
+</head>
+<body>
+
+  <main class="auth-shell">
+    <!-- LEFT -->
+    <section class="left">
+      <div class="left-inner">
+        <div class="kicker">Acesso à Presser Investment</div>
+
+        <h1 class="headline">
+          Você está pronto para o<br/>
+          <span>Dashboard</span>?
+        </h1>
+
+        <p class="subhead">
+          Acompanhe patrimônio, operações e relatórios com transparência.
+          Tudo em tempo real, com visão clara e gestão profissional.
+        </p>
+
+        <div class="coin-stage" aria-hidden="true">
+          <div class="coin-row" id="coinRow">
+            <div class="coin" data-symbol="USDT">
+              <div class="coin-face">₮</div>
+              <div class="coin-label">USDT</div>
+            </div>
+
+            <div class="coin" data-symbol="BTC">
+              <div class="coin-face">₿</div>
+              <div class="coin-label">BTC</div>
+            </div>
+
+            <div class="coin" data-symbol="ETH">
+              <div class="coin-face">Ξ</div>
+              <div class="coin-label">ETH</div>
+            </div>
+
+            <div class="coin" data-symbol="SOL">
+              <div class="coin-face">S</div>
+              <div class="coin-label">SOL</div>
+            </div>
+
+            <div class="coin" data-symbol="USD">
+              <div class="coin-face">$</div>
+              <div class="coin-label">USD</div>
+            </div>
+          </div>
+
+          <div class="scan-line"></div>
+        </div>
+
+        <div class="left-foot">
+          <div class="pill">100% cripto • USD • gestão</div>
+          <div class="pill">Segurança • suporte • clareza</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- RIGHT -->
+    <section class="right">
+      <div class="card">
+        <div class="brand">
+          <div class="logo">P</div>
+          <div>
+            <div class="brand-name">Presser Investment</div>
+            <div class="brand-sub">Acesso ao painel</div>
+          </div>
+        </div>
+
+        <div class="tabs" role="tablist" aria-label="Acesso">
+          <button class="tab is-active" data-tab="login" role="tab" aria-selected="true">Iniciar sessão</button>
+          <button class="tab" data-tab="signup" role="tab" aria-selected="false">Criar conta</button>
+        </div>
+
+        <!-- LOGIN -->
+        <form class="pane is-active" data-pane="login" id="loginForm">
+          <label class="field">
+            <span>E-mail</span>
+            <input type="email" name="email" autocomplete="email" required placeholder="seuemail@dominio.com">
+          </label>
+
+          <label class="field">
+            <span>Senha</span>
+            <input type="password" name="password" autocomplete="current-password" required placeholder="••••••••••">
+          </label>
+
+          <button class="btn-primary" type="submit">Continuar</button>
+
+          <div class="meta">
+            <a class="link" href="#" id="goSignup">Criar nova conta</a>
+            <a class="link" href="#" id="forgot">Esqueci minha senha</a>
+          </div>
+
+          <div class="hint" id="loginHint" aria-live="polite"></div>
+        </form>
+
+        <!-- SIGNUP -->
+        <form class="pane" data-pane="signup" id="signupForm">
+          <label class="field">
+            <span>Nome</span>
+            <input type="text" name="name" autocomplete="name" required placeholder="Seu nome">
+          </label>
+
+          <label class="field">
+            <span>E-mail</span>
+            <input type="email" name="email" autocomplete="email" required placeholder="seuemail@dominio.com">
+          </label>
+
+          <label class="field">
+            <span>Senha</span>
+            <input type="password" name="password" autocomplete="new-password" required placeholder="Crie uma senha forte">
+          </label>
+
+          <button class="btn-primary" type="submit">Criar conta</button>
+
+          <div class="meta">
+            <a class="link" href="#" id="goLogin">Já tenho conta</a>
+            <a class="link" href="index.html">Voltar ao site</a>
+          </div>
+
+          <div class="hint" id="signupHint" aria-live="polite"></div>
+        </form>
+
+        <div class="legal">
+          Ao continuar, você concorda com os termos e confirma que leu as informações de risco.
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="auth.js?v=1"></script>
+</body>
+</html>
