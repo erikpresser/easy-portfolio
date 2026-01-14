@@ -150,60 +150,284 @@
     font-size: 12px;
   }
 
-  /* ==========================================
-   FIX DEFINITIVO — JANELA DE ENTRADA AO LADO
-   ========================================== */
+/* =========================
+   HERO — NÃO PERCA MAIS TEMPO + JANELA
+   ========================= */
 
-/* Container principal: duas colunas */
-.hero-navy .cta-container{
+.hero-navy{
+  position: relative !important;
+  background: radial-gradient(1200px 600px at 30% 20%, #0f1f3f 0%, #07162f 40%, #050f22 100%) !important;
+  padding: 120px 0 120px !important;
+  color: #ffffff !important;
+}
+
+.hero-navy .wrap{
+  width: min(1200px, 92%) !important;
+  margin: 0 auto !important;
+}
+
+/* =========================
+   GRID LADO A LADO
+   ========================= */
+
+.cta-container{
   display: grid !important;
-  grid-template-columns: 1fr 360px !important; /* texto | card */
+  grid-template-columns: 1.25fr 0.75fr !important; /* texto maior, card menor */
   gap: 48px !important;
-  align-items: start !important;
+  align-items: center !important;
+}
+
+/* =========================
+   COLUNA ESQUERDA
+   ========================= */
+
+.left h1{
+  font-size: clamp(2.5rem, 4vw, 3.5rem) !important;
+  font-weight: 800 !important;
+  line-height: 1.1 !important;
+  margin-bottom: 18px !important;
+}
+
+.left .lead{
+  max-width: 520px !important;
+  font-size: 1rem !important;
+  line-height: 1.6 !important;
+  color: rgba(255,255,255,.88) !important;
+  margin-bottom: 28px !important;
+}
+
+.steps{
+  list-style: none !important;
+  padding: 0 !important;
+  margin: 0 0 32px !important;
+  display: grid !important;
+  gap: 16px !important;
+}
+
+.steps li{
+  display: flex !important;
+  gap: 12px !important;
+  align-items: flex-start !important;
+}
+
+.steps .ico{
+  min-width: 36px !important;
+  height: 36px !important;
+  border-radius: 10px !important;
+  display: grid !important;
+  place-items: center !important;
+  background: rgba(255,255,255,.08) !important;
+  color: #7aa2ff !important;
+}
+
+.steps b{
+  font-size: .9rem !important;
+  display: block !important;
+}
+
+.steps span{
+  font-size: .8rem !important;
+  color: rgba(255,255,255,.7) !important;
+}
+
+/* =========================
+   BOTÃO
+   ========================= */
+
+.btn.cta{
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  padding: 12px 22px !important;
+  border-radius: 999px !important;
+  background: linear-gradient(90deg, #2563eb, #4f46e5) !important;
+  color: #fff !important;
+  font-weight: 600 !important;
+  font-size: .9rem !important;
+  text-decoration: none !important;
+  box-shadow: 0 10px 30px rgba(37,99,235,.35) !important;
+  transition: all .25s ease !important;
+}
+
+.btn.cta:hover{
+  transform: translateY(-2px) !important;
+  box-shadow: 0 14px 40px rgba(37,99,235,.45) !important;
+}
+
+/* =========================
+   CARD — JANELA DE ENTRADA
+   ========================= */
+
+.card{
+  background: #ffffff !important;
+  color: #0f172a !important;
+  border-radius: 18px !important;
+  padding: 22px !important;
+  max-width: 420px !important;
   width: 100% !important;
+  box-shadow: 0 30px 80px rgba(0,0,0,.25) !important;
+  position: relative !important;
 }
 
-/* Coluna esquerda */
-.hero-navy .cta-container > .left{
-  width: 100% !important;
-  max-width: none !important;
-  min-width: 0 !important;
+/* CABEÇALHO */
+
+.card-head{
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  margin-bottom: 14px !important;
+  font-size: .9rem !important;
+  font-weight: 700 !important;
 }
 
-/* Card da direita (Janela de Entrada) */
-.hero-navy .cta-container > .card{
-  width: 360px !important;
-  max-width: 360px !important;
-  min-width: 360px !important;
-  justify-self: end !important;
-  align-self: start !important;
-  padding: 18px !important;
-  border-radius: 16px !important;
+.card-head .head-ico{
+  width: 32px !important;
+  height: 32px !important;
+  border-radius: 10px !important;
+  background: #eef2ff !important;
+  color: #1e3a8a !important;
+  display: grid !important;
+  place-items: center !important;
 }
 
-/* Reduz os blocos internos */
-.hero-navy .cta-container .countdown{
+/* =========================
+   CONTADOR
+   ========================= */
+
+.countdown{
+  display: grid !important;
+  grid-template-columns: repeat(4, 1fr) !important;
+  gap: 10px !important;
+  margin-bottom: 10px !important;
+}
+
+.countdown .slot{
+  background: #f8fafc !important;
+  border-radius: 12px !important;
+  padding: 10px 6px !important;
+  text-align: center !important;
+  border: 1px solid #e5e7eb !important;
+}
+
+.countdown .num{
+  display: block !important;
+  font-size: 1.1rem !important;
+  font-weight: 700 !important;
+  line-height: 1 !important;
+}
+
+.countdown .lbl{
+  display: block !important;
+  font-size: .7rem !important;
+  color: #64748b !important;
+  margin-top: 4px !important;
+}
+
+.muted{
+  font-size: .75rem !important;
+  color: #64748b !important;
+  text-align: center !important;
+  margin-bottom: 14px !important;
+}
+
+/* =========================
+   LISTA DE INFORMAÇÕES
+   ========================= */
+
+.info-list{
+  list-style: none !important;
+  padding: 0 !important;
+  margin: 0 0 12px !important;
+  display: grid !important;
   gap: 10px !important;
 }
 
-.hero-navy .cta-container .slot{
-  padding: 8px 6px !important;
-  font-size: 13px !important;
+.info-list li{
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  background: #f8fafc !important;
+  border: 1px solid #e5e7eb !important;
+  border-radius: 12px !important;
+  padding: 10px 12px !important;
 }
 
-/* MOBILE: empilha */
+.info-list .i{
+  width: 28px !important;
+  height: 28px !important;
+  border-radius: 8px !important;
+  background: #eef2ff !important;
+  color: #1e3a8a !important;
+  display: grid !important;
+  place-items: center !important;
+}
+
+.info-list .title{
+  display: block !important;
+  font-size: .75rem !important;
+  color: #64748b !important;
+}
+
+.info-list .value{
+  font-size: .9rem !important;
+  font-weight: 700 !important;
+}
+
+/* =========================
+   BADGES
+   ========================= */
+
+.badges{
+  list-style: none !important;
+  padding: 0 !important;
+  margin: 8px 0 0 !important;
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 8px !important;
+}
+
+.badges li{
+  font-size: .7rem !important;
+  padding: 4px 10px !important;
+  border-radius: 999px !important;
+  background: #eef2ff !important;
+  color: #1e3a8a !important;
+  font-weight: 600 !important;
+}
+
+/* =========================
+   FAIXA DE DESCONTO
+   ========================= */
+
+.ribbon{
+  margin-top: 12px !important;
+  padding: 8px !important;
+  border-radius: 10px !important;
+  background: #f1f5f9 !important;
+  border: 1px dashed #c7d2fe !important;
+  font-size: .75rem !important;
+  text-align: center !important;
+  font-weight: 700 !important;
+  color: #1e3a8a !important;
+}
+
+.ribbon .warn{
+  margin-right: 6px !important;
+}
+
+/* =========================
+   RESPONSIVO
+   ========================= */
+
 @media (max-width: 900px){
-  .hero-navy .cta-container{
+  .cta-container{
     grid-template-columns: 1fr !important;
   }
 
-  .hero-navy .cta-container > .card{
-    width: 100% !important;
+  .card{
     max-width: 100% !important;
-    min-width: 0 !important;
-    justify-self: stretch !important;
+    margin-top: 32px !important;
   }
 }
-
   
 }
