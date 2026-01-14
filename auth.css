@@ -648,13 +648,16 @@ body{
   overflow: hidden;
 }
 
+/* ==========================
+   SCAN LINE — CENTRO DA MOEDA
+   ========================== */
+
 .scan-line{
-  position: fixed;               /* JS controla o left */
-  width: 7px;                    /* mais larga */
-  height: 140px;                 /* um pouco maior que a moeda */
+  position: fixed;   /* posição X controlada via JS */
+  width: 7px;
+  height: 120px;     /* igual (ou ligeiramente maior) que a moeda */
   border-radius: 999px;
 
-  /* dourado premium (gradiente) */
   background: linear-gradient(
     to bottom,
     rgba(255,214,102,0),
@@ -668,11 +671,8 @@ body{
     0 0 18px rgba(255,200,90,.55),
     0 0 40px rgba(255,180,58,.25);
 
-  z-index: 9;
   pointer-events: none;
-  opacity: .95;
-
-  /* NÃO fixa o top aqui. O JS vai posicionar exatamente no meio da moeda */
+  z-index: 9;
 }
 
 /* ==========================
@@ -695,4 +695,50 @@ body{
 .coin.is-neon .coin-img{
   filter: grayscale(0) brightness(1.2) drop-shadow(0 0 12px rgba(63,169,255,.85));
   transform: scale(1.06);
+}
+
+/* ==========================
+   ALINHAMENTO VERTICAL PERFEITO
+   (linha e moedas na mesma altura)
+   ========================== */
+
+/* a faixa onde as moedas passam */
+.coins-track{
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 100%;
+  height: 200px;           /* controla a “altura da pista” */
+  display: flex;
+  align-items: center;    /* <-- CENTRO VERTICAL */
+  overflow: hidden;
+}
+
+/* a fila de moedas */
+.coins-row{
+  display: flex;
+  align-items: center;    /* <-- CENTRO VERTICAL DAS MOEDAS */
+  gap: 56px;
+  width: max-content;
+  will-change: transform;
+}
+
+/* cada moeda */
+.coin{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;  /* <-- CENTRO REAL DA MOEDA */
+  height: 120px;
+}
+
+/* a face da moeda */
+.coin-face{
+  width: 100px;
+  height: 100px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

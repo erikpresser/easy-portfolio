@@ -61,17 +61,17 @@ function setMarqueeDistance(){
 function setScanToMiddleOfBlue(){
   if(!scan || !leftPanel || !track) return;
 
+  // X = meio do painel azul
   const leftRect = leftPanel.getBoundingClientRect();
-
-  // X: meio do painel azul
   const x = leftRect.left + (leftRect.width / 2);
   scan.style.left = `${x}px`;
 
-  // Y: centro EXATO da faixa onde as moedas passam (coins-track)
+  // Y = centro da faixa das moedas (coins-track)
   const trackRect = track.getBoundingClientRect();
   const y = trackRect.top + (trackRect.height / 2);
   scan.style.top = `${y}px`;
 }
+
 
 const coins = row ? Array.from(row.querySelectorAll(".coin")) : [];
 
