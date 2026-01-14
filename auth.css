@@ -1255,3 +1255,43 @@ body{
   box-shadow: 0 0 14px rgba(63,169,255,0.9);
   z-index: 30 !important; /* acima das moedas */
 }
+
+/* ==============================
+   CENTRALIZAR MOEDAS NO MEIO (Y)
+   ============================== */
+
+/* o marquee continua cobrindo a tela toda */
+.coins-marquee{
+  position: absolute !important;
+  inset: 0 !important;
+  pointer-events: none !important;
+  z-index: 20 !important;
+}
+
+/* centraliza TUDO no meio da tela (vertical e horizontal) */
+.coins-track{
+  position: absolute !important;
+  inset: 0 !important;
+  display: flex !important;
+  align-items: center !important;     /* <-- meio na vertical */
+  justify-content: center !important; /* opcional */
+  z-index: 21 !important;
+}
+
+/* garante que a row fique alinhada */
+.coins-row{
+  display: flex !important;
+  align-items: center !important;
+  gap: 48px !important;
+  z-index: 22 !important;
+}
+
+/* a scan-line também precisa ficar centralizada certinha */
+.scan-line{
+  position: absolute !important;
+  top: 0 !important;
+  bottom: 0 !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  z-index: 30 !important;
+}
