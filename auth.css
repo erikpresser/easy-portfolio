@@ -586,3 +586,50 @@ body{
   pointer-events: none;
   opacity: .95;
 }
+
+/* ==========================
+   PAINEL BRANCO NA FRENTE DAS MOEDAS
+   ========================== */
+
+.right{
+  position: relative;
+  z-index: 20;   /* acima das moedas */
+}
+
+.card{
+  position: relative;
+  z-index: 21;
+}
+
+/* camada das moedas */
+.coins-marquee{
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 10;  /* abaixo do painel branco, acima do fundo */
+}
+
+/* ==========================
+   MÁSCARA: MOEDAS SUMINDO NA ÁREA BRANCA
+   ========================== */
+
+.coins-track::after{
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 38%;               /* largura da área branca */
+  height: 100%;
+  pointer-events: none;
+
+  /* gradiente de corte */
+  background: linear-gradient(
+    to left,
+    rgba(246,247,251,1) 0%,   /* cor do fundo branco */
+    rgba(246,247,251,.9) 30%,
+    rgba(246,247,251,.6) 55%,
+    rgba(246,247,251,0) 100%
+  );
+
+  z-index: 15;
+}
