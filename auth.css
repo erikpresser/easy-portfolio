@@ -680,8 +680,8 @@ body{
 
 /* estado padrão: começa mais “invisível” */
 .coin{
-  opacity: .35;                  /* mais transparente no começo */
-  transition: opacity .25s linear;
+  opacity: .15;                  /* mais transparente no começo */
+  transition: opacity .10s linear;
 }
 
 /* a imagem prata padrão */
