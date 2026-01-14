@@ -1295,3 +1295,112 @@ body{
   transform: translateX(-50%) !important;
   z-index: 30 !important;
 }
+
+/* ==========================================
+   FIX: MOEDAS SEMPRE NO MEIO E POR CIMA
+   ========================================== */
+
+.auth-shell{
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+/* camada das moedas atravessando a tela inteira */
+.coins-marquee{
+  position: fixed !important;
+  left: 0 !important;
+  top: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  pointer-events: none !important;
+
+  /* POR CIMA DE TUDO (inclusive card) */
+  z-index: 999999 !important;
+}
+
+/* corredor central (onde as moedas passam) */
+.coins-track{
+  position: absolute !important;
+  left: 0 !important;
+  top: 50% !important;
+  width: 100% !important;
+  transform: translateY(-50%) !important;
+
+  display: flex !important;
+  align-items: center !important;
+
+  /* garante que nada corte as moedas */
+  overflow: visible !important;
+}
+
+/* a fila das moedas */
+.coins-row{
+  display: flex !important;
+  align-items: center !important;
+  gap: 64px !important;
+
+  /* evita quebra / corte */
+  white-space: nowrap !important;
+  will-change: transform !important;
+}
+
+/* cada moeda (seu HTML atual usa .coin) */
+.coin{
+  position: relative !important;
+  width: 120px !important;
+  height: 120px !important;
+  display: grid !important;
+  place-items: center !important;
+  z-index: 1000000 !important;
+}
+
+.coin-face{
+  width: 120px !important;
+  height: 120px !important;
+  border-radius: 999px !important;
+  overflow: hidden !important;
+  display: grid !important;
+  place-items: center !important;
+}
+
+.coin-img{
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  display: block !important;
+}
+
+/* legenda embaixo sem cortar */
+.coin-label{
+  margin-top: 10px !important;
+  font-size: 12px !important;
+  letter-spacing: .12em !important;
+  text-transform: uppercase !important;
+  color: rgba(255,255,255,.70) !important;
+}
+
+/* ==========================================
+   FIX: LINHA (SCAN) SOMENTE NO CORREDOR
+   ========================================== */
+.scan-line{
+  position: absolute !important;
+  left: 50% !important;
+  top: 50% !important;
+  transform: translate(-50%, -50%) !important;
+
+  width: 3px !important;
+  height: 180px !important;        /* <<< NÃO fica gigante */
+  border-radius: 999px !important;
+
+  background: linear-gradient(
+    to bottom,
+    rgba(80,170,255,0),
+    rgba(80,170,255,.85),
+    rgba(80,170,255,0)
+  ) !important;
+
+  filter: drop-shadow(0 0 18px rgba(80,170,255,.65)) !important;
+
+  z-index: 1000001 !important;
+  pointer-events: none !important;
+}
