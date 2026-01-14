@@ -19,7 +19,7 @@ goSignup?.addEventListener("click", (e) => { e.preventDefault(); openTab("signup
 goLogin?.addEventListener("click", (e) => { e.preventDefault(); openTab("login"); });
 
 // ===== Coins: prata -> azul quando cruzar o meio =====
-const stage = document.querySelector(".coin-stage");
+const stage = document.querySelector(".coins-marquee");
 const coins = Array.from(document.querySelectorAll(".coin"));
 
 function updateCoinColors(){
