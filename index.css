@@ -3545,4 +3545,17 @@ nav .nav-logo img{
   }
 }
 
+.hero-navy .cta-container{
+  display: grid;
+  grid-template-columns: 1fr 520px;
+  gap: 48px;
+  align-items: start;
+}
+
+@media (max-width: 980px){
+  .hero-navy .cta-container{
+    grid-template-columns: 1fr;
+  }
+}
+
 }
