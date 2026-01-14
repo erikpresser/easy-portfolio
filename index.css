@@ -3477,4 +3477,35 @@ nav .nav-logo img{
   .cta-container .card{ max-width:100% !important; justify-self:stretch !important; }
 }
 
+/* ===== FIX: LEFT + CARD lado a lado ===== */
+.hero-navy .cta-container{
+  display: grid !important;
+  grid-template-columns: 1fr 520px !important;
+  gap: 48px !important;
+  align-items: start !important;
+}
+
+/* evita o left estourar e empurrar tudo */
+.hero-navy .cta-container .left{
+  min-width: 0 !important;
+}
+
+/* card fixo e alinhado à direita */
+.hero-navy .cta-container .card{
+  width: 100% !important;
+  max-width: 520px !important;
+  justify-self: end !important;
+}
+
+/* responsivo: só empilha no mobile */
+@media (max-width: 980px){
+  .hero-navy .cta-container{
+    grid-template-columns: 1fr !important;
+  }
+  .hero-navy .cta-container .card{
+    justify-self: stretch !important;
+    max-width: 100% !important;
+  }
+}
+
 }
