@@ -5,43 +5,125 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Presser Investment | Acesso</title>
 
-  <!-- Fonte (opcional) -->
+  <!-- Fonte -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="auth.css?v=90">
 </head>
+
 <body>
 
   <main class="auth-shell">
 
-  <!-- MOEDAS (GLOBAL, atravessa a tela inteira) -->
-  <div class="coins-marquee" aria-hidden="true">
-    <div class="coins-track">
-      <div class="coins-row" id="coinRow">
-        <div class="coin" data-symbol="USDT"><div class="coin-face">₮</div><div class="coin-label">USDT</div></div>
-        <div class="coin" data-symbol="BTC"><div class="coin-face">₿</div><div class="coin-label">BTC</div></div>
-        <div class="coin" data-symbol="ETH"><div class="coin-face">Ξ</div><div class="coin-label">ETH</div></div>
-        <div class="coin" data-symbol="SOL"><div class="coin-face">S</div><div class="coin-label">SOL</div></div>
-        <div class="coin" data-symbol="XRP"><div class="coin-face">X</div><div class="coin-label">XRP</div></div>
-        <div class="coin" data-symbol="BNB"><div class="coin-face">B</div><div class="coin-label">BNB</div></div>
-        <div class="coin" data-symbol="USD"><div class="coin-face">$</div><div class="coin-label">USD</div></div>
+    <!-- MOEDAS (GLOBAL, atravessa a tela inteira) -->
+    <div class="coins-marquee" aria-hidden="true">
+      <div class="coins-track">
+        <div class="coins-row moving" id="coinRow">
 
-        <!-- duplicado para loop perfeito -->
-        <div class="coin" data-symbol="USDT"><div class="coin-face">₮</div><div class="coin-label">USDT</div></div>
-        <div class="coin" data-symbol="BTC"><div class="coin-face">₿</div><div class="coin-label">BTC</div></div>
-        <div class="coin" data-symbol="ETH"><div class="coin-face">Ξ</div><div class="coin-label">ETH</div></div>
-        <div class="coin" data-symbol="SOL"><div class="coin-face">S</div><div class="coin-label">SOL</div></div>
-        <div class="coin" data-symbol="XRP"><div class="coin-face">X</div><div class="coin-label">XRP</div></div>
-        <div class="coin" data-symbol="BNB"><div class="coin-face">B</div><div class="coin-label">BNB</div></div>
-        <div class="coin" data-symbol="USD"><div class="coin-face">$</div><div class="coin-label">USD</div></div>
+          <!-- 6 moedas -->
+          <div class="coin" data-symbol="BTC">
+            <div class="coin-face">
+              <img class="coin-img" src="assets/BTC.png" alt="BTC">
+            </div>
+            <div class="coin-label">BTC</div>
+          </div>
+
+          <div class="coin" data-symbol="ETH">
+            <div class="coin-face">
+              <img class="coin-img" src="assets/ETH.png" alt="ETH">
+            </div>
+            <div class="coin-label">ETH</div>
+          </div>
+
+          <div class="coin" data-symbol="USDC">
+            <div class="coin-face">
+              <img class="coin-img" src="assets/USDC.png" alt="USDC">
+            </div>
+            <div class="coin-label">USDC</div>
+          </div>
+
+          <div class="coin" data-symbol="USDT">
+            <div class="coin-face">
+              <img class="coin-img" src="assets/USDT.png" alt="USDT">
+            </div>
+            <div class="coin-label">USDT</div>
+          </div>
+
+          <div class="coin" data-symbol="SOL">
+            <div class="coin-face">
+              <img class="coin-img" src="assets/SOL.png" alt="SOL">
+            </div>
+            <div class="coin-label">SOL</div>
+          </div>
+
+          <div class="coin" data-symbol="ADA">
+            <div class="coin-face">
+              <img class="coin-img" src="assets/ADA.png" alt="ADA">
+            </div>
+            <div class="coin-label">ADA</div>
+          </div>
+
+          <!-- duplicado para loop perfeito -->
+          <div class="coin" data-symbol="BTC">
+            <div class="coin-face">
+              <img class="coin-img" src="assets/BTC.png" alt="BTC">
+            </div>
+            <div class="coin-label">BTC</div>
+          </div>
+
+          <div class="coin" data-symbol="ETH">
+            <div class="coin-face">
+              <img class="coin-img" src="assets/ETH.png" alt="ETH">
+            </div>
+            <div class="coin-label">ETH</div>
+          </div>
+
+          <div class="coin" data-symbol="USDC">
+            <div class="coin-face">
+              <img class="coin-img" src="assets/USDC.png" alt="USDC">
+            </div>
+            <div class="coin-label">USDC</div>
+          </div>
+
+          <div class="coin" data-symbol="USDT">
+            <div class="coin-face">
+              <img class="coin-img" src="assets/USDT.png" alt="USDT">
+            </div>
+            <div class="coin-label">USDT</div>
+          </div>
+
+          <div class="coin" data-symbol="SOL">
+            <div class="coin-face">
+              <img class="coin-img" src="assets/SOL.png" alt="SOL">
+            </div>
+            <div class="coin-label">SOL</div>
+          </div>
+
+          <div class="coin" data-symbol="ADA">
+            <div class="coin-face">
+              <img class="coin-img" src="assets/ADA.png" alt="ADA">
+            </div>
+            <div class="coin-label">ADA</div>
+          </div>
+
+        </div>
       </div>
+
+      <!-- linha do meio -->
+      <div class="scan-line"></div>
     </div>
 
-    <!-- linha do meio (scan) opcional: se não quiser, apaga -->
-    <div class="scan-line"></div>
-  </div>
+    <!-- LEFT -->
+    <section class="left">
+      <div class="left-inner">
+        <div class="kicker">Acesso à Presser Investment</div>
+
+        <h1 class="headline">
+          Você está pronto para o<br/>
+          <span class="neon">Dashboard</span>?
+        </h1>
       </div>
     </section>
 
