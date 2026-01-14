@@ -59,15 +59,18 @@ function setMarqueeDistance(){
 }
 
 function setScanToMiddleOfBlue(){
-  if(!scan || !leftPanel) return;
+  if(!scan || !leftPanel || !track) return;
 
   const leftRect = leftPanel.getBoundingClientRect();
-  // Meio do painel azul (metade da largura da seção .left)
-  const x = leftRect.left + (leftRect.width / 2);
 
-  // scan-line é absoluta dentro do marquee (viewport),
-  // então usamos left em px relativo ao viewport
+  // X: meio do painel azul
+  const x = leftRect.left + (leftRect.width / 2);
   scan.style.left = `${x}px`;
+
+  // Y: centro EXATO da faixa onde as moedas passam (coins-track)
+  const trackRect = track.getBoundingClientRect();
+  const y = trackRect.top + (trackRect.height / 2);
+  scan.style.top = `${y}px`;
 }
 
 const coins = row ? Array.from(row.querySelectorAll(".coin")) : [];
@@ -75,15 +78,34 @@ const coins = row ? Array.from(row.querySelectorAll(".coin")) : [];
 function updateCoinColors(){
   if(!scan || coins.length === 0) return;
 
-  const scanX = scan.getBoundingClientRect().left;
+  const scanRect = scan.getBoundingClientRect();
+  const scanX = scanRect.left;
+  const scanY = scanRect.top + (scanRect.height / 2);
+
+  // limites para o fade (quanto mais perto da linha, mais visível)
+  const FADE_RANGE = 260; // px (ajuste fino: 220~320)
 
   coins.forEach((coin) => {
     const r = coin.getBoundingClientRect();
     const coinCenterX = r.left + (r.width / 2);
+    const coinCenterY = r.top + (r.height / 2);
 
-    // Neon quando já passou para a esquerda da linha
+    // 1) Neon quando passa da linha (para esquerda)
     const passed = coinCenterX < scanX;
     coin.classList.toggle("is-neon", passed);
+
+    // 2) Fade: começa mais transparente e vai ficando normal ao se aproximar da linha
+    // quanto menor a distância, mais opaco
+    const dx = Math.abs(coinCenterX - scanX);
+    const dy = Math.abs(coinCenterY - scanY);
+    const dist = Math.sqrt(dx*dx + dy*dy);
+
+    // mapeia dist -> opacity
+    // dist >= FADE_RANGE => 0.35
+    // dist <= 0 => 1.0
+    const t = Math.max(0, Math.min(1, 1 - (dist / FADE_RANGE)));
+    const opacity = 0.35 + (t * 0.65); // 0.35 .. 1.0
+    coin.style.opacity = opacity.toFixed(3);
   });
 }
 

@@ -633,3 +633,66 @@ body{
 
   z-index: 15;
 }
+
+/* ==========================
+   SCAN LINE — DOURADA + ALINHADA NO MEIO DA MOEDA
+   ========================== */
+
+.coins-track{
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 100%;
+  height: 220px;                 /* faixa */
+  transform: translateY(-50%);
+  overflow: hidden;
+}
+
+.scan-line{
+  position: fixed;               /* JS controla o left */
+  width: 7px;                    /* mais larga */
+  height: 140px;                 /* um pouco maior que a moeda */
+  border-radius: 999px;
+
+  /* dourado premium (gradiente) */
+  background: linear-gradient(
+    to bottom,
+    rgba(255,214,102,0),
+    rgba(255,214,102,.95),
+    rgba(255,180,58,.95),
+    rgba(255,214,102,.95),
+    rgba(255,214,102,0)
+  );
+
+  box-shadow:
+    0 0 18px rgba(255,200,90,.55),
+    0 0 40px rgba(255,180,58,.25);
+
+  z-index: 9;
+  pointer-events: none;
+  opacity: .95;
+
+  /* NÃO fixa o top aqui. O JS vai posicionar exatamente no meio da moeda */
+}
+
+/* ==========================
+   MOEDAS — FADE IN PROGRESSIVO
+   ========================== */
+
+/* estado padrão: começa mais “invisível” */
+.coin{
+  opacity: .35;                  /* mais transparente no começo */
+  transition: opacity .25s linear;
+}
+
+/* a imagem prata padrão */
+.coin-img{
+  filter: grayscale(1) brightness(0.95);
+  transition: filter .25s ease, transform .25s ease, opacity .25s ease;
+}
+
+/* quando ganha neon */
+.coin.is-neon .coin-img{
+  filter: grayscale(0) brightness(1.2) drop-shadow(0 0 12px rgba(63,169,255,.85));
+  transform: scale(1.06);
+}
