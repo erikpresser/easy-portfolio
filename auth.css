@@ -849,7 +849,7 @@ body{
   transition: filter .12s linear, transform .12s linear, opacity .12s linear !important;
 }
 
-/* overlay azul que "preenche" conforme --fill */
+/* overlay azul — só aparece quando começou a tocar a linha */
 .coin-face::after{
   content:"";
   position:absolute;
@@ -876,8 +876,17 @@ body{
   );
 
   mix-blend-mode: screen;
+
+  /* CHAVE: desligado por padrão */
+  opacity: 0;
+  transition: opacity .12s linear;
+}
+
+/* Só liga quando começou a tocar/passar */
+.coin.is-neon .coin-face::after{
   opacity: 1;
 }
+
 
 /* quando começou a tocar, a imagem vai “colorindo” */
 .coin.is-neon .coin-img{
