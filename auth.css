@@ -1031,3 +1031,101 @@ body{
   color: rgba(191,219,254,1) !important;
   text-shadow: 0 0 12px rgba(96,165,250,.55) !important;
 }
+
+/* ===========================
+   FIX — MOEDAS + SCAN-LINE SUMINDO
+   (cole no FINAL do auth.css)
+   =========================== */
+
+.coins-marquee{
+  position: fixed !important;
+  inset: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  pointer-events: none !important;
+  z-index: 2 !important;           /* atrás do conteúdo, mas visível */
+  overflow: hidden !important;
+}
+
+.left, .right{
+  position: relative !important;
+  z-index: 5 !important;           /* conteúdo acima das moedas */
+}
+
+.coins-track{
+  position: absolute !important;
+  left: 0 !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important; /* moedas no centro vertical */
+  width: 100% !important;
+  height: 260px !important;        /* garante área visível */
+}
+
+.coins-row{
+  display: flex !important;
+  align-items: center !important;
+  gap: 44px !important;
+  will-change: transform !important;
+}
+
+/* Se sua animação estiver em outro nome, mantenha.
+   Aqui só garante que nada zere a animação. */
+.coins-row.moving{
+  animation-play-state: running !important;
+}
+
+/* Moeda (container) */
+.coin{
+  width: 150px !important;
+  height: 150px !important;
+  flex: 0 0 auto !important;
+  display: grid !important;
+  place-items: center !important;
+  text-align: center !important;
+}
+
+/* A imagem em si */
+.coin-face{
+  width: 120px !important;
+  height: 120px !important;
+  border-radius: 999px !important;
+  overflow: hidden !important;
+  display: grid !important;
+  place-items: center !important;
+}
+
+.coin-img{
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: contain !important;
+  display: block !important;
+}
+
+/* Label não pode ser cortada */
+.coin-label{
+  margin-top: 10px !important;
+  font-size: 12px !important;
+  letter-spacing: .14em !important;
+  text-transform: uppercase !important;
+  color: rgba(255,255,255,.55) !important;
+  white-space: nowrap !important;
+}
+
+/* Scan-line (linha do meio) */
+.scan-line{
+  position: fixed !important;
+  top: 0 !important;
+  bottom: 0 !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  width: 3px !important;
+  background: linear-gradient(
+    to bottom,
+    rgba(0,0,0,0),
+    rgba(80,170,255,.9),
+    rgba(0,0,0,0)
+  ) !important;
+  box-shadow: 0 0 30px rgba(80,170,255,.55) !important;
+  z-index: 4 !important; /* fica acima das moedas */
+  opacity: 1 !important;
+}
