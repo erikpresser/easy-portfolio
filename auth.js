@@ -1,3 +1,8 @@
+// ==============================
+// Presser Investment — auth.js
+// Tabs + Coins (prata -> neon ao cruzar a scan-line) + Demo submits
+// ==============================
+
 // Tabs
 const tabs = document.querySelectorAll(".tab");
 const panes = document.querySelectorAll(".pane");
@@ -18,44 +23,69 @@ tabs.forEach(t => t.addEventListener("click", () => openTab(t.dataset.tab)));
 goSignup?.addEventListener("click", (e) => { e.preventDefault(); openTab("signup"); });
 goLogin?.addEventListener("click", (e) => { e.preventDefault(); openTab("login"); });
 
-// ===== Coins: prata -> azul quando cruzar o meio =====
-const stage = document.querySelector(".coins-marquee");
-const coins = Array.from(document.querySelectorAll(".coin"));
+
+// ==============================
+// Coins: prata -> NEON ao cruzar a scan-line (divisão)
+// ==============================
+const marquee = document.querySelector(".coins-marquee");
+const scan = document.querySelector(".scan-line");
+
+// Importante: seleciona moedas APENAS dentro do marquee (evita pegar coisas de outras páginas)
+let coins = marquee ? Array.from(marquee.querySelectorAll(".coin")) : [];
 
 function updateCoinColors(){
-  if(!stage) return;
+  if(!marquee || !scan || coins.length === 0) return;
 
-  const stageRect = stage.getBoundingClientRect();
-  const centerX = stageRect.left + (stageRect.width / 2);
+  const scanRect = scan.getBoundingClientRect();
+  const scanX = scanRect.left; // posição real da linha (divisão)
 
+  // neon quando o centro da moeda já passou para a esquerda da linha
   coins.forEach((coin) => {
     const r = coin.getBoundingClientRect();
-    const coinCenter = r.left + (r.width / 2);
-
-    // Se o centro da moeda já passou do meio (à esquerda do centro), fica azul
-    const passed = coinCenter < centerX;
-    coin.classList.toggle("is-blue", passed);
+    const coinCenterX = r.left + (r.width / 2);
+    const passed = coinCenterX < scanX;
+    coin.classList.toggle("is-neon", passed);
   });
 }
 
-// Atualiza em loop (leve e preciso)
-let rafId;
+// Loop com RAF (leve e preciso)
+let rafId = null;
+
 function loop(){
   updateCoinColors();
   rafId = requestAnimationFrame(loop);
 }
-loop();
+
+function startLoop(){
+  if(rafId) return;
+  rafId = requestAnimationFrame(loop);
+}
+
+function stopLoop(){
+  if(!rafId) return;
+  cancelAnimationFrame(rafId);
+  rafId = null;
+}
+
+// inicia
+startLoop();
 
 // Pausa se a aba ficar em background (boa prática)
 document.addEventListener("visibilitychange", () => {
-  if(document.hidden){
-    cancelAnimationFrame(rafId);
-  } else {
-    loop();
-  }
+  if(document.hidden) stopLoop();
+  else startLoop();
 });
 
-// Demo submit (trocar pela sua integração Supabase)
+// Se o layout mudar (resize), o getBoundingClientRect já resolve,
+// mas forçamos uma atualização imediata
+window.addEventListener("resize", () => {
+  updateCoinColors();
+});
+
+
+// ==============================
+// Demo submit (trocar pela integração Supabase real)
+// ==============================
 const loginForm = document.getElementById("loginForm");
 const signupForm = document.getElementById("signupForm");
 const loginHint = document.getElementById("loginHint");
@@ -63,20 +93,22 @@ const signupHint = document.getElementById("signupHint");
 
 loginForm?.addEventListener("submit", async (e) => {
   e.preventDefault();
-  loginHint.textContent = "Validando credenciais...";
+  if(loginHint) loginHint.textContent = "Validando credenciais...";
+
   // Aqui você chama seu Supabase (signInWithPassword) e redireciona pro dashboard
   setTimeout(() => {
-    loginHint.textContent = "Login OK. Redirecionando...";
+    if(loginHint) loginHint.textContent = "Login OK. Redirecionando...";
     // window.location.href = "dashboard.html";
   }, 800);
 });
 
 signupForm?.addEventListener("submit", async (e) => {
   e.preventDefault();
-  signupHint.textContent = "Criando conta...";
+  if(signupHint) signupHint.textContent = "Criando conta...";
+
   // Aqui você chama seu Supabase (signUp) e confirma e-mail se necessário
   setTimeout(() => {
-    signupHint.textContent = "Conta criada. Verifique seu e-mail ou faça login.";
+    if(signupHint) signupHint.textContent = "Conta criada. Verifique seu e-mail ou faça login.";
     openTab("login");
   }, 900);
 });

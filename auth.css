@@ -831,3 +831,63 @@ body{
   position: relative !important;
   z-index: 2 !important;
 }
+
+/* ===========================
+   MOEDAS: MAIORES + CENTRO DO AZUL
+   + NEON QUANDO PASSA DO MEIO
+   =========================== */
+
+/* deixa a faixa das moedas exatamente no MEIO da coluna azul */
+.coins-marquee{
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  height: 220px !important;   /* mais alto para moeda grande + label */
+}
+
+/* aumenta as moedas */
+.coin{
+  width: 150px !important;
+  height: 150px !important;
+}
+
+.coin-face{
+  width: 110px !important;
+  height: 110px !important;
+  font-size: 2.35rem !important;
+  border: 1px solid rgba(255,255,255,.18) !important;
+  color: rgba(255,255,255,.75) !important;
+  background: rgba(255,255,255,.06) !important;
+}
+
+/* label um pouco mais afastado e legível */
+.coin-label{
+  bottom: -30px !important;
+  font-size: .78rem !important;
+  opacity: .8 !important;
+}
+
+/* gap maior para não “amontoar” */
+.coins-row{
+  gap: 34px !important;
+  padding: 16px 0 58px !important;
+}
+
+/* scan line no MEIO DO AZUL (que é a borda direita do container) */
+.scan-line{
+  right: 0 !important;
+}
+
+/* estado NEON (aplicado via JS quando cruza a linha) */
+.coin.is-neon .coin-face{
+  background: rgba(96,165,250,.12) !important;
+  border: 1px solid rgba(96,165,250,.65) !important;
+  color: rgba(191,219,254,1) !important;
+  box-shadow:
+    0 0 22px rgba(96,165,250,.55),
+    inset 0 0 14px rgba(96,165,250,.22) !important;
+}
+
+.coin.is-neon .coin-label{
+  color: rgba(191,219,254,1) !important;
+  text-shadow: 0 0 14px rgba(96,165,250,.55) !important;
+}
