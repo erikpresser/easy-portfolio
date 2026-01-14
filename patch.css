@@ -429,5 +429,43 @@
     margin-top: 32px !important;
   }
 }
-  
+
+/* =========================
+   FORÇA HERO (#entrada) EM 2 COLUNAS
+   ========================= */
+
+section.hero-navy#entrada .wrap .cta-container{
+  display: grid !important;
+  grid-template-columns: minmax(0, 1.25fr) minmax(320px, 0.75fr) !important;
+  gap: 48px !important;
+  align-items: center !important;
+
+  /* mata qualquer herança de flex */
+  flex-direction: unset !important;
+  flex-wrap: unset !important;
+}
+
+/* garante que a coluna esquerda não “empurre” e quebre o grid */
+section.hero-navy#entrada .wrap .cta-container > .left{
+  min-width: 0 !important;
+}
+
+/* card menor e fixado à direita */
+section.hero-navy#entrada .wrap .cta-container > aside.card{
+  width: 100% !important;
+  max-width: 420px !important;
+  justify-self: end !important;
+  margin: 0 !important; /* mata margin-top antigo que joga o card pra baixo */
+}
+
+/* mobile */
+@media (max-width: 900px){
+  section.hero-navy#entrada .wrap .cta-container{
+    grid-template-columns: 1fr !important;
+  }
+  section.hero-navy#entrada .wrap .cta-container > aside.card{
+    max-width: 100% !important;
+  }
+}
+
 }
