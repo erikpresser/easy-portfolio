@@ -76,36 +76,64 @@ function setScanToMiddleOfBlue(){
 const coins = row ? Array.from(row.querySelectorAll(".coin")) : [];
 
 function updateCoinColors(){
-  if(!scan || coins.length === 0) return;
+  if(!scan || !coins || coins.length === 0) return;
 
   const scanRect = scan.getBoundingClientRect();
   const scanX = scanRect.left;
   const scanY = scanRect.top + (scanRect.height / 2);
 
-  // limites para o fade (quanto mais perto da linha, mais visível)
-  const FADE_RANGE = 260; // px (ajuste fino: 220~320)
+  // fade por proximidade (quanto mais perto da linha, mais visível)
+  const FADE_RANGE = 260;     // 220~320
+  const MIN_OPACITY = 0.35;   // início "invisível"
+  const MAX_OPACITY = 1.00;   // normal
 
   coins.forEach((coin) => {
     const r = coin.getBoundingClientRect();
+
+    // centros
     const coinCenterX = r.left + (r.width / 2);
     const coinCenterY = r.top + (r.height / 2);
 
-    // 1) Neon quando passa da linha (para esquerda)
-    const passed = coinCenterX < scanX;
-    coin.classList.toggle("is-neon", passed);
+    // ===== 1) PROGRESSO NO TOQUE (scan atravessando a moeda) =====
+    // toca quando scanX entra no retângulo da moeda
+    const isTouching = (scanX >= r.left) && (scanX <= r.right);
+    // já passou quando a moeda ficou toda à esquerda da linha
+    const isAfter = (r.right < scanX);
 
-    // 2) Fade: começa mais transparente e vai ficando normal ao se aproximar da linha
-    // quanto menor a distância, mais opaco
+    // fill 0..1: 0 antes de tocar, 0..1 enquanto atravessa, 1 depois que passou
+    let fill = 0;
+    if (isTouching) {
+      fill = (scanX - r.left) / Math.max(1, r.width);
+    } else if (isAfter) {
+      fill = 1;
+    }
+
+    fill = Math.max(0, Math.min(1, fill));
+
+    // aplica classe quando começou a tocar (ou depois)
+    coin.classList.toggle("is-neon", fill > 0);
+
+    // opcional: expõe para CSS (se você quiser usar brilho progressivo)
+    coin.style.setProperty("--fill", fill.toFixed(3));
+
+    // ===== 2) FADE DE VISIBILIDADE POR PROXIMIDADE (igual o seu) =====
     const dx = Math.abs(coinCenterX - scanX);
     const dy = Math.abs(coinCenterY - scanY);
     const dist = Math.sqrt(dx*dx + dy*dy);
 
-    // mapeia dist -> opacity
-    // dist >= FADE_RANGE => 0.35
-    // dist <= 0 => 1.0
     const t = Math.max(0, Math.min(1, 1 - (dist / FADE_RANGE)));
-    const opacity = 0.35 + (t * 0.65); // 0.35 .. 1.0
-    coin.style.opacity = opacity.toFixed(3);
+    const baseOpacity = MIN_OPACITY + (t * (MAX_OPACITY - MIN_OPACITY));
+
+    // ===== 3) COMBINAÇÃO: quando toca, ganha um "boost" de visibilidade =====
+    // assim, no primeiro toque já dá para perceber a mudança
+    const touchBoost = 0.12 * fill; // 0..0.12
+
+    const finalOpacity = Math.max(
+      MIN_OPACITY,
+      Math.min(MAX_OPACITY, baseOpacity + touchBoost)
+    );
+
+    coin.style.opacity = finalOpacity.toFixed(3);
   });
 }
 
