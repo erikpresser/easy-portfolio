@@ -346,4 +346,42 @@
   }
 }
 
+
+/* ==========================================
+   FORÇAR TAMANHO DA JANELA DE ENTRADA (CARD)
+   ========================================== */
+
+.cta-container {
+  display: grid !important;
+  grid-template-columns: 1fr auto !important;
+  gap: 48px !important;
+  align-items: start !important;
+}
+
+/* FORÇA O CARD A FICAR PEQUENO */
+.cta-container .card {
+  width: 360px !important;      /* <<< CONTROLA O TAMANHO AQUI */
+  max-width: 360px !important;
+  min-width: 360px !important;
+  justify-self: end !important;
+}
+
+/* Ajuste interno para não "estufar" */
+.cta-container .card * {
+  max-width: 100% !important;
+}
+
+/* MOBILE: empilha */
+@media (max-width: 900px){
+  .cta-container {
+    grid-template-columns: 1fr !important;
+  }
+
+  .cta-container .card {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+  }
+}
+
 }
