@@ -458,3 +458,39 @@ body{
   background: linear-gradient(180deg, transparent, rgba(96,165,250,.85), transparent) !important;
   filter: drop-shadow(0 0 14px rgba(96,165,250,.55)) !important;
 }
+
+/* ==============================
+   FIX: PAINEL À DIREITA (DESKTOP)
+   ============================== */
+
+.auth-shell{
+  display: grid !important;
+  grid-template-columns: 1.1fr 0.9fr !important;
+  min-height: 100vh !important;
+}
+
+/* garante que cada lado fique na sua coluna */
+.auth-shell > .left{
+  grid-column: 1 !important;
+}
+
+.auth-shell > .right{
+  grid-column: 2 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+/* ==============================
+   RESPONSIVO: MOBILE EMPILHA
+   ============================== */
+@media (max-width: 980px){
+  .auth-shell{
+    grid-template-columns: 1fr !important;
+  }
+
+  .auth-shell > .left,
+  .auth-shell > .right{
+    grid-column: 1 !important;
+  }
+}
