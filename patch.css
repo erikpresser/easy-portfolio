@@ -150,238 +150,60 @@
     font-size: 12px;
   }
 
-  /* =========================================
-   FIX DEFINITIVO — JANELA AO LADO
-   ========================================= */
+  /* ==========================================
+   FIX DEFINITIVO — JANELA DE ENTRADA AO LADO
+   ========================================== */
 
-.hero-navy .wrap {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 24px;
-}
-
-/* Container principal */
+/* Container principal: duas colunas */
 .hero-navy .cta-container{
   display: grid !important;
-  grid-template-columns: 1fr 480px !important;
+  grid-template-columns: 1fr 360px !important; /* texto | card */
   gap: 48px !important;
   align-items: start !important;
-
   width: 100% !important;
-  max-width: 100% !important;
 }
 
 /* Coluna esquerda */
 .hero-navy .cta-container > .left{
-  grid-column: 1 !important;
+  width: 100% !important;
+  max-width: none !important;
   min-width: 0 !important;
 }
 
-/* Card da direita */
+/* Card da direita (Janela de Entrada) */
 .hero-navy .cta-container > .card{
-  grid-column: 2 !important;
-  width: 480px !important;
-  max-width: 480px !important;
-  min-width: 480px !important;
-
+  width: 360px !important;
+  max-width: 360px !important;
+  min-width: 360px !important;
   justify-self: end !important;
   align-self: start !important;
-}
-
-/* ANULA QUALQUER REGRA GLOBAL DO .card */
-.hero-navy .card{
-  width: auto !important;
-  max-width: none !important;
-}
-
-/* MOBILE: empilha */
-@media (max-width: 980px){
-  .hero-navy .cta-container{
-    grid-template-columns: 1fr !important;
-  }
-
-  .hero-navy .cta-container > .card{
-    grid-column: 1 !important;
-    width: 100% !important;
-    max-width: 100% !important;
-    min-width: 0 !important;
-    justify-self: stretch !important;
-  }
-}
-
-/* ================================
-   HERO - ENTRADA (FORÇAR LADO A LADO)
-================================ */
-
-.hero-navy .cta-container {
-  display: grid !important;
-  grid-template-columns: 1fr 480px !important; /* texto | card */
-  align-items: start !important;
-  gap: 48px !important;
-  width: 100% !important;
-}
-
-/* Coluna esquerda */
-.hero-navy .cta-container .left {
-  width: 100% !important;
-  max-width: none !important;
-}
-
-/* Card da direita */
-.hero-navy .cta-container .card {
-  width: 100% !important;
-  max-width: 480px !important;
-  justify-self: end !important;
-}
-
-/* MOBILE: empilha novamente */
-@media (max-width: 900px) {
-  .hero-navy .cta-container {
-    grid-template-columns: 1fr !important;
-  }
-
-  .hero-navy .cta-container .card {
-    max-width: 100% !important;
-    justify-self: stretch !important;
-  }
-}
-
-/* ================================
-   AJUSTE FINAL - JANELA DE ENTRADA
-================================ */
-
-/* Container principal: 2 colunas */
-.hero-navy .cta-container {
-  display: grid !important;
-  grid-template-columns: 1fr 420px !important; /* texto | card menor */
-  align-items: start !important;
-  gap: 48px !important;
-  width: 100% !important;
-}
-
-/* Coluna esquerda */
-.hero-navy .cta-container .left {
-  width: 100% !important;
-  max-width: none !important;
-}
-
-/* Card da direita (Janela de Entrada) */
-.hero-navy .cta-container .card {
-  width: 100% !important;
-  max-width: 420px !important;   /* <<< AQUI DIMINUI */
-  justify-self: end !important;
-  padding: 20px !important;      /* menos “gorda” */
-  border-radius: 16px !important;
-}
-
-/* Ajuste interno para não estourar */
-.hero-navy .cta-container .countdown {
-  gap: 10px !important;
-}
-
-.hero-navy .cta-container .slot {
-  padding: 10px 8px !important;
-  font-size: 13px !important;
-}
-
-/* MOBILE: volta a empilhar */
-@media (max-width: 900px) {
-  .hero-navy .cta-container {
-    grid-template-columns: 1fr !important;
-  }
-
-  .hero-navy .cta-container .card {
-    max-width: 100% !important;
-    justify-self: stretch !important;
-  }
-}
-
-/* =====================================
-   FIX FINAL — DIMINUIR JANELA DE ENTRADA
-   ===================================== */
-
-/* Container das duas colunas */
-.cta-container{
-  display: grid !important;
-  grid-template-columns: 1fr 360px !important; /* esquerda | card menor */
-  gap: 48px !important;
-  align-items: start !important;
-  width: 100% !important;
-}
-
-/* Coluna esquerda */
-.cta-container > .left{
-  width: 100% !important;
-  max-width: none !important;
-}
-
-/* CARD — JANELA DE ENTRADA */
-.cta-container > .card{
-  width: 100% !important;
-  max-width: 360px !important;   /* <<< DIMINUI AQUI */
-  justify-self: end !important;
   padding: 18px !important;
   border-radius: 16px !important;
 }
 
 /* Reduz os blocos internos */
-.cta-container .slot{
+.hero-navy .cta-container .countdown{
+  gap: 10px !important;
+}
+
+.hero-navy .cta-container .slot{
   padding: 8px 6px !important;
   font-size: 13px !important;
 }
 
-.cta-container .countdown{
-  gap: 10px !important;
-}
-
-/* MOBILE: empilha novamente */
+/* MOBILE: empilha */
 @media (max-width: 900px){
-  .cta-container{
+  .hero-navy .cta-container{
     grid-template-columns: 1fr !important;
   }
 
-  .cta-container > .card{
+  .hero-navy .cta-container > .card{
+    width: 100% !important;
     max-width: 100% !important;
+    min-width: 0 !important;
     justify-self: stretch !important;
   }
 }
 
-
-/* ==========================================
-   FORÇAR TAMANHO DA JANELA DE ENTRADA (CARD)
-   ========================================== */
-
-.cta-container {
-  display: grid !important;
-  grid-template-columns: 1fr auto !important;
-  gap: 48px !important;
-  align-items: start !important;
-}
-
-/* FORÇA O CARD A FICAR PEQUENO */
-.cta-container .card {
-  width: 360px !important;      /* <<< CONTROLA O TAMANHO AQUI */
-  max-width: 360px !important;
-  min-width: 360px !important;
-  justify-self: end !important;
-}
-
-/* Ajuste interno para não "estufar" */
-.cta-container .card * {
-  max-width: 100% !important;
-}
-
-/* MOBILE: empilha */
-@media (max-width: 900px){
-  .cta-container {
-    grid-template-columns: 1fr !important;
-  }
-
-  .cta-container .card {
-    width: 100% !important;
-    max-width: 100% !important;
-    min-width: 0 !important;
-  }
-}
-
+  
 }
