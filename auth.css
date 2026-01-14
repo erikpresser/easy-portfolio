@@ -654,7 +654,7 @@ body{
 
 .scan-line{
   position: fixed;               /* X e Y controlados via JS */
-  width: 9px;                    /* mais larga */
+  width: 7px;                    /* mais larga */
   height: 200px;                 /* MAIOR que antes */
   border-radius: 999px;
 
@@ -680,8 +680,8 @@ body{
 
 /* estado padrão: começa mais “invisível” */
 .coin{
-  opacity: .15;                  /* mais transparente no começo */
-  transition: opacity .10s linear;
+  opacity: .12;                  /* mais transparente no começo */
+  transition: opacity .7s linear;
 }
 
 /* a imagem prata padrão */
@@ -740,4 +740,32 @@ body{
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+/* ==========================
+   MOEDAS — TAMANHO MAIOR
+   ========================== */
+
+/* container da moeda */
+.coin{
+  width: 150px;          /* antes: ~120px */
+  height: 150px;
+}
+
+/* “face” da moeda */
+.coin-face{
+  width: 130px;          /* antes: ~100px */
+  height: 130px;
+}
+
+/* imagem dentro da moeda */
+.coin-img{
+  width: 100%;
+  height: 100%;
+}
+
+/* label embaixo da moeda */
+.coin-label{
+  bottom: -26px;         /* afasta o texto da moeda */
+  font-size: 13px;       /* um pouco maior */
 }
