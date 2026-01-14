@@ -655,16 +655,14 @@ body{
 .scan-line{
   position: fixed;               /* X e Y controlados via JS */
   width: 9px;                    /* mais larga */
-  height: 280px;                 /* MAIOR que antes */
+  height: 220px;                 /* MAIOR que antes */
   border-radius: 999px;
 
   background: linear-gradient(
     to bottom,
-    rgba(255,214,102,0),
     rgba(255,214,102,.95),
     rgba(255,180,58,.95),
     rgba(255,214,102,.95),
-    rgba(255,214,102,0)
   );
 
   box-shadow:
