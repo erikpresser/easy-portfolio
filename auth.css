@@ -863,17 +863,16 @@ body{
     rgba(0,170,255,0) 70%
   );
 
-  /* máscara: cresce da DIREITA -> ESQUERDA conforme fill aumenta */
   -webkit-mask-image: linear-gradient(
-    to left,
-    rgba(0,0,0,1) calc(var(--fill, 0) * 100%),
-    rgba(0,0,0,0) calc(var(--fill, 0) * 100%)
-  );
-  mask-image: linear-gradient(
-    to left,
-    rgba(0,0,0,1) calc(var(--fill, 0) * 100%),
-    rgba(0,0,0,0) calc(var(--fill, 0) * 100%)
-  );
+  to right,
+  rgba(0,0,0,1) calc(var(--fill, 0) * 100%),
+  rgba(0,0,0,0) calc(var(--fill, 0) * 100%)
+);
+mask-image: linear-gradient(
+  to right,
+  rgba(0,0,0,1) calc(var(--fill, 0) * 100%),
+  rgba(0,0,0,0) calc(var(--fill, 0) * 100%)
+);
 
   mix-blend-mode: screen;
 
