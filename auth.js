@@ -26,12 +26,13 @@ goLogin?.addEventListener("click", (e) => { e.preventDefault(); openTab("login")
 
 // ==============================
 // Coins: prata -> NEON ao cruzar a scan-line (divisão)
+// (VERSÃO CORRIGIDA: is-neon + loop estável)
 // ==============================
 const marquee = document.querySelector(".coins-marquee");
 const scan = document.querySelector(".scan-line");
 
-// Importante: seleciona moedas APENAS dentro do marquee (evita pegar coisas de outras páginas)
-let coins = marquee ? Array.from(marquee.querySelectorAll(".coin")) : [];
+// seleciona moedas APENAS dentro do marquee
+const coins = marquee ? Array.from(marquee.querySelectorAll(".coin")) : [];
 
 function updateCoinColors(){
   if(!marquee || !scan || coins.length === 0) return;
@@ -39,16 +40,17 @@ function updateCoinColors(){
   const scanRect = scan.getBoundingClientRect();
   const scanX = scanRect.left; // posição real da linha (divisão)
 
-  // neon quando o centro da moeda já passou para a esquerda da linha
   coins.forEach((coin) => {
     const r = coin.getBoundingClientRect();
     const coinCenterX = r.left + (r.width / 2);
+
+    // Se o centro da moeda já passou para a esquerda da linha, fica neon
     const passed = coinCenterX < scanX;
     coin.classList.toggle("is-neon", passed);
   });
 }
 
-// Loop com RAF (leve e preciso)
+// RAF loop (com pausa em background)
 let rafId = null;
 
 function loop(){
@@ -57,12 +59,12 @@ function loop(){
 }
 
 function startLoop(){
-  if(rafId) return;
+  if(rafId !== null) return;
   rafId = requestAnimationFrame(loop);
 }
 
 function stopLoop(){
-  if(!rafId) return;
+  if(rafId === null) return;
   cancelAnimationFrame(rafId);
   rafId = null;
 }
@@ -70,14 +72,13 @@ function stopLoop(){
 // inicia
 startLoop();
 
-// Pausa se a aba ficar em background (boa prática)
+// pausa quando a aba fica escondida
 document.addEventListener("visibilitychange", () => {
   if(document.hidden) stopLoop();
   else startLoop();
 });
 
-// Se o layout mudar (resize), o getBoundingClientRect já resolve,
-// mas forçamos uma atualização imediata
+// atualiza em resize (e evita “desincronia” visual)
 window.addEventListener("resize", () => {
   updateCoinColors();
 });

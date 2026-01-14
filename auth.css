@@ -910,3 +910,45 @@ body{
 .coins-row{
   gap: 26px !important;
 }
+
+/* ===========================
+   LOOP PERFEITO + VELOCIDADE LENTA
+   e NEON quando passa da linha
+   =========================== */
+
+.coins-track{ overflow: hidden !important; }
+
+.coins-row{
+  animation: marqueeLoop 46s linear infinite !important; /* MAIS LENTO DE VERDADE */
+  will-change: transform !important;
+}
+
+/* Como a linha está duplicada (mesma sequência 2x),
+   andar -50% fecha o loop sem "tranco" */
+@keyframes marqueeLoop{
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* GARANTE: padrão prata */
+.coin .coin-face{
+  color: rgba(255,255,255,.75) !important;
+  border: 1px solid rgba(255,255,255,.18) !important;
+  background: rgba(255,255,255,.06) !important;
+  box-shadow: none !important;
+}
+
+/* GARANTE: neon azul quando passa */
+.coin.is-neon .coin-face{
+  background: rgba(96,165,250,.14) !important;
+  border: 1px solid rgba(96,165,250,.78) !important;
+  color: rgba(191,219,254,1) !important;
+  box-shadow:
+    0 0 26px rgba(96,165,250,.60),
+    inset 0 0 16px rgba(96,165,250,.22) !important;
+}
+
+.coin.is-neon .coin-label{
+  color: rgba(191,219,254,1) !important;
+  text-shadow: 0 0 14px rgba(96,165,250,.55) !important;
+}
