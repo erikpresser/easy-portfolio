@@ -1,7 +1,6 @@
 // ==============================
 // Presser Investment — auth.js
-// Tabs + Coins (prata -> neon ao cruzar a scan-line no MEIO do painel azul)
-// + Demo submits
+// Tabs + Coins (loop real) + scan-line no meio do painel azul
 // ==============================
 
 // Tabs
@@ -26,85 +25,111 @@ goLogin?.addEventListener("click", (e) => { e.preventDefault(); openTab("login")
 
 
 // ==============================
-// Coins: prata -> NEON ao cruzar a scan-line
-// (scan-line posicionada no meio do painel azul, não no meio da tela)
+// COINS — loop + scan-line correta
 // ==============================
 const marquee = document.querySelector(".coins-marquee");
-const scan = document.querySelector(".scan-line");
-const leftPanel = document.querySelector("section.left"); // painel azul (se existir)
+const track   = marquee?.querySelector(".coins-track");
+const row     = document.getElementById("coinRow");
+const scan    = marquee?.querySelector(".scan-line");
+const leftPanel = document.querySelector(".left");
 
-let coins = marquee ? Array.from(marquee.querySelectorAll(".coin")) : [];
-
-function positionScanLine(){
-  if(!scan) return;
-
-  // Se houver painel esquerdo, usa o meio dele.
-  // Se não houver, cai para o meio da tela.
-  let scanX = window.innerWidth / 2;
-
-  if(leftPanel){
-    const r = leftPanel.getBoundingClientRect();
-    scanX = r.left + (r.width / 2);
-  }
-
-  scan.style.left = `${scanX}px`;
+function restartAnimation(el){
+  // força restart do CSS animation (resolve travas)
+  el.style.animation = "none";
+  // eslint-disable-next-line no-unused-expressions
+  el.offsetHeight; // reflow
+  el.style.animation = "";
 }
 
-function updateCoinColors(){
-  if(!marquee || !scan || coins.length === 0) return;
+function setMarqueeDistance(){
+  if(!row) return;
 
-  const scanRect = scan.getBoundingClientRect();
-  const scanX = scanRect.left;
+  // Garantir que imagens carregaram (ou pelo menos layout estabilizou)
+  // Distância = metade do scrollWidth (porque você duplicou o bloco)
+  const total = row.scrollWidth;
+  const half = Math.max(1, Math.round(total / 2));
+
+  row.style.setProperty("--marquee-distance", `${half}px`);
+
+  // Ajuste fino de velocidade: quanto maior a distância, maior o tempo
+  // (você pode travar num valor fixo se preferir)
+  const duration = Math.max(45, Math.round(half / 35)); // regra simples
+  row.style.setProperty("--marquee-duration", `${duration}s`);
+
+  // Garante que a classe moving está aplicada
+  row.classList.add("moving");
+
+  restartAnimation(row);
+}
+
+function setScanToMiddleOfBlue(){
+  if(!scan || !leftPanel) return;
+
+  const leftRect = leftPanel.getBoundingClientRect();
+  // Meio do painel azul (metade da largura da seção .left)
+  const x = leftRect.left + (leftRect.width / 2);
+
+  // scan-line é absoluta dentro do marquee (viewport),
+  // então usamos left em px relativo ao viewport
+  scan.style.left = `${x}px`;
+}
+
+const coins = row ? Array.from(row.querySelectorAll(".coin")) : [];
+
+function updateCoinColors(){
+  if(!scan || coins.length === 0) return;
+
+  const scanX = scan.getBoundingClientRect().left;
 
   coins.forEach((coin) => {
     const r = coin.getBoundingClientRect();
     const coinCenterX = r.left + (r.width / 2);
 
-    // Neon quando o centro já passou para a esquerda da linha
+    // Neon quando já passou para a esquerda da linha
     const passed = coinCenterX < scanX;
     coin.classList.toggle("is-neon", passed);
   });
 }
 
-// RAF loop (com pausa em background)
+// Loop RAF
 let rafId = null;
-
 function loop(){
-  positionScanLine();
   updateCoinColors();
   rafId = requestAnimationFrame(loop);
 }
-
 function startLoop(){
   if(rafId !== null) return;
   rafId = requestAnimationFrame(loop);
 }
-
 function stopLoop(){
   if(rafId === null) return;
   cancelAnimationFrame(rafId);
   rafId = null;
 }
 
-// inicia
-startLoop();
+// Inicialização (sem delay)
+function initCoins(){
+  if(!row) return;
+
+  setScanToMiddleOfBlue();
+  setMarqueeDistance();
+  startLoop();
+}
+
+// Quando tudo estiver pronto
+window.addEventListener("load", initCoins);
+
+// Recalcula quando redimensiona
+window.addEventListener("resize", () => {
+  setScanToMiddleOfBlue();
+  setMarqueeDistance();
+  updateCoinColors();
+});
 
 // pausa quando a aba fica escondida
 document.addEventListener("visibilitychange", () => {
   if(document.hidden) stopLoop();
   else startLoop();
-});
-
-// atualiza em resize
-window.addEventListener("resize", () => {
-  positionScanLine();
-  updateCoinColors();
-});
-
-// garante posição correta logo no load
-window.addEventListener("load", () => {
-  positionScanLine();
-  updateCoinColors();
 });
 
 
