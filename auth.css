@@ -832,3 +832,71 @@ body{
   color: rgba(170, 220, 255, 1) !important;
   text-shadow: 0 0 14px rgba(0,170,255,.55) !important;
 }
+
+/* ==============================
+   SCANNER REAL (progressivo)
+   usa --fill (0..1) vindo do JS
+   ============================== */
+
+.coin-face{
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+/* imagem base (prata) */
+.coin-img{
+  filter: grayscale(1) brightness(.95) contrast(1.05) !important;
+  transition: filter .12s linear, transform .12s linear, opacity .12s linear !important;
+}
+
+/* overlay azul que "preenche" conforme --fill */
+.coin-face::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius: inherit;
+  pointer-events:none;
+
+  background: radial-gradient(circle at 50% 50%,
+    rgba(0,170,255,.55) 0%,
+    rgba(0,170,255,.18) 45%,
+    rgba(0,170,255,0) 70%
+  );
+
+  /* máscara: cresce da DIREITA -> ESQUERDA conforme fill aumenta */
+  -webkit-mask-image: linear-gradient(
+    to left,
+    rgba(0,0,0,1) calc(var(--fill, 0) * 100%),
+    rgba(0,0,0,0) calc(var(--fill, 0) * 100%)
+  );
+  mask-image: linear-gradient(
+    to left,
+    rgba(0,0,0,1) calc(var(--fill, 0) * 100%),
+    rgba(0,0,0,0) calc(var(--fill, 0) * 100%)
+  );
+
+  mix-blend-mode: screen;
+  opacity: 1;
+}
+
+/* quando começou a tocar, a imagem vai “colorindo” */
+.coin.is-neon .coin-img{
+  filter:
+    grayscale(calc(1 - var(--fill, 0)))
+    brightness(calc(.95 + (var(--fill, 0) * .25)))
+    contrast(1.12)
+    drop-shadow(0 0 calc(10px * var(--fill, 0)) rgba(0,170,255,.95))
+    drop-shadow(0 0 calc(24px * var(--fill, 0)) rgba(0,170,255,.55))
+    drop-shadow(0 0 calc(44px * var(--fill, 0)) rgba(0,170,255,.25)) !important;
+
+  transform: scale(calc(1 + (var(--fill, 0) * 0.06))) !important;
+}
+
+/* label acompanha a intensidade */
+.coin-label{
+  transition: color .12s linear, text-shadow .12s linear;
+}
+.coin.is-neon .coin-label{
+  color: rgba(170,220,255,1) !important;
+  text-shadow: 0 0 calc(16px * var(--fill, 0)) rgba(0,170,255,.55) !important;
+}
