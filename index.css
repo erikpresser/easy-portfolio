@@ -3414,4 +3414,19 @@ nav .nav-logo img{
   z-index: 1 !important;
 }
 
+.cta-container{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:48px;
+}
+
+.left{ flex: 1; }
+.card{ width: 480px; max-width: 100%; }
+
+@media (max-width: 980px){
+  .cta-container{ flex-direction:column; }
+  .card{ width: 100%; }
+}
+
 }
