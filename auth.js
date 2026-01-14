@@ -44,21 +44,17 @@ function restartAnimation(el){
 function setMarqueeDistance(){
   if(!row) return;
 
-  // Garantir que imagens carregaram (ou pelo menos layout estabilizou)
-  // Distância = metade do scrollWidth (porque você duplicou o bloco)
   const total = row.scrollWidth;
   const half = Math.max(1, Math.round(total / 2));
 
   row.style.setProperty("--marquee-distance", `${half}px`);
 
-  // Ajuste fino de velocidade: quanto maior a distância, maior o tempo
-  // (você pode travar num valor fixo se preferir)
-  const duration = Math.max(45, Math.round(half / 35)); // regra simples
+  // velocidade previsível
+  // 40s a 80s, dependendo do tamanho
+  const duration = Math.min(80, Math.max(40, Math.round(half / 25)));
   row.style.setProperty("--marquee-duration", `${duration}s`);
 
-  // Garante que a classe moving está aplicada
   row.classList.add("moving");
-
   restartAnimation(row);
 }
 
@@ -107,12 +103,18 @@ function stopLoop(){
   rafId = null;
 }
 
-// Inicialização (sem delay)
 function initCoins(){
   if(!row) return;
 
   setScanToMiddleOfBlue();
+
+  // recalcula 2x para pegar imagens/laytout estabilizado
   setMarqueeDistance();
+  requestAnimationFrame(() => {
+    setMarqueeDistance();
+    updateCoinColors();
+  });
+
   startLoop();
 }
 

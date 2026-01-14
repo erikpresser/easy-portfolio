@@ -104,29 +104,6 @@ body{
   transform: translateZ(0);
 }
 
-.coin{
-  width: 92px;
-  height: 92px;
-  border-radius: 999px;
-  background: rgba(255,255,255,.06);
-  border: 1px solid rgba(255,255,255,.12);
-  display:grid;
-  place-items:center;
-  position: relative;
-  transition: transform .35s ease, box-shadow .35s ease, background .35s ease, border-color .35s ease;
-}
-
-.coin-face{
-  width: 58px;
-  height: 58px;
-  border-radius: 999px;
-  display:grid;
-  place-items:center;
-  font-weight: 800;
-  font-size: 1.45rem;
-  background: rgba(255,255,255,.08);
-  border: 1px solid rgba(255,255,255,.14);
-}
 
 .coin-label{
   position:absolute;
@@ -140,24 +117,6 @@ body{
   background: rgba(37,99,235,.16);
   border-color: rgba(96,165,250,.55);
   box-shadow: 0 16px 50px rgba(37,99,235,.25);
-}
-
-.coin.is-active .coin-face{
-  background: rgba(37,99,235,.20);
-  border-color: rgba(96,165,250,.55);
-}
-
-.scan-line{
-  position:absolute;
-  top: 0;
-  bottom: 0;
-  width: 6px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: linear-gradient(180deg, transparent, rgba(96,165,250,.85), transparent);
-  filter: drop-shadow(0 0 10px rgba(96,165,250,.45));
-  opacity: .8;
-  animation: scan 2.6s ease-in-out infinite;
 }
 
 @keyframes scan{
@@ -391,74 +350,6 @@ body{
   to{ transform: translateX(-50%); } /* porque duplicamos as moedas */
 }
 
-/* ===== COINS: padrão PRATA ===== */
-.coin{
-  width: 92px !important;
-  height: 92px !important;
-  border-radius: 999px !important;
-  background: rgba(255,255,255,.06) !important;
-  border: 1px solid rgba(255,255,255,.14) !important;
-  display: grid !important;
-  place-items: center !important;
-  position: relative !important;
-  transition: filter .2s ease, box-shadow .2s ease, border-color .2s ease, background .2s ease !important;
-}
-
-.coin-face{
-  width: 58px !important;
-  height: 58px !important;
-  border-radius: 999px !important;
-  display:grid !important;
-  place-items:center !important;
-  font-weight: 900 !important;
-  font-size: 1.45rem !important;
-  background: rgba(255,255,255,.07) !important;
-  border: 1px solid rgba(255,255,255,.18) !important;
-  color: rgba(255,255,255,.75) !important; /* prata */
-}
-
-.coin-label{
-  position:absolute !important;
-  bottom: -18px !important;
-  font-size: .72rem !important;
-  color: rgba(255,255,255,.70) !important;
-  letter-spacing: .02em !important;
-}
-
-/* “Prata” realista */
-.coin{
-  filter: grayscale(1) contrast(1.05) brightness(1.05) !important;
-}
-.coin .coin-face{
-  box-shadow: inset 0 0 0 1px rgba(255,255,255,.06) !important;
-}
-
-/* ===== Azul neon quando passar do meio (JS aplica .is-blue) ===== */
-.coin.is-blue{
-  filter: none !important;
-  background: rgba(37,99,235,.16) !important;
-  border-color: rgba(96,165,250,.55) !important;
-  box-shadow: 0 18px 60px rgba(37,99,235,.22) !important;
-}
-
-.coin.is-blue .coin-face{
-  background: rgba(37,99,235,.20) !important;
-  border-color: rgba(96,165,250,.55) !important;
-  color: #93c5fd !important;
-  text-shadow: 0 0 10px rgba(59,130,246,.35) !important;
-}
-
-/* ===== Scan line central fixa ===== */
-.scan-line{
-  left: 50% !important;
-  transform: translateX(-50%) !important;
-  opacity: .95 !important;
-  animation: none !important; /* agora fica fixa no meio */
-  width: 6px !important;
-  background: linear-gradient(180deg, transparent, rgba(96,165,250,.85), transparent) !important;
-  filter: drop-shadow(0 0 14px rgba(96,165,250,.55)) !important;
-}
-
 /* ==============================
    FIX: PAINEL À DIREITA (DESKTOP)
    ============================== */
@@ -539,104 +430,9 @@ body{
   pointer-events: none !important;
 }
 
-/* garante que o conteúdo fique acima do fundo */
-.coin-stage{
-  position: relative !important;
-}
-
-/* 3) moedas maiores e sem “quadrado” externo */
-.coin{
-  width: 110px !important;
-  height: 110px !important;
-  background: transparent !important;
-  border: 0 !important;
-  box-shadow: none !important;
-}
-
-/* mantém só o “disco” da moeda */
-.coin-face{
-  width: 86px !important;
-  height: 86px !important;
-  font-size: 1.9rem !important;
-  border-radius: 999px !important;
-}
-
-/* deixa o label mais discreto e alinhado */
-.coin-label{
-  bottom: -22px !important;
-  font-size: .74rem !important;
-  opacity: .85 !important;
-}
-
-/* ajuste do trilho (pra caber melhor com moedas maiores) */
-.coin-row.moving{
-  gap: 22px !important;
-  padding: 18px 10px 34px !important;
-}
-
-/* scan-line um pouco mais alto pra ficar “premium” */
-.scan-line{
-  width: 7px !important;
-  opacity: .9 !important;
-  filter: drop-shadow(0 0 18px rgba(96,165,250,.60)) !important;
-}
-
-/* responsivo */
-@media (max-width: 980px){
-  .headline{
-    text-align: left !important; /* no mobile pode voltar pro padrão */
-  }
-  .coin-stage::before{
-    height: 130px !important;
-  }
-  .coin{
-    width: 96px !important;
-    height: 96px !important;
-  }
-  .coin-face{
-    width: 74px !important;
-    height: 74px !important;
-    font-size: 1.7rem !important;
-  }
-}
-
-/* =========================================
-   MARQUEE GLOBAL: atravessa branco + azul
-   sem fundo atrás das moedas
-   ========================================= */
-
 .auth-shell{
   position: relative !important;
   overflow: hidden !important; /* corta as moedas fora da tela */
-}
-
-/* camada global no meio da tela */
-.coins-marquee{
-  position: absolute !important;
-  left: 0 !important;
-  right: 0 !important;
-  top: 210px !important;     /* ajuste fino: sobe/desce */
-  height: 140px !important;
-  pointer-events: none !important;
-  z-index: 3 !important;
-}
-
-/* trilho */
-.coins-track{
-  width: 100% !important;
-  height: 100% !important;
-  overflow: hidden !important;
-}
-
-/* fila animada da direita para esquerda */
-.coins-row{
-  display: flex !important;
-  align-items: center !important;
-  gap: 22px !important;
-  width: max-content !important;
-  height: 100% !important;
-  animation: marqueeLeft 14s linear infinite !important;
-  will-change: transform !important;
 }
 
 /* começa “mais à direita” para nascer no lado branco */
@@ -645,91 +441,9 @@ body{
   to   { transform: translateX(-60%); }
 }
 
-/* moedas maiores, SEM QUADRADO/SEM FUNDO */
-.coin{
-  width: 120px !important;
-  height: 120px !important;
-  background: transparent !important;
-  border: 0 !important;
-  box-shadow: none !important;
-  display: grid !important;
-  place-items: center !important;
-  position: relative !important;
-}
-
-.coin-face{
-  width: 92px !important;
-  height: 92px !important;
-  border-radius: 999px !important;
-  display: grid !important;
-  place-items: center !important;
-  font-weight: 900 !important;
-  font-size: 2rem !important;
-
-  /* aparência “prata” padrão */
-  background: rgba(255,255,255,.06) !important;
-  border: 1px solid rgba(255,255,255,.16) !important;
-  color: rgba(255,255,255,.72) !important;
-  backdrop-filter: blur(2px) !important;
-}
-
-.coin-label{
-  position: absolute !important;
-  bottom: -18px !important;
-  font-size: .72rem !important;
-  color: rgba(255,255,255,.65) !important;
-}
-
-/* linha do meio FIXA (se quiser manter) */
-.scan-line{
-  position: absolute !important;
-  top: 0 !important;
-  bottom: 0 !important;
-  left: 50% !important;
-  transform: translateX(-50%) !important;
-  width: 7px !important;
-  opacity: .9 !important;
-  background: linear-gradient(180deg, transparent, rgba(96,165,250,.85), transparent) !important;
-  filter: drop-shadow(0 0 18px rgba(96,165,250,.60)) !important;
-}
-
-/* responsivo */
-@media (max-width: 980px){
-  .coins-marquee{
-    top: 240px !important;
-    height: 120px !important;
-  }
-  .coin{
-    width: 100px !important;
-    height: 100px !important;
-  }
-  .coin-face{
-    width: 76px !important;
-    height: 76px !important;
-    font-size: 1.7rem !important;
-  }
-}
-
-/* ===========================
-   MARQUEE: COMEÇA NA DIVISAO (50%) E VAI PARA ESQUERDA
-   + arruma labels cortados
-   + não some o texto
-   =========================== */
-
 .auth-shell{
   position: relative !important;
   overflow: hidden !important;
-}
-
-/* Camada das moedas só no lado AZUL (da metade até a esquerda) */
-.coins-marquee{
-  position: absolute !important;
-  left: 0 !important;
-  width: 50vw !important;      /* só metade da tela (lado azul) */
-  top: 230px !important;       /* ajuste fino: mais abaixo do título */
-  height: 180px !important;    /* maior pra caber label */
-  pointer-events: none !important;
-  z-index: 1 !important;       /* fica atrás do texto */
 }
 
 /* garante que texto fique acima das moedas */
@@ -738,23 +452,6 @@ body{
   z-index: 2 !important;
 }
 
-.coins-track{
-  width: 100% !important;
-  height: 100% !important;
-  overflow: hidden !important;
-}
-
-/* Linha começa encostada na “divisão” (borda direita do lado azul) */
-.coins-row{
-  display: flex !important;
-  align-items: center !important;
-  gap: 26px !important;
-  width: max-content !important;
-  height: 100% !important;
-  padding: 10px 0 44px !important;  /* espaço para os labels */
-  animation: marqueeFromSplit 12s linear infinite !important;
-  will-change: transform !important;
-}
 
 /* Começa “fora” pela direita (no limite do container = divisão),
    e sai para a esquerda */
@@ -763,1059 +460,111 @@ body{
   to   { transform: translateX(-100%); }
 }
 
-/* Moedas maiores e labels visíveis */
-.coin{
-  width: 120px !important;
-  height: 120px !important;
-  background: transparent !important;
-  border: 0 !important;
-  box-shadow: none !important;
-  display: grid !important;
-  place-items: center !important;
-  position: relative !important;
-}
+/* =========================================================
+   COINS MARQUEE — BLOCO ÚNICO (FINAL)
+   ========================================================= */
 
-.coin-face{
-  width: 92px !important;
-  height: 92px !important;
-  border-radius: 999px !important;
-  display: grid !important;
-  place-items: center !important;
-  font-weight: 900 !important;
-  font-size: 2rem !important;
-  background: rgba(255,255,255,.06) !important;
-  border: 1px solid rgba(255,255,255,.16) !important;
-  color: rgba(255,255,255,.72) !important;
-  backdrop-filter: blur(2px) !important;
-}
-
-.coin-label{
-  position: absolute !important;
-  bottom: -24px !important;         /* desce um pouco mais */
-  font-size: .74rem !important;
-  color: rgba(255,255,255,.70) !important;
-  letter-spacing: .02em !important;
-  white-space: nowrap !important;
-}
-
-/* A scan-line pode ficar dentro do lado azul */
-.scan-line{
-  position: absolute !important;
-  top: 0 !important;
-  bottom: 0 !important;
-  right: 0 !important;              /* na divisão */
-  width: 7px !important;
-  opacity: .85 !important;
-  background: linear-gradient(180deg, transparent, rgba(96,165,250,.85), transparent) !important;
-  filter: drop-shadow(0 0 18px rgba(96,165,250,.60)) !important;
-}
-
-/* Responsivo */
-@media (max-width: 980px){
-  .coins-marquee{
-    width: 100vw !important;  /* no mobile pode atravessar tudo */
-    top: 260px !important;
-    height: 170px !important;
-  }
-
-  .scan-line{
-    right: 50% !important; /* no mobile, volta pro meio */
-    transform: translateX(50%) !important;
-  }
-}
-
-.kicker{
-  display: inline-flex !important;
-  opacity: 1 !important;
-  visibility: visible !important;
-  position: relative !important;
-  z-index: 2 !important;
-}
-
-/* ===========================
-   MOEDAS: MAIORES + CENTRO DO AZUL
-   + NEON QUANDO PASSA DO MEIO
-   =========================== */
-
-/* deixa a faixa das moedas exatamente no MEIO da coluna azul */
+/* camada das moedas por cima do fundo, mas sem bloquear cliques */
 .coins-marquee{
-  top: 50% !important;
-  transform: translateY(-50%) !important;
-  height: 220px !important;   /* mais alto para moeda grande + label */
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 8;                 /* abaixo do card (que já é "normal"), mas visível */
 }
 
-/* aumenta as moedas */
-.coin{
-  width: 150px !important;
-  height: 150px !important;
+/* faixa no meio da tela onde as moedas passam */
+.coins-track{
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 100%;
+  height: 220px;              /* altura da faixa */
+  transform: translateY(-50%);
+  overflow: hidden;
 }
 
-.coin-face{
-  width: 110px !important;
-  height: 110px !important;
-  font-size: 2.35rem !important;
-  border: 1px solid rgba(255,255,255,.18) !important;
-  color: rgba(255,255,255,.75) !important;
-  background: rgba(255,255,255,.06) !important;
-}
-
-/* label um pouco mais afastado e legível */
-.coin-label{
-  bottom: -30px !important;
-  font-size: .78rem !important;
-  opacity: .8 !important;
-}
-
-/* gap maior para não “amontoar” */
+/* linha animada (NÃO colocar transform fixo aqui!) */
 .coins-row{
-  gap: 34px !important;
-  padding: 16px 0 58px !important;
+  display: flex;
+  align-items: center;
+  gap: 56px;
+  width: max-content;
+  padding-bottom: 34px;       /* espaço pro label */
+  will-change: transform;
 }
 
-/* scan line no MEIO DO AZUL (que é a borda direita do container) */
-.scan-line{
-  right: 0 !important;
+/* animação: loop perfeito (anda -50% pq você duplicou as moedas) */
+.coins-row.moving{
+  animation: marqueeLoop var(--marquee-duration, 40s) linear infinite !important;
 }
 
-/* estado NEON (aplicado via JS quando cruza a linha) */
-.coin.is-neon .coin-face{
-  background: rgba(96,165,250,.12) !important;
-  border: 1px solid rgba(96,165,250,.65) !important;
-  color: rgba(191,219,254,1) !important;
-  box-shadow:
-    0 0 22px rgba(96,165,250,.55),
-    inset 0 0 14px rgba(96,165,250,.22) !important;
-}
-
-.coin.is-neon .coin-label{
-  color: rgba(191,219,254,1) !important;
-  text-shadow: 0 0 14px rgba(96,165,250,.55) !important;
-}
-
-/* ===========================
-   MARQUEE: sem delay + mais lento
-   =========================== */
-
-/* deixa a fila já “na borda da divisão” (sem esperar entrar) */
-.coins-row{
-  animation: marqueeFromSplit 22s linear infinite !important; /* MAIS LENTO */
-}
-
-/* começa em 0 (já visível), vai até sumir na esquerda */
-@keyframes marqueeFromSplit{
-  from { transform: translateX(0%); }
-  to   { transform: translateX(-100%); }
-}
-
-.coins-row{
-  gap: 26px !important;
-}
-
-/* ===========================
-   LOOP PERFEITO + VELOCIDADE LENTA
-   e NEON quando passa da linha
-   =========================== */
-
-.coins-track{ overflow: hidden !important; }
-
-.coins-row{
-  animation: marqueeLoop 46s linear infinite !important; /* MAIS LENTO DE VERDADE */
-  will-change: transform !important;
-}
-
-/* Como a linha está duplicada (mesma sequência 2x),
-   andar -50% fecha o loop sem "tranco" */
 @keyframes marqueeLoop{
   from { transform: translateX(0); }
   to   { transform: translateX(-50%); }
 }
 
-/* GARANTE: padrão prata */
-.coin .coin-face{
-  color: rgba(255,255,255,.75) !important;
-  border: 1px solid rgba(255,255,255,.18) !important;
-  background: rgba(255,255,255,.06) !important;
-  box-shadow: none !important;
-}
-
-/* GARANTE: neon azul quando passa */
-.coin.is-neon .coin-face{
-  background: rgba(96,165,250,.14) !important;
-  border: 1px solid rgba(96,165,250,.78) !important;
-  color: rgba(191,219,254,1) !important;
-  box-shadow:
-    0 0 26px rgba(96,165,250,.60),
-    inset 0 0 16px rgba(96,165,250,.22) !important;
-}
-
-.coin.is-neon .coin-label{
-  color: rgba(191,219,254,1) !important;
-  text-shadow: 0 0 14px rgba(96,165,250,.55) !important;
-}
-
-/* ===========================
-   COIN: progressivo prata -> neon
-   Controlado por --fill (0..1)
-   =========================== */
-
-/* garante que a moeda tenha camadas */
+/* moedas */
 .coin{
-  position: relative !important;
-}
-
-/* “face” base (prata) */
-.coin .coin-face{
-  position: relative !important;
-  display: grid !important;
-  place-items: center !important;
-
-  /* seu tamanho atual ou ajuste aqui */
-  width: 96px !important;
-  height: 96px !important;
-  border-radius: 999px !important;
-
-  background: rgba(255,255,255,.06) !important;
-  border: 1px solid rgba(255,255,255,.18) !important;
-
-  color: rgba(255,255,255,.80) !important;
-  box-shadow: 0 0 0 rgba(0,0,0,0) !important;
-  overflow: hidden !important;
-}
-
-/* overlay neon progressivo: cresce da direita -> esquerda */
-.coin .coin-face::after{
-  content: "" !important;
-  position: absolute !important;
-  inset: 0 !important;
-  border-radius: inherit !important;
-
-  /* camada neon */
-  background:
-    radial-gradient(circle at 50% 50%,
-      rgba(96,165,250,.35) 0%,
-      rgba(96,165,250,.10) 45%,
-      rgba(96,165,250,0) 70%) !important;
-
-  /* “pinta” progressivo com mask (0..1) */
-  -webkit-mask-image: linear-gradient(
-    to left,
-    rgba(0,0,0,1) calc(var(--fill, 0) * 100%),
-    rgba(0,0,0,0) calc(var(--fill, 0) * 100%)
-  ) !important;
-  mask-image: linear-gradient(
-    to left,
-    rgba(0,0,0,1) calc(var(--fill, 0) * 100%),
-    rgba(0,0,0,0) calc(var(--fill, 0) * 100%)
-  ) !important;
-
-  pointer-events: none !important;
-  mix-blend-mode: screen !important;
-  opacity: 1 !important;
-}
-
-/* brilho externo progressivo */
-.coin{
-  filter:
-    drop-shadow(0 0 calc(22px * var(--fill, 0)) rgba(96,165,250,.7)) !important;
-}
-
-/* label não cortar */
-.coin .coin-label{
-  margin-top: 10px !important;
-  font-size: 11px !important;
-  color: rgba(255,255,255,.60) !important;
-}
-
-/* quando fill alto, label também tende ao neon */
-.coin.is-neon .coin-label{
-  color: rgba(191,219,254,1) !important;
-  text-shadow: 0 0 12px rgba(96,165,250,.55) !important;
-}
-
-/* ===========================
-   FIX — MOEDAS + SCAN-LINE SUMINDO
-   (cole no FINAL do auth.css)
-   =========================== */
-
-.coins-marquee{
-  position: fixed !important;
-  inset: 0 !important;
-  width: 100vw !important;
-  height: 100vh !important;
-  pointer-events: none !important;
-  z-index: 2 !important;           /* atrás do conteúdo, mas visível */
-  overflow: hidden !important;
-}
-
-.left, .right{
-  position: relative !important;
-  z-index: 5 !important;           /* conteúdo acima das moedas */
-}
-
-.coins-track{
-  position: absolute !important;
-  left: 0 !important;
-  top: 50% !important;
-  transform: translateY(-50%) !important; /* moedas no centro vertical */
-  width: 100% !important;
-  height: 260px !important;        /* garante área visível */
-}
-
-.coins-row{
-  display: flex !important;
-  align-items: center !important;
-  gap: 44px !important;
-  will-change: transform !important;
-}
-
-/* Se sua animação estiver em outro nome, mantenha.
-   Aqui só garante que nada zere a animação. */
-.coins-row.moving{
-  animation-play-state: running !important;
-}
-
-/* Moeda (container) */
-.coin{
-  width: 150px !important;
-  height: 150px !important;
-  flex: 0 0 auto !important;
-  display: grid !important;
-  place-items: center !important;
-  text-align: center !important;
-}
-
-/* A imagem em si */
-.coin-face{
-  width: 120px !important;
-  height: 120px !important;
-  border-radius: 999px !important;
-  overflow: hidden !important;
-  display: grid !important;
-  place-items: center !important;
-}
-
-.coin-img{
-  width: 100% !important;
-  height: 100% !important;
-  object-fit: contain !important;
-  display: block !important;
-}
-
-/* Label não pode ser cortada */
-.coin-label{
-  margin-top: 10px !important;
-  font-size: 12px !important;
-  letter-spacing: .14em !important;
-  text-transform: uppercase !important;
-  color: rgba(255,255,255,.55) !important;
-  white-space: nowrap !important;
-}
-
-/* Scan-line (linha do meio) */
-.scan-line{
-  position: fixed !important;
-  top: 0 !important;
-  bottom: 0 !important;
-  left: 50% !important;
-  transform: translateX(-50%) !important;
-  width: 3px !important;
-  background: linear-gradient(
-    to bottom,
-    rgba(0,0,0,0),
-    rgba(80,170,255,.9),
-    rgba(0,0,0,0)
-  ) !important;
-  box-shadow: 0 0 30px rgba(80,170,255,.55) !important;
-  z-index: 4 !important; /* fica acima das moedas */
-  opacity: 1 !important;
-}
-
-/* ==============================
-   COINS MARQUEE — VISUAL FIX
-   ============================== */
-
-.coins-marquee {
-  position: absolute !important;
-  top: 50% !important;
-  left: 0 !important;
-  width: 100% !important;
-  transform: translateY(-50%) !important;
-  pointer-events: none !important;
-  z-index: 2 !important;
-  overflow: hidden !important;
-}
-
-.coins-track {
-  width: 100% !important;
-  overflow: visible !important;
-}
-
-.coins-row {
-  display: flex !important;
-  align-items: center !important;
-  gap: 60px !important;
-  will-change: transform;
-}
-
-/* Moeda */
-.coin {
-  position: relative !important;
-  width: 120px !important;
-  height: 120px !important;
-  flex: 0 0 auto !important;
-  text-align: center;
-  opacity: 1 !important;
-  transform: none !important;
-}
-
-/* Container da imagem */
-.coin-face {
-  width: 100% !important;
-  height: 100% !important;
-  border-radius: 50% !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  background: transparent !important;
-}
-
-/* Imagem da moeda */
-.coin-img {
-  width: 100% !important;
-  height: 100% !important;
-  object-fit: contain !important;
-  display: block !important;
-  filter: grayscale(1) brightness(0.9) !important;
-  transition: filter 0.4s ease, transform 0.4s ease !important;
-}
-
-/* Label */
-.coin-label {
-  margin-top: 10px !important;
-  font-size: 12px !important;
-  letter-spacing: 1px;
-  color: rgba(255,255,255,0.6) !important;
-  text-transform: uppercase;
-}
-
-/* Scan line (linha central) */
-.scan-line {
-  position: absolute !important;
-  top: 0 !important;
-  bottom: 0 !important;
-  left: 50% !important;
-  width: 2px !important;
-  background: linear-gradient(to bottom, transparent, #3fa9ff, transparent) !important;
-  box-shadow: 0 0 12px rgba(63,169,255,0.9) !important;
-  z-index: 3 !important;
-}
-
-/* Quando cruza a linha -> azul neon */
-.coin.is-neon .coin-img {
-  filter: grayscale(0) brightness(1.2) drop-shadow(0 0 12px #3fa9ff) !important;
-  transform: scale(1.08) !important;
-}
-
-/* ==============================
-   FIX: COINS ABOVE BACKGROUND
-   ============================== */
-
-.coins-marquee {
-  position: absolute !important;
-  inset: 0 !important;
-  pointer-events: none !important;
-  z-index: 20 !important; /* traz para frente */
-}
-
-.coins-track {
-  position: relative !important;
-  z-index: 21 !important;
-}
-
-.coins-row {
-  position: relative !important;
-  z-index: 22 !important;
-}
-
-/* cada moeda */
-.coin {
-  position: relative !important;
-  z-index: 23 !important;
-}
-
-/* linha central */
-.scan-line {
-  position: absolute !important;
-  top: 0;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 2px;
-  background: linear-gradient(to bottom, transparent, #3fa9ff, transparent);
-  box-shadow: 0 0 14px rgba(63,169,255,0.9);
-  z-index: 30 !important; /* acima das moedas */
-}
-
-/* ==============================
-   CENTRALIZAR MOEDAS NO MEIO (Y)
-   ============================== */
-
-/* o marquee continua cobrindo a tela toda */
-.coins-marquee{
-  position: absolute !important;
-  inset: 0 !important;
-  pointer-events: none !important;
-  z-index: 20 !important;
-}
-
-/* centraliza TUDO no meio da tela (vertical e horizontal) */
-.coins-track{
-  position: absolute !important;
-  inset: 0 !important;
-  display: flex !important;
-  align-items: center !important;     /* <-- meio na vertical */
-  justify-content: center !important; /* opcional */
-  z-index: 21 !important;
-}
-
-/* garante que a row fique alinhada */
-.coins-row{
-  display: flex !important;
-  align-items: center !important;
-  gap: 48px !important;
-  z-index: 22 !important;
-}
-
-/* a scan-line também precisa ficar centralizada certinha */
-.scan-line{
-  position: absolute !important;
-  top: 0 !important;
-  bottom: 0 !important;
-  left: 50% !important;
-  transform: translateX(-50%) !important;
-  z-index: 30 !important;
-}
-
-/* ==========================================
-   FIX: MOEDAS SEMPRE NO MEIO E POR CIMA
-   ========================================== */
-
-.auth-shell{
-  position: relative !important;
-  overflow: hidden !important;
-}
-
-/* camada das moedas atravessando a tela inteira */
-.coins-marquee{
-  position: fixed !important;
-  left: 0 !important;
-  top: 0 !important;
-  width: 100vw !important;
-  height: 100vh !important;
-  pointer-events: none !important;
-
-  /* POR CIMA DE TUDO (inclusive card) */
-  z-index: 999999 !important;
-}
-
-/* corredor central (onde as moedas passam) */
-.coins-track{
-  position: absolute !important;
-  left: 0 !important;
-  top: 50% !important;
-  width: 100% !important;
-  transform: translateY(-50%) !important;
-
-  display: flex !important;
-  align-items: center !important;
-
-  /* garante que nada corte as moedas */
-  overflow: visible !important;
-}
-
-/* a fila das moedas */
-.coins-row{
-  display: flex !important;
-  align-items: center !important;
-  gap: 64px !important;
-
-  /* evita quebra / corte */
-  white-space: nowrap !important;
-  will-change: transform !important;
-}
-
-/* cada moeda (seu HTML atual usa .coin) */
-.coin{
-  position: relative !important;
-  width: 120px !important;
-  height: 120px !important;
-  display: grid !important;
-  place-items: center !important;
-  z-index: 1000000 !important;
-}
-
-.coin-face{
-  width: 120px !important;
-  height: 120px !important;
-  border-radius: 999px !important;
-  overflow: hidden !important;
-  display: grid !important;
-  place-items: center !important;
-}
-
-.coin-img{
-  width: 100% !important;
-  height: 100% !important;
-  object-fit: cover !important;
-  display: block !important;
-}
-
-/* legenda embaixo sem cortar */
-.coin-label{
-  margin-top: 10px !important;
-  font-size: 12px !important;
-  letter-spacing: .12em !important;
-  text-transform: uppercase !important;
-  color: rgba(255,255,255,.70) !important;
-}
-
-/* ==========================================
-   FIX: LINHA (SCAN) SOMENTE NO CORREDOR
-   ========================================== */
-.scan-line{
-  position: absolute !important;
-  left: 50% !important;
-  top: 50% !important;
-  transform: translate(-50%, -50%) !important;
-
-  width: 3px !important;
-  height: 180px !important;        /* <<< NÃO fica gigante */
-  border-radius: 999px !important;
-
-  background: linear-gradient(
-    to bottom,
-    rgba(80,170,255,0),
-    rgba(80,170,255,.85),
-    rgba(80,170,255,0)
-  ) !important;
-
-  filter: drop-shadow(0 0 18px rgba(80,170,255,.65)) !important;
-
-  z-index: 1000001 !important;
-  pointer-events: none !important;
-}
-
-/* ==============================
-   CENTRALIZAÇÃO DAS MOEDAS
-   ============================== */
-
-/* camada geral das moedas */
-.coins-marquee{
-  position: fixed !important;
-  inset: 0 !important; /* top:0 right:0 bottom:0 left:0 */
-  z-index: 999999 !important;
-  pointer-events: none !important;
-}
-
-/* trilho onde elas se movem */
-.coins-track{
-  position: absolute !important;
-  left: 0 !important;
-  top: 50% !important;
-  transform: translateY(-50%) !important;
-
-  width: 100% !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: flex-start !important;
-
-  overflow: visible !important;
-}
-
-/* fileira de moedas */
-.coins-row{
-  display: flex !important;
-  align-items: center !important;
-  gap: 64px !important;
-  white-space: nowrap !important;
-}
-
-/* cada moeda */
-.coin{
-  width: 120px !important;
-  height: 120px !important;
-  display: flex !important;
-  flex-direction: column !important;
-  align-items: center !important;
-  justify-content: center !important;
-  z-index: 1000000 !important;
-}
-
-/* imagem */
-.coin-face{
-  width: 120px !important;
-  height: 120px !important;
-  border-radius: 999px !important;
-  overflow: hidden !important;
-}
-
-.coin-img{
-  width: 100% !important;
-  height: 100% !important;
-  object-fit: cover !important;
-}
-
-/* texto abaixo */
-.coin-label{
-  margin-top: 10px !important;
-  font-size: 12px !important;
-  letter-spacing: .12em !important;
-  text-transform: uppercase !important;
-  color: rgba(255,255,255,.7) !important;
-}
-
-/* ==============================
-   LINHA CENTRAL (SCAN)
-   ============================== */
-.scan-line{
-  position: absolute !important;
-  left: 50% !important;
-  top: 50% !important;
-  transform: translate(-50%, -50%) !important;
-
-  width: 3px !important;
-  height: 180px !important;
-  border-radius: 999px !important;
-
-  background: linear-gradient(
-    to bottom,
-    rgba(80,170,255,0),
-    rgba(80,170,255,.9),
-    rgba(80,170,255,0)
-  ) !important;
-
-  filter: drop-shadow(0 0 18px rgba(80,170,255,.7)) !important;
-  z-index: 1000001 !important;
-}
-
-/* =========================================
-   OVERRIDE FINAL — CENTRALIZAR MOEDAS NO MEIO
-   ========================================= */
-
-.coins-marquee{
-  position: fixed !important;
-  left: 0 !important;
-  top: 0 !important;
-  width: 100vw !important;
-  height: 100vh !important;
-
-  z-index: 999999 !important;
-  pointer-events: none !important;
-
-  /* CHAVE: centraliza verticalmente o conteúdo */
-  display: flex !important;
-  align-items: center !important;   /* MEIO (vertical) */
-  justify-content: flex-start !important;
-}
-
-.coins-track{
-  position: relative !important;   /* não “briga” com top antigo */
-  left: 0 !important;
-  top: auto !important;
-  transform: none !important;
-
-  width: 100% !important;
-  overflow: visible !important;
-  display: flex !important;
-  align-items: center !important;
-}
-
-.coins-row{
-  position: relative !important;
-  top: auto !important;
-  transform: none !important;
-  margin: 0 !important;
-
-  display: flex !important;
-  align-items: center !important;
-  white-space: nowrap !important;
-}
-
-/* Scan line central, altura controlada (pra não ficar gigante) */
-.scan-line{
-  position: fixed !important;
-  left: 50vw !important;
-  top: 50vh !important;
-  transform: translate(-50%, -50%) !important;
-
-  width: 3px !important;
-  height: 180px !important;
-  z-index: 1000000 !important;
-}
-
-main.auth-shell .coins-marquee,
-main.auth-shell .coins-marquee .coins-track,
-main.auth-shell .coins-marquee .coins-row{
-  top: auto !important;
-  transform: none !important;
-  margin-top: 0 !important;
-}
-
-/* =========================================
-   COINS — FIX FINAL (centro + movimento)
-   ========================================= */
-
-.coins-marquee{
-  position: fixed;
-  inset: 0;
-  width: 100vw;
-  height: 100vh;
-  z-index: 999999;
-  pointer-events: none;
-
-  display: flex;
-  align-items: center;   /* centro vertical */
-  justify-content: flex-start;
-}
-
-.coins-track{
-  width: 100%;
-  overflow: visible;
-  display: flex;
-  align-items: center;
-}
-
-/* IMPORTANTE:
-   NÃO colocar transform:none aqui, senão mata a animação */
-.coins-row{
-  display: flex;
-  align-items: center;
-  gap: 48px; /* ajuste se quiser */
-  white-space: nowrap;
-  will-change: transform;
-}
-
-/* classe que você já usa no HTML: <div class="coins-row moving" ...> */
-.coins-row.moving{
-  animation: coinsMarquee 26s linear infinite;
-}
-
-/* Direita -> Esquerda (entra fora da tela à direita e sai à esquerda) */
-@keyframes coinsMarquee{
-  0%   { transform: translateX(110vw); }
-  100% { transform: translateX(-220vw); }
-}
-
-/* Linha (scan) — agora vamos posicionar via JS no meio do painel azul */
-.scan-line{
-  position: fixed;
-  top: 50vh;
-  transform: translate(-50%, -50%);
-  width: 3px;
-  height: 180px;
-  z-index: 1000000;
-  opacity: .9;
-}
-
-/* ===== MARQUEE (camada das moedas) ===== */
-.coins-marquee{
-  position: fixed;
-  inset: 0;
-  z-index: 50;                /* moedas acima do fundo */
-  pointer-events: none;
-}
-
-/* “janela” do marquee no meio da tela */
-.coins-track{
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  overflow: visible;          /* não cortar moedas/labels */
-}
-
-/* fila horizontal */
-.coins-row{
-  display: flex;
-  align-items: center;
-  gap: 56px;                  /* ajuste o espaçamento */
-  width: max-content;
-  will-change: transform;
-}
-
-/* animação: direita -> esquerda */
-.coins-row.moving{
-  animation: coinsScroll 22s linear infinite;  /* mais lento */
-}
-
-/* comece FORA da tela à direita e atravesse tudo */
-@keyframes coinsScroll{
-  from { transform: translateX(110vw); }
-  to   { transform: translateX(-110%); }
-}
-
-/* linha do “meio” (vamos ajustar no JS para o meio do painel azul) */
-.scan-line{
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  width: 3px;
-  background: rgba(80,170,255,.85);
-  box-shadow: 0 0 22px rgba(80,170,255,.55);
-  z-index: 60;
-  pointer-events: none;
-}
-
-/* ==============================
-   MARQUEE DE MOEDAS — MOVIMENTO
-   ============================== */
-
-.coins-marquee {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 20;
-  pointer-events: none;
-  overflow: hidden;
-}
-
-.coins-track {
-  width: 100%;
-  overflow: hidden;
-}
-
-.coins-row {
-  display: flex;
-  align-items: center;
-  gap: 40px;
-  width: max-content;
-  animation: coinsScroll 30s linear infinite;
-}
-
-/* animação da direita para a esquerda */
-@keyframes coinsScroll {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-50%);
-  }
-}
-
-/* ==============================
-   MOEDAS
-   ============================== */
-
-.coin {
   width: 120px;
+  height: 120px;
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  position: relative;
   text-align: center;
-  transition: filter .3s ease, transform .3s ease;
 }
 
-.coin-face {
+.coin-face{
   width: 100px;
   height: 100px;
-  margin: 0 auto;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  background: transparent;
 }
 
-.coin-img {
+/* imagens (prata padrão) */
+.coin-img{
   width: 100%;
   height: 100%;
   object-fit: contain;
-  filter: grayscale(100%) brightness(1);
-  transition: filter .3s ease, drop-shadow .3s ease;
+  display: block;
+  filter: grayscale(1) brightness(0.95);
+  transition: filter .25s ease, transform .25s ease;
 }
 
-.coin.is-neon .coin-img {
-  filter: grayscale(0%) brightness(1.25)
-          drop-shadow(0 0 10px rgba(0,150,255,.85))
-          drop-shadow(0 0 24px rgba(0,150,255,.45));
-}
- 
-
-/* Texto abaixo */
-.coin-label {
-  margin-top: 6px;
+/* label */
+.coin-label{
+  position: absolute;
+  bottom: -22px;
+  left: 50%;
+  transform: translateX(-50%);
   font-size: 12px;
-  color: #9bb7ff;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.65);
+  white-space: nowrap;
 }
 
-/* ===========================
-   COINS MARQUEE — FIX ANIMAÇÃO
-   (centraliza o TRACK, anima só o ROW)
-   =========================== */
-
-.coins-marquee{
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 20;              /* acima do fundo */
+/* neon quando cruza a linha */
+.coin.is-neon .coin-img{
+  filter: grayscale(0) brightness(1.2) drop-shadow(0 0 12px rgba(63,169,255,.85));
+  transform: scale(1.06);
+}
+.coin.is-neon .coin-label{
+  color: rgba(191,219,254,1);
+  text-shadow: 0 0 14px rgba(96,165,250,.55);
 }
 
-/* faixa onde as moedas passam (no MEIO da tela) */
-.coins-track{
-  position: absolute;
-  left: 0;
-  top: 50%;
-  width: 100%;
-  height: 240px;            /* altura da faixa */
-  transform: translateY(-50%); /* OK aqui (não no row!) */
-  overflow: hidden;
-}
-
-/* linha das moedas */
-.coins-row{
-  display: flex;
-  align-items: center;
-  gap: 64px;
-  width: max-content;
-  will-change: transform;
-}
-
-/* animação só aqui */
-.coins-row.moving{
-  animation-name: marqueeLoop;
-  animation-duration: var(--marquee-duration, 60s);
-  animation-timing-function: linear;
-  animation-iteration-count: infinite;
-  animation-delay: 0s;
-  animation-play-state: running;
-}
-
-/* a distância vem do JS: --marquee-distance */
-@keyframes marqueeLoop{
-  from { transform: translateX(0); }
-  to   { transform: translateX(calc(-1 * var(--marquee-distance, 1200px))); }
-}
-
-/* scan-line vertical (divisão) */
+/* scan line fixa: vamos posicionar no JS */
 .scan-line{
-  position: absolute;
+  position: fixed;
   top: 0;
   bottom: 0;
-  width: 6px;
-  border-radius: 999px;
-  background: linear-gradient(to bottom,
-    rgba(0,0,0,0),
-    rgba(64,180,255,.85),
-    rgba(0,0,0,0)
-  );
-  filter: blur(.2px);
-  opacity: .9;
-  z-index: 25;
-}
-
-/* só pra garantir que imagens não “quebrem” */
-.coin-img{
-  width: 120px;
-  height: 120px;
-  object-fit: contain;
-  display: block;
+  width: 2px;
+  background: linear-gradient(to bottom, transparent, rgba(63,169,255,.95), transparent);
+  box-shadow: 0 0 14px rgba(63,169,255,.9);
+  z-index: 9;
+  pointer-events: none;
 }
