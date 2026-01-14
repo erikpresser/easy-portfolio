@@ -1616,3 +1616,53 @@ main.auth-shell .coins-marquee .coins-row{
   z-index: 1000000;
   opacity: .9;
 }
+
+/* ===== MARQUEE (camada das moedas) ===== */
+.coins-marquee{
+  position: fixed;
+  inset: 0;
+  z-index: 50;                /* moedas acima do fundo */
+  pointer-events: none;
+}
+
+/* “janela” do marquee no meio da tela */
+.coins-track{
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  overflow: visible;          /* não cortar moedas/labels */
+}
+
+/* fila horizontal */
+.coins-row{
+  display: flex;
+  align-items: center;
+  gap: 56px;                  /* ajuste o espaçamento */
+  width: max-content;
+  will-change: transform;
+}
+
+/* animação: direita -> esquerda */
+.coins-row.moving{
+  animation: coinsScroll 22s linear infinite;  /* mais lento */
+}
+
+/* comece FORA da tela à direita e atravesse tudo */
+@keyframes coinsScroll{
+  from { transform: translateX(110vw); }
+  to   { transform: translateX(-110%); }
+}
+
+/* linha do “meio” (vamos ajustar no JS para o meio do painel azul) */
+.scan-line{
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: rgba(80,170,255,.85);
+  box-shadow: 0 0 22px rgba(80,170,255,.55);
+  z-index: 60;
+  pointer-events: none;
+}

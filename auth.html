@@ -10,109 +10,113 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="auth.css?v=90">
+  <link rel="stylesheet" href="auth.css?v=91">
 </head>
 
 <body>
 
   <main class="auth-shell">
 
-    <!-- MOEDAS (GLOBAL, atravessa a tela inteira) -->
-<div class="coins-marquee" aria-hidden="true">
-  <div class="coins-track">
-    <div class="coins-row moving" id="coinRow">
+    <!-- MOEDAS (GLOBAL) -->
+    <div class="coins-marquee" aria-hidden="true">
+      <div class="coins-track">
 
-      <div class="coin" data-symbol="BTC">
-        <div class="coin-face">
-          <img class="coin-img" src="./assets/BTC.png" alt="BTC">
+        <!-- LINHA DE MOEDAS (ANIMADA) -->
+        <div class="coins-row moving" id="coinRow">
+
+          <!-- BLOCO 1 -->
+          <div class="coin" data-symbol="BTC">
+            <div class="coin-face">
+              <img class="coin-img" src="./assets/BTC.png" alt="BTC">
+            </div>
+            <div class="coin-label">BTC</div>
+          </div>
+
+          <div class="coin" data-symbol="ETH">
+            <div class="coin-face">
+              <img class="coin-img" src="./assets/ETH.png" alt="ETH">
+            </div>
+            <div class="coin-label">ETH</div>
+          </div>
+
+          <div class="coin" data-symbol="USDC">
+            <div class="coin-face">
+              <img class="coin-img" src="./assets/USDC.png" alt="USDC">
+            </div>
+            <div class="coin-label">USDC</div>
+          </div>
+
+          <div class="coin" data-symbol="USDT">
+            <div class="coin-face">
+              <!-- CORRIGIDO: USDT.png -->
+              <img class="coin-img" src="./assets/USDT.png" alt="USDT">
+            </div>
+            <div class="coin-label">USDT</div>
+          </div>
+
+          <div class="coin" data-symbol="SOL">
+            <div class="coin-face">
+              <img class="coin-img" src="./assets/SOL.png" alt="SOL">
+            </div>
+            <div class="coin-label">SOL</div>
+          </div>
+
+          <div class="coin" data-symbol="ADA">
+            <div class="coin-face">
+              <img class="coin-img" src="./assets/ADA.png" alt="ADA">
+            </div>
+            <div class="coin-label">ADA</div>
+          </div>
+
+          <!-- BLOCO 2 (DUPLICADO PARA LOOP CONTÍNUO) -->
+          <div class="coin" data-symbol="BTC">
+            <div class="coin-face">
+              <img class="coin-img" src="./assets/BTC.png" alt="BTC">
+            </div>
+            <div class="coin-label">BTC</div>
+          </div>
+
+          <div class="coin" data-symbol="ETH">
+            <div class="coin-face">
+              <img class="coin-img" src="./assets/ETH.png" alt="ETH">
+            </div>
+            <div class="coin-label">ETH</div>
+          </div>
+
+          <div class="coin" data-symbol="USDC">
+            <div class="coin-face">
+              <img class="coin-img" src="./assets/USDC.png" alt="USDC">
+            </div>
+            <div class="coin-label">USDC</div>
+          </div>
+
+          <div class="coin" data-symbol="USDT">
+            <div class="coin-face">
+              <img class="coin-img" src="./assets/USDT.png" alt="USDT">
+            </div>
+            <div class="coin-label">USDT</div>
+          </div>
+
+          <div class="coin" data-symbol="SOL">
+            <div class="coin-face">
+              <img class="coin-img" src="./assets/SOL.png" alt="SOL">
+            </div>
+            <div class="coin-label">SOL</div>
+          </div>
+
+          <div class="coin" data-symbol="ADA">
+            <div class="coin-face">
+              <img class="coin-img" src="./assets/ADA.png" alt="ADA">
+            </div>
+            <div class="coin-label">ADA</div>
+          </div>
+
         </div>
-        <div class="coin-label">BTC</div>
       </div>
 
-      <div class="coin" data-symbol="ETH">
-        <div class="coin-face">
-          <img class="coin-img" src="./assets/ETH.png" alt="ETH">
-        </div>
-        <div class="coin-label">ETH</div>
-      </div>
-
-      <div class="coin" data-symbol="USDC">
-        <div class="coin-face">
-          <img class="coin-img" src="./assets/USDC.png" alt="USDC">
-        </div>
-        <div class="coin-label">USDC</div>
-      </div>
-
-      <div class="coin" data-symbol="USDT">
-        <div class="coin-face">
-          <img class="coin-img" src="./assets/UDST1.png" alt="USDT">
-        </div>
-        <div class="coin-label">USDT</div>
-      </div>
-
-      <div class="coin" data-symbol="SOL">
-        <div class="coin-face">
-          <img class="coin-img" src="./assets/SOL.png" alt="SOL">
-        </div>
-        <div class="coin-label">SOL</div>
-      </div>
-
-      <div class="coin" data-symbol="ADA">
-        <div class="coin-face">
-          <img class="coin-img" src="./assets/ADA.png" alt="ADA">
-        </div>
-        <div class="coin-label">ADA</div>
-      </div>
-
-      <!-- DUPLICADO PARA LOOP PERFEITO -->
-      <div class="coin" data-symbol="BTC">
-        <div class="coin-face">
-          <img class="coin-img" src="./assets/BTC.png" alt="BTC">
-        </div>
-        <div class="coin-label">BTC</div>
-      </div>
-
-      <div class="coin" data-symbol="ETH">
-        <div class="coin-face">
-          <img class="coin-img" src="./assets/ETH.png" alt="ETH">
-        </div>
-        <div class="coin-label">ETH</div>
-      </div>
-
-      <div class="coin" data-symbol="USDC">
-        <div class="coin-face">
-          <img class="coin-img" src="./assets/USDC.png" alt="USDC">
-        </div>
-        <div class="coin-label">USDC</div>
-      </div>
-
-      <div class="coin" data-symbol="USDT">
-        <div class="coin-face">
-          <img class="coin-img" src="./assets/UDST1.png" alt="USDT">
-        </div>
-        <div class="coin-label">USDT</div>
-      </div>
-
-      <div class="coin" data-symbol="SOL">
-        <div class="coin-face">
-          <img class="coin-img" src="./assets/SOL.png" alt="SOL">
-        </div>
-        <div class="coin-label">SOL</div>
-      </div>
-
-      <div class="coin" data-symbol="ADA">
-        <div class="coin-face">
-          <img class="coin-img" src="./assets/ADA.png" alt="ADA">
-        </div>
-        <div class="coin-label">ADA</div>
-      </div>
-
+      <!-- LINHA DE CORTE -->
+      <div class="scan-line"></div>
     </div>
-  </div>
-
-  <!-- linha do meio -->
-  <div class="scan-line"></div>
-</div>
 
     <!-- LEFT -->
     <section class="left">
@@ -199,6 +203,6 @@
 
   </main>
 
-  <script src="auth.js?v=90"></script>
+  <script src="auth.js?v=91"></script>
 </body>
 </html>
