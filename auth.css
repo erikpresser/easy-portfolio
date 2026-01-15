@@ -1041,36 +1041,28 @@ mask-image: linear-gradient(
   opacity: .45;
 }
 
-/* ==========================
-   LOGO ACIMA DO CARD
-   ========================== */
+/* CONTAINER DA ÁREA DIREITA */
+.right{
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 14px;
+}
 
+/* LOGO ACIMA DO CARD */
 .login-logo{
   display: flex;
   justify-content: center;
-  margin-bottom: 14px;   /* espaço entre logo e card */
+  width: 100%;
+  margin-bottom: 6px;
 }
 
+/* TAMANHO E APARÊNCIA DA LOGO */
 .login-logo img{
-  max-width: 70px;       /* pequena e elegante */
+  max-width: 110px;     /* tamanho ideal: nem grande, nem pequeno */
   height: auto;
   object-fit: contain;
   opacity: .95;
-}
-
-/* ==========================
-   LOGO LOGIN — VERSÃO DISCRETA
-   ========================== */
-
-.login-logo{
-  display: flex;
-  justify-content: center;
-  margin-bottom: 8px;   /* menos espaço */
-}
-
-.login-logo img{
-  max-width: 70px;      /* BEM menor */
-  height: auto;
-  object-fit: contain;
-  opacity: .9;          /* mais sutil */
+  filter: drop-shadow(0 6px 14px rgba(15,23,42,.18));
 }
