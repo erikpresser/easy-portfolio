@@ -998,3 +998,13 @@ mask-image: linear-gradient(
 .coin-img.neon{
   transition: none !important;
 }
+
+/* diminui o espaço entre moedas */
+.coins-row{
+  gap: 38px; /* antes estava maior (ex: 70/80). Ajuste fino: 28~50 */
+}
+
+/* se você usa margin nos .coin, zere para não somar com o gap */
+.coin{
+  margin: 0 !important;
+}
