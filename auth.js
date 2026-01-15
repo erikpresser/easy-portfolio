@@ -34,9 +34,7 @@ const scan    = marquee?.querySelector(".scan-line");
 const leftPanel = document.querySelector(".left");
 
 function restartAnimation(el){
-  // força restart do CSS animation (resolve travas)
   el.style.animation = "none";
-  // eslint-disable-next-line no-unused-expressions
   el.offsetHeight; // reflow
   el.style.animation = "";
 }
@@ -49,8 +47,6 @@ function setMarqueeDistance(){
 
   row.style.setProperty("--marquee-distance", `${half}px`);
 
-  // velocidade previsível
-  // 40s a 80s, dependendo do tamanho
   const duration = Math.min(80, Math.max(40, Math.round(half / 25)));
   row.style.setProperty("--marquee-duration", `${duration}s`);
 
@@ -58,52 +54,58 @@ function setMarqueeDistance(){
   restartAnimation(row);
 }
 
+/**
+ * Posiciona a scan-line exatamente no meio do painel azul.
+ * Importante: se .scan-line for absolute dentro de .coins-marquee,
+ * precisamos converter coordenadas de viewport -> coordenadas do marquee.
+ */
 function setScanToMiddleOfBlue(){
-  if(!scan || !leftPanel || !track) return;
+  if(!scan || !leftPanel || !track || !marquee) return;
 
-  // X = meio do painel azul
+  const marqueeRect = marquee.getBoundingClientRect();
   const leftRect = leftPanel.getBoundingClientRect();
-  const x = leftRect.left + (leftRect.width / 2);
-  scan.style.left = `${x}px`;
+
+  // X = meio do painel azul (em coordenada de viewport)
+  const xViewport = leftRect.left + (leftRect.width / 2);
+
+  // converte para coordenada interna do marquee
+  const xLocal = xViewport - marqueeRect.left;
+  scan.style.left = `${xLocal}px`;
 
   // Y = centro da faixa das moedas (coins-track)
   const trackRect = track.getBoundingClientRect();
-  const y = trackRect.top + (trackRect.height / 2);
-  scan.style.top = `${y}px`;
+  const yViewport = trackRect.top + (trackRect.height / 2);
+  const yLocal = yViewport - marqueeRect.top;
+  scan.style.top = `${yLocal}px`;
 }
-
 
 const coins = row ? Array.from(row.querySelectorAll(".coin")) : [];
 
+/**
+ * REVEAL sincronizado:
+ * - usa a borda DIREITA da linha (scanRect.right)
+ *   para o reveal começar exatamente quando a linha encosta na moeda.
+ */
 function updateCoinColors(){
-  if(!scan || !coins || coins.length === 0) return;
+  if(!scan || coins.length === 0) return;
 
   const scanRect = scan.getBoundingClientRect();
-  const scanX = scanRect.left; // linha fixa
+
+  // Use RIGHT para começar a troca no toque (mais fiel ao olho)
+  const scanX = scanRect.right;
 
   coins.forEach((coin) => {
     const r = coin.getBoundingClientRect();
 
-    // Quando a linha toca a moeda (scanX entra entre left e right), começa a revelar.
-    // Progresso: 0 -> 1 enquanto a linha atravessa a largura da moeda.
-    let progress = 0;
-
-    if (scanX <= r.left) {
-      // ainda não tocou
-      progress = 0;
-    } else if (scanX >= r.right) {
-      // já atravessou tudo
-      progress = 1;
-    } else {
-      // tocando/atravessando
-      progress = (scanX - r.left) / Math.max(1, r.width);
-    }
-
+    // progress:
+    // 0 antes do toque
+    // 1 quando a linha já atravessou toda a moeda
+    let progress = (scanX - r.left) / Math.max(1, r.width);
     progress = Math.max(0, Math.min(1, progress));
+
     coin.style.setProperty("--reveal", `${(progress * 100).toFixed(2)}%`);
   });
 }
-
 
 // Loop RAF
 let rafId = null;
@@ -126,7 +128,6 @@ function initCoins(){
 
   setScanToMiddleOfBlue();
 
-  // recalcula 2x para pegar imagens/laytout estabilizado
   setMarqueeDistance();
   requestAnimationFrame(() => {
     setMarqueeDistance();
@@ -136,17 +137,14 @@ function initCoins(){
   startLoop();
 }
 
-// Quando tudo estiver pronto
 window.addEventListener("load", initCoins);
 
-// Recalcula quando redimensiona
 window.addEventListener("resize", () => {
   setScanToMiddleOfBlue();
   setMarqueeDistance();
   updateCoinColors();
 });
 
-// pausa quando a aba fica escondida
 document.addEventListener("visibilitychange", () => {
   if(document.hidden) stopLoop();
   else startLoop();
