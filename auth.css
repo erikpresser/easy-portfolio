@@ -958,39 +958,12 @@ mask-image: linear-gradient(
   will-change: clip-path !important;
 }
 
-/* ===============================
-   CORREÇÃO: TAMANHO DAS MOEDAS
-   BASE x NEON
-   =============================== */
+/* =========================================
+   AJUSTE FINO: MOEDA 2 (NEON) MAIOR
+   ========================================= */
 
-.coin-face{
-  position: relative !important;
-  width: 100% !important;
-  height: 100% !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  overflow: hidden !important;
-}
-
-/* Ambas as imagens ocupam exatamente o mesmo espaço */
-.coin-img{
-  position: absolute !important;
-  inset: 0 !important;
-  width: 100% !important;
-  height: 100% !important;
-  object-fit: contain !important;
-  display: block !important;
-}
-
-/* Normal (base) */
-.coin-img.base{
-  opacity: 1 !important;
-}
-
-/* Neon (recortada pela linha) */
+/* Aumenta somente a versão neon */
 .coin-img.neon{
-  opacity: 1 !important;
-  clip-path: inset(0 calc(100% - var(--reveal, 0%)) 0 0) !important;
-  will-change: clip-path !important;
+  transform: scale(1.15); /* ajuste fino: 1.10 ~ 1.25 */
+  transform-origin: center;
 }
