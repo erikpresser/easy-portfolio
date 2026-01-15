@@ -1010,31 +1010,28 @@ mask-image: linear-gradient(
 }
 
 /* ==========================
-   SCAN LINE — LARANJA SÓLIDA (SEM TRANSPARÊNCIA)
+   SCAN LINE — LARANJA INTENSA (COR ÚNICA)
    ========================== */
 .scan-line{
   position: fixed;               /* X e Y controlados pelo JS */
-  width: 8px;                    /* espessura */
-  height: 220px;                 /* altura da linha */
+  width: 7px;
+  height: 220px;
   border-radius: 999px;
   pointer-events: none;
   z-index: 999;
   opacity: 1 !important;
 
-  /* LARANJA INTEIRO, SEM AZUL NAS PONTAS */
-  background: linear-gradient(
-    to bottom,
-    rgba(255,156,46,1) 0%,
-    rgba(255,190,90,1) 50%,
-    rgba(255,156,46,1) 100%
-  );
+  /* COR EXATA DO "NÚCLEO" */
+  background: #FFD266;
 
-  /* brilho */
+  /* GLOW FORTE (BRILHO) */
   box-shadow:
-    0 0 14px rgba(255,156,46,.9),
-    0 0 28px rgba(255,156,46,.65),
-    0 0 60px rgba(255,156,46,.35);
+    0 0 14px rgba(255, 210, 102, .95),
+    0 0 32px rgba(255, 190, 60, .85),
+    0 0 60px rgba(255, 160, 30, .65),
+    0 0 120px rgba(255, 140, 20, .45);
 }
+
 
 .scan-line::after{
   content:"";
