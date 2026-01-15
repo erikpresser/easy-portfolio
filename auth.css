@@ -1042,17 +1042,18 @@ mask-image: linear-gradient(
 }
 
 /* ==========================
-   LOGO ACIMA DO PAINEL LOGIN
+   LOGO LOGIN — VERSÃO DISCRETA
    ========================== */
 
 .login-logo{
   display: flex;
   justify-content: center;
-  margin-bottom: 16px;
+  margin-bottom: 8px;   /* menos espaço */
 }
 
 .login-logo img{
-  max-width: 140px;     /* ajuste fino: 100px a 180px */
+  max-width: 70px;      /* BEM menor */
   height: auto;
   object-fit: contain;
+  opacity: .9;          /* mais sutil */
 }
