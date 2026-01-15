@@ -704,22 +704,6 @@ body{
   transform: scale(1.06) !important;
 }
 
-/* Disco da moeda (fundo) */
-.coin.is-neon .coin-face{
-  background: radial-gradient(circle at 50% 40%,
-    rgba(37,99,235,.35),
-    rgba(30,64,175,.85) 65%,
-    rgba(15,23,42,1) 100%
-  ) !important;
-
-  border: 1px solid rgba(96,165,250,.75) !important;
-
-  box-shadow:
-    0 0 16px rgba(37,99,235,.65),
-    0 0 34px rgba(30,64,175,.55),
-    inset 0 0 22px rgba(59,130,246,.25) !important;
-}
-
 /* ==========================
    ALINHAMENTO VERTICAL PERFEITO
    (linha e moedas na mesma altura)
@@ -846,11 +830,6 @@ body{
     drop-shadow(0 0 46px rgba(0,170,255,.25)) !important;
 }
 
-/* liga o overlay azul */
-.coin.is-neon .coin-face::after{
-  opacity: 1;
-}
-
 /* label também fica neon */
 .coin.is-neon .coin-label{
   color: rgba(170, 220, 255, 1) !important;
@@ -905,11 +884,6 @@ mask-image: linear-gradient(
   transition: opacity .12s linear;
 }
 
-/* Só liga quando começou a tocar/passar */
-.coin.is-neon .coin-face::after{
-  opacity: 1;
-}
-
 
 /* quando começou a tocar, a imagem vai “colorindo” */
 .coin.is-neon .coin-img{
@@ -931,4 +905,23 @@ mask-image: linear-gradient(
 .coin.is-neon .coin-label{
   color: rgba(170,220,255,1) !important;
   text-shadow: 0 0 calc(16px * var(--fill, 0)) rgba(0,170,255,.55) !important;
+}
+
+/* ==========================
+   NEON SOMENTE NO SÍMBOLO
+   ========================== */
+
+.coin.is-neon .coin-img{
+  filter:
+    grayscale(0)
+    brightness(0.75)
+    contrast(1.3)
+    sepia(1)
+    hue-rotate(200deg)
+    saturate(6)
+    drop-shadow(0 0 8px rgba(30,64,175,.85))
+    drop-shadow(0 0 18px rgba(37,99,235,.65))
+    drop-shadow(0 0 28px rgba(59,130,246,.45)) !important;
+
+  transform: scale(1.06) !important;
 }
