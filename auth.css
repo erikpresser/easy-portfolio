@@ -1001,7 +1001,7 @@ mask-image: linear-gradient(
 
 /* diminui o espaço entre moedas */
 .coins-row{
-  gap: 38px; /* antes estava maior (ex: 70/80). Ajuste fino: 28~50 */
+  gap: 34px; /* antes estava maior (ex: 70/80). Ajuste fino: 28~50 */
 }
 
 /* se você usa margin nos .coin, zere para não somar com o gap */
