@@ -76,26 +76,34 @@ function setScanToMiddleOfBlue(){
 const coins = row ? Array.from(row.querySelectorAll(".coin")) : [];
 
 function updateCoinColors(){
-  if(!scan || coins.length === 0) return;
+  if(!scan || !coins || coins.length === 0) return;
 
-  const scanX = scan.getBoundingClientRect().left;
+  const scanRect = scan.getBoundingClientRect();
+  const scanX = scanRect.left; // linha fixa
 
   coins.forEach((coin) => {
     const r = coin.getBoundingClientRect();
 
-    // Progress 0..1:
-    // 0 quando a borda ESQUERDA da moeda encosta na linha (primeiro toque)
-    // 1 quando a linha já atravessou a moeda inteira (passou da borda direita)
-    const progress = (scanX - r.left) / r.width;
-    const clamped = Math.max(0, Math.min(1, progress));
+    // Quando a linha toca a moeda (scanX entra entre left e right), começa a revelar.
+    // Progresso: 0 -> 1 enquanto a linha atravessa a largura da moeda.
+    let progress = 0;
 
-    // passa para o CSS como porcentagem (0%..100%)
-    coin.style.setProperty("--reveal", `${(clamped * 100).toFixed(2)}%`);
+    if (scanX <= r.left) {
+      // ainda não tocou
+      progress = 0;
+    } else if (scanX >= r.right) {
+      // já atravessou tudo
+      progress = 1;
+    } else {
+      // tocando/atravessando
+      progress = (scanX - r.left) / Math.max(1, r.width);
+    }
 
-    // se quiser manter a classe "is-neon" quando terminar 100%
-    coin.classList.toggle("is-neon", clamped >= 1);
+    progress = Math.max(0, Math.min(1, progress));
+    coin.style.setProperty("--reveal", `${(progress * 100).toFixed(2)}%`);
   });
 }
+
 
 // Loop RAF
 let rafId = null;

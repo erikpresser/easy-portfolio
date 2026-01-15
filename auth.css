@@ -958,12 +958,35 @@ mask-image: linear-gradient(
   will-change: clip-path !important;
 }
 
-/* =========================================
-   AJUSTE FINO: MOEDA 2 (NEON) MAIOR
-   ========================================= */
+/* 1) Garantia: nada de escurecer por JS/CSS antigos */
+.coin { opacity: 1 !important; }
+.coin-img { opacity: 1 !important; filter: none !important; }
 
-/* Aumenta somente a versão neon */
+/* 2) Empilhamento correto */
+.coin-face{
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+/* 3) Ambas ocupam o mesmo container */
+.coin-img{
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: contain !important;
+  display: block !important;
+}
+
+/* 4) A imagem 2 (neon) SEMPRE com scale fixo (não some depois da linha) */
 .coin-img.neon{
-  transform: scale(1.95); /* ajuste fino: 1.10 ~ 1.25 */
-  transform-origin: center;
+  transform: scale(1.95) !important;          /* seu valor */
+  transform-origin: center center !important;  /* mantém centralizado */
+}
+
+/* 5) Reveal sincronizado (sem delay perceptível) */
+.coin-img.neon{
+  clip-path: inset(0 calc(100% - var(--reveal, 0%)) 0 0) !important;
+  transition: clip-path 0.05s linear !important; /* bem curto pra não atrasar */
+  will-change: clip-path !important;
 }
