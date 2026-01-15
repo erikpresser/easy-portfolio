@@ -1032,3 +1032,12 @@ mask-image: linear-gradient(
     0 0 120px rgba(255, 140, 20, .45);
 }
 
+.scan-line::after{
+  content:"";
+  position:absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: rgba(255, 245, 210, 1);
+  opacity: .45;
+}
+
