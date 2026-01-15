@@ -1158,3 +1158,74 @@ mask-image: linear-gradient(
     pointer-events: auto !important;
   }
 }
+
+/* ===== TÍTULO CENTRAL EM CIMA DAS MOEDAS ===== */
+
+/* garante que a área azul seja referência e fique acima do fundo */
+.left{
+  position: relative !important;
+  z-index: 2 !important;
+}
+
+/* garante que as moedas fiquem atrás do texto */
+.coins-marquee{
+  z-index: 8 !important;
+}
+
+/* texto/título sempre acima das moedas */
+.left-inner{
+  position: relative !important;
+  z-index: 12 !important;
+}
+
+/* reposiciona o título para ficar central e acima da faixa das moedas */
+.headline{
+  position: absolute !important;
+  left: 50% !important;
+  top: 38% !important;              /* ajuste fino: 34%~42% */
+  transform: translate(-50%, -50%) !important;
+  text-align: center !important;
+  width: min(820px, 92%) !important;
+  margin: 0 !important;
+  pointer-events: none !important;
+}
+
+/* opcional: se estiver muito alto/baixo, ajuste só esse valor:
+   top: 36% ou 40% */
+
+   /* ===== BOTÃO CONTINUAR (LED EM VOLTA) ===== */
+.btn-primary{
+  width: 100% !important;
+  padding: 14px 18px !important;
+  border-radius: 999px !important;
+
+  background: #07162f !important;          /* azul marinho */
+  color: #fff !important;
+  font-weight: 800 !important;
+  letter-spacing: .02em !important;
+
+  border: 2px solid rgba(37,99,235,.55) !important;   /* borda azul */
+  box-shadow:
+    0 0 0 3px rgba(37,99,235,.14) inset,
+    0 0 18px rgba(37,99,235,.35),
+    0 0 42px rgba(37,99,235,.22) !important;
+
+  transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease !important;
+}
+
+.btn-primary:hover{
+  transform: translateY(-1px) !important;
+  border-color: rgba(96,165,250,.85) !important;
+  box-shadow:
+    0 0 0 3px rgba(37,99,235,.16) inset,
+    0 0 22px rgba(96,165,250,.45),
+    0 0 54px rgba(37,99,235,.28) !important;
+}
+
+.btn-primary:active{
+  transform: translateY(0) !important;
+  box-shadow:
+    0 0 0 3px rgba(37,99,235,.18) inset,
+    0 0 14px rgba(37,99,235,.30),
+    0 0 36px rgba(37,99,235,.18) !important;
+}
