@@ -89,92 +89,27 @@ const RESET_REDIRECT_URL = "https://presserinvestment.com/reset-password.html";
 })();
 
 
+// ==============================
+// BOTÕES DO INDEX -> AUTH.HTML
+// ==============================
+// Mantém seus botões no index.html como <button> e redireciona
+(() => {
+  const btnLogin  = document.getElementById("btn-login");
+  const btnSignup = document.getElementById("btn-signup");
 
-/* ==============================
-   AUTENTICAÇÃO (login/cadastro)
-   ============================== */
-const modal = document.getElementById("auth-modal");
-const btnLogin = document.getElementById("btn-login");
-const btnSignup = document.getElementById("btn-signup");
-const closeModal = document.getElementById("close-modal");
-const form = document.getElementById("auth-form");
-const msg = document.getElementById("msg");
-const title = document.getElementById("auth-title");
-const linkToLogin = document.getElementById("switch-to-login");
-const linkToSignup = document.getElementById("switch-to-signup");
-const linkForgot = document.getElementById("forgot");
-
-let mode = "login"; // "login" | "signup"
-
-function openModal(newMode){
-  mode = newMode;
-  if (title) title.textContent = mode === "login" ? "Iniciar Sessão" : "Criar Conta";
-  if (msg) msg.textContent = "";
-  if (modal) modal.style.display = "flex";
-}
-
-// abrir modal
-btnLogin?.addEventListener("click", ()=> openModal("login"));
-btnSignup?.addEventListener("click", ()=> openModal("signup"));
-// trocar modo
-linkToLogin?.addEventListener("click", (e)=>{ e.preventDefault(); openModal("login"); });
-linkToSignup?.addEventListener("click", (e)=>{ e.preventDefault(); openModal("signup"); });
-// fechar
-closeModal?.addEventListener("click", ()=> modal.style.display = "none");
-window.addEventListener("click", (e)=> { if (e.target === modal) modal.style.display = "none"; });
-
-// login/cadastro
-form?.addEventListener("submit", async (e)=>{
-  e.preventDefault();
-  if (!sb) { if (msg) msg.textContent = "Serviço indisponível no momento."; return; }
-
-  if (msg) msg.textContent = "Processando...";
-  const email = document.getElementById("email")?.value.trim();
-  const password = document.getElementById("password")?.value;
-
-  try{
-    if(mode === "login"){
-      const { error } = await sb.auth.signInWithPassword({ email, password });
-      if (error) throw error;
-      if (msg) msg.textContent = "Login realizado. Redirecionando...";
-      window.location.href = "dashboard.html";
-    } else {
-      const { error } = await sb.auth.signUp({ email, password });
-      if (error) throw error;
-      if (msg) msg.textContent = "Conta criada! Verifique seu e-mail para confirmar.";
-    }
-  }catch(err){
-    if (msg) msg.textContent = "Erro: " + (err?.message || 'tente novamente');
-  }
-});
-
-// ======================================================
-// ESQUECI A SENHA (CORRIGIDO)
-// - NÃO redireciona para a mesma página (origin+pathname)
-// - Redireciona para reset-password.html (publicado)
-// - Tem que estar permitido em Auth -> Redirect URLs
-// ======================================================
-linkForgot?.addEventListener("click", async (e)=>{
-  e.preventDefault();
-  if (!sb) { if (msg) msg.textContent = "Serviço indisponível no momento."; return; }
-
-  if (msg) msg.textContent = "Processando...";
-  const email = document.getElementById("email")?.value.trim();
-  if(!email){ if (msg) msg.textContent = "Digite seu e-mail primeiro."; return; }
-
-  try {
-    const { error } = await sb.auth.resetPasswordForEmail(email, {
-      redirectTo: RESET_REDIRECT_URL
+  if (btnLogin) {
+    btnLogin.addEventListener("click", () => {
+      window.location.href = "auth.html?tab=login";
     });
-
-    if (error) throw error;
-
-    // Mensagem neutra (boa prática: não confirma se o e-mail existe)
-    msg.textContent = "Se o e-mail existir, enviaremos instruções de reset.";
-  } catch (err) {
-    msg.textContent = "Erro: " + (err?.message || "tente novamente");
   }
-});
+
+  if (btnSignup) {
+    btnSignup.addEventListener("click", () => {
+      window.location.href = "auth.html?tab=signup";
+    });
+  }
+})();
+
 
 /* =========================================
    Gauge "Nossos Números" (LEGADO) – no-op seguro
@@ -333,13 +268,13 @@ linkForgot?.addEventListener("click", async (e)=>{
       return new Date(Date.now() + ms);
     }
 
-    // ISO: 2025-12-31T23:59:59Z ou com offset
+    // ISO
     if(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}(:\d{2})?(Z|[+-]\d{2}:\d{2})?$/.test(str)) return new Date(str);
 
     // "YYYY-MM-DD HH:mm:ss"
     if(/^\d{4}-\d{2}-\d{2}( \d{2}:\d{2}(:\d{2})?)?$/.test(str)) return new Date(str.replace(' ', 'T'));
 
-    // "DD/MM/YYYY HH:mm:ss" (ou só data)
+    // "DD/MM/YYYY HH:mm:ss"
     const m = str.match(/^(\d{2})\/(\d{2})\/(\d{4})(?:[ T](\d{2}):(\d{2})(?::(\d{2}))?)?$/);
     if(m){
       const [_, dd, mm, yyyy, HH='23', MM='59', SS='59'] = m;
@@ -401,7 +336,6 @@ linkForgot?.addEventListener("click", async (e)=>{
     const card = document.querySelector("#nn-pro .nn-gauge-card");
     if (!card) return;
 
-    // Valor alvo (%) vem de data-success; fallback 72
     let raw = parseFloat(card.getAttribute("data-success"));
     let targetPct = Number.isFinite(raw) ? Math.max(0, Math.min(100, raw)) : 72;
 
@@ -409,10 +343,8 @@ linkForgot?.addEventListener("click", async (e)=>{
     const ticksG = card.querySelector(".nn-ticks");
     const label = card.querySelector("#nnPct");
 
-    // segurança contra NaN: mostra já o valor inicial
     if (label) label.textContent = `${Math.round(targetPct)}%`;
 
-    // Ticks ao longo do arco (7 divisões)
     const CX = 130, CY = 140, R = 100, DIVS = 7;
     if (ticksG){
       ticksG.innerHTML = "";
@@ -433,7 +365,6 @@ linkForgot?.addEventListener("click", async (e)=>{
       }
     }
 
-    // Comprimento do arco e animação
     if (valuePath){
       const LEN = valuePath.getTotalLength();
       valuePath.style.strokeDasharray = LEN.toFixed(2);
@@ -445,7 +376,6 @@ linkForgot?.addEventListener("click", async (e)=>{
       });
     }
 
-    // Número central animado
     if (label){
       let start = null;
       const dur = 900;
@@ -457,7 +387,6 @@ linkForgot?.addEventListener("click", async (e)=>{
       })();
     }
 
-    // Garantia extra contra scripts legados: força 72% se algo sobrescrever
     setTimeout(() => {
       if (label && !/^\d+%$/.test(label.textContent)) label.textContent = '72%';
     }, 50);
@@ -468,21 +397,15 @@ linkForgot?.addEventListener("click", async (e)=>{
     const canvases = document.querySelectorAll('#nn-pro .nn-spark');
     if(!canvases.length) return;
 
-    // 4 séries fixas (ordem: Clientes, Volume, Retorno, Win Rate)
     const SPARKS = [
-      // CLIENTES ATIVOS
       [42,44,48,49,50,50,52,55,58,57,59,61,60,60,63,66,67,68,70,72,71,73,75,76,77,78,80,79,81,83,84,85,86,88,89,90],
-      // VOLUME NEGOCIADO
       [41,45,52,53,55,58,60,62,61,63,65,68,70,72,71,75,75,75,78,80,82,84,83,85,86,88,90,92,93,94,95,96,96,97,98,99],
-      // RETORNO MÉDIO
       [55,46,38,57,59,48,41,42,43,44,46,48,49,50,51,55,61,75,66,67,68,60,61,62,63,60,63,65,62,63,61,66,62,63,66,69],
-      // WIN RATE
       [63,62,66,63,61,63,59,60,61,60,62,58,64,69,66,67,66,68,69,66,65,67,71,75,76,73,71,66,67,68,69,66,69,71,70,72]
     ];
 
     canvases.forEach((c,i) => drawSpark(c, SPARKS[i] || SPARKS[0]));
 
-    // Reposiciona os pins quando a janela muda de tamanho
     window.addEventListener('resize', () => {
       canvases.forEach((c)=>{
         const xf = parseFloat(c.dataset.xf || '0');
@@ -501,7 +424,6 @@ linkForgot?.addEventListener("click", async (e)=>{
       const X = j => (j/(data.length-1))*(W-24)+12;
       const Y = v => H - ((v-min)/(max-min))*(H-18) - 9;
 
-      // área
       const g = ctx.createLinearGradient(0,0,0,H);
       g.addColorStop(0,'rgba(42,168,255,.30)');
       g.addColorStop(1,'rgba(42,168,255,0)');
@@ -510,18 +432,15 @@ linkForgot?.addEventListener("click", async (e)=>{
       ctx.lineTo(W-12,H-9); ctx.lineTo(12,H-9); ctx.closePath();
       ctx.fillStyle = g; ctx.fill();
 
-      // linha
       ctx.beginPath(); ctx.moveTo(X(0), Y(data[0]));
       for (let j=1;j<data.length;j++) ctx.lineTo(X(j), Y(data[j]));
       ctx.lineWidth = 2; ctx.strokeStyle = '#2aa8ff'; ctx.stroke();
 
-      // ponto final (verde) + salva coords para o "pin" do valor
       const xf = X(data.length-1), yf = Y(data[data.length-1]);
       ctx.fillStyle='#28ffd3'; ctx.beginPath(); ctx.arc(xf,yf,3,0,Math.PI*2); ctx.fill();
       c.dataset.xf = String(xf);
       c.dataset.yf = String(yf);
 
-      // posiciona o valor exatamente no ponto verde
       pinCardValue(c, xf, yf);
     }
 
@@ -531,10 +450,8 @@ linkForgot?.addEventListener("click", async (e)=>{
       const valEl = card.querySelector('.nn-card-value');
       if(!valEl) return;
 
-      // vira "pin" (precisa do CSS .nn-card-value.pin)
       valEl.classList.add('pin');
 
-      // converte coordenadas do canvas (internas) para pixels reais do card
       const crect = canvas.getBoundingClientRect();
       const cardRect = card.getBoundingClientRect();
       const scaleX = crect.width / canvas.width;
