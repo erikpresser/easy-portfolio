@@ -1057,3 +1057,20 @@ mask-image: linear-gradient(
   object-fit: contain;
   opacity: .95;
 }
+
+/* ==========================
+   LOGO LOGIN — VERSÃO DISCRETA
+   ========================== */
+
+.login-logo{
+  display: flex;
+  justify-content: center;
+  margin-bottom: 8px;   /* menos espaço */
+}
+
+.login-logo img{
+  max-width: 70px;      /* BEM menor */
+  height: auto;
+  object-fit: contain;
+  opacity: .9;          /* mais sutil */
+}
