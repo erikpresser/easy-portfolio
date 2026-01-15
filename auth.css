@@ -1042,18 +1042,18 @@ mask-image: linear-gradient(
 }
 
 /* ==========================
-   LOGO LOGIN — VERSÃO DISCRETA
+   LOGO ACIMA DO CARD
    ========================== */
 
 .login-logo{
   display: flex;
   justify-content: center;
-  margin-bottom: 8px;   /* menos espaço */
+  margin-bottom: 14px;   /* espaço entre logo e card */
 }
 
 .login-logo img{
-  max-width: 70px;      /* BEM menor */
+  max-width: 70px;       /* pequena e elegante */
   height: auto;
   object-fit: contain;
-  opacity: .9;          /* mais sutil */
+  opacity: .95;
 }
