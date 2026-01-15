@@ -63,17 +63,15 @@ function setScanToMiddleOfBlue(){
   if(!scan || !leftPanel || !track || !marquee) return;
 
   const marqueeRect = marquee.getBoundingClientRect();
-  const leftRect = leftPanel.getBoundingClientRect();
+  const leftRect    = leftPanel.getBoundingClientRect();
+  const trackRect   = track.getBoundingClientRect();
 
-  // X = meio do painel azul (em coordenada de viewport)
+  // X = meio do painel azul (em coordenadas DO marquee)
   const xViewport = leftRect.left + (leftRect.width / 2);
-
-  // converte para coordenada interna do marquee
   const xLocal = xViewport - marqueeRect.left;
   scan.style.left = `${xLocal}px`;
 
-  // Y = centro da faixa das moedas (coins-track)
-  const trackRect = track.getBoundingClientRect();
+  // Y = centro da faixa das moedas (em coordenadas DO marquee)
   const yViewport = trackRect.top + (trackRect.height / 2);
   const yLocal = yViewport - marqueeRect.top;
   scan.style.top = `${yLocal}px`;
@@ -87,21 +85,21 @@ const coins = row ? Array.from(row.querySelectorAll(".coin")) : [];
  *   para o reveal começar exatamente quando a linha encosta na moeda.
  */
 function updateCoinColors(){
-  if(!scan || coins.length === 0) return;
+  if(!scan || !coins || coins.length === 0) return;
 
   const scanRect = scan.getBoundingClientRect();
-
-  // Use o centro da linha (mais fiel visualmente)
-  const scanX = scanRect.left + (scanRect.width / 2);
+  const scanX = scanRect.left + (scanRect.width / 2); // centro da linha no viewport
 
   coins.forEach((coin) => {
-    // mede a área REAL onde o reveal acontece
-    const face = coin.querySelector(".coin-face");
-    if(!face) return;
+    // IMPORTANTÍSSIMO:
+    // medir o MESMO elemento que está sendo recortado (normalmente a imagem neon)
+    const neonImg = coin.querySelector(".coin-img.neon");
+    const target = neonImg || coin.querySelector(".coin-face") || coin;
 
-    const r = face.getBoundingClientRect();
+    const r = target.getBoundingClientRect();
 
-    // progresso enquanto a linha atravessa a coin-face
+    // progresso = quanto da moeda já ficou "à esquerda" da linha
+    // 0 quando a linha encosta na borda esquerda, 1 quando sai da direita
     let progress = (scanX - r.left) / Math.max(1, r.width);
     progress = Math.max(0, Math.min(1, progress));
 

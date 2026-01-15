@@ -994,3 +994,7 @@ mask-image: linear-gradient(
 .coin-img.neon{
   transition: none !important; /* evita “atraso/efeito elástico” */
 }
+
+.coin-img.neon{
+  transition: none !important;
+}
