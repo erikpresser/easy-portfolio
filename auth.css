@@ -1256,3 +1256,98 @@ mask-image: linear-gradient(
     0 0 22px rgba(40, 90, 255, 0.55),
     0 0 42px rgba(40, 90, 255, 0.35) !important;
 }
+
+/* =========================================================
+   1) TÍTULO — ABAIXAR DE VERDADE (sem gambiarra de top)
+   ========================================================= */
+.left-inner{
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+}
+
+/* empurra o título pra baixo sem depender de position/top */
+.headline{
+  margin: 110px 0 18px !important;   /* AUMENTE/REDUZA AQUI */
+  text-align: center !important;
+}
+
+/* se quiser ainda mais baixo: 130px / 150px */
+
+
+/* =========================================================
+   2) MESMA FONTE DO "BEM-VINDO(a)" NOS BOTÕES
+   ========================================================= */
+.tab,
+.btn-primary{
+  font-family: Poppins, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif !important;
+  font-weight: 600 !important; /* parecido com o "Bem-Vindo(a)" (sem negrito pesado) */
+  letter-spacing: .01em !important;
+}
+
+
+/* =========================================================
+   3) CONTINUAR — LED DESGRUDADO DO BOTÃO (glow separado)
+   ========================================================= */
+.btn-primary{
+  position: relative !important;
+  z-index: 1 !important;
+
+  /* botão menor */
+  height: 44px !important;
+  padding: 0 26px !important;
+  border-radius: 999px !important;
+
+  /* SEM glow direto no botão */
+  box-shadow: none !important;
+}
+
+/* cria um "halo" separado, com distância real */
+.btn-primary::before{
+  content: "" !important;
+  position: absolute !important;
+  inset: -8px !important;            /* <<< distância do LED (aumente p/ mais “desgrude”) */
+  border-radius: inherit !important;
+  z-index: -1 !important;
+
+  /* halo/LED */
+  background: radial-gradient(circle at 50% 50%,
+    rgba(40, 90, 255, .45) 0%,
+    rgba(40, 90, 255, .22) 40%,
+    rgba(40, 90, 255, 0) 70%
+  ) !important;
+
+  filter: blur(8px) !important;
+  opacity: .95 !important;
+}
+
+/* hover suave */
+.btn-primary:hover::before{
+  opacity: 1 !important;
+  filter: blur(9px) !important;
+}
+
+
+/* =========================================================
+   4) TABS — visual limpo e consistente (já com sua lógica JS)
+   ========================================================= */
+.tabs{
+  background: #f1f5ff !important;
+  border: 1px solid rgba(15, 23, 42, .08) !important;
+}
+
+.tab{
+  font-weight: 600 !important;
+  color: #0b1d3a !important;
+}
+
+.tab.is-active{
+  background: #07162f !important;  /* azul marinho */
+  color: #fff !important;
+  box-shadow: 0 10px 22px rgba(2,6,23,.10) !important;
+}
+
+.tab:not(.is-active){
+  background: #fff !important;
+}
