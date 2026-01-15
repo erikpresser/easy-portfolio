@@ -1269,7 +1269,7 @@ mask-image: linear-gradient(
 
 /* empurra o título pra baixo sem depender de position/top */
 .headline{
-  margin: 110px 0 18px !important;   /* AUMENTE/REDUZA AQUI */
+  margin: 160px 0 18px !important;   /* AUMENTE/REDUZA AQUI */
   text-align: center !important;
 }
 
