@@ -3,46 +3,25 @@
 // Tabs + Coins (loop real) + scan-line no meio do painel azul
 // ==============================
 
-// ==============================
-// TABS
-// ==============================
+// Tabs
 const tabs = document.querySelectorAll(".tab");
 const panes = document.querySelectorAll(".pane");
 const goSignup = document.getElementById("goSignup");
 const goLogin = document.getElementById("goLogin");
 
 function openTab(name){
-  // ativa/desativa botões
   tabs.forEach(t => {
     const active = t.dataset.tab === name;
     t.classList.toggle("is-active", active);
     t.setAttribute("aria-selected", active ? "true" : "false");
   });
 
-  // mostra/esconde panes
-  panes.forEach(p => {
-    p.classList.toggle("is-active", p.dataset.pane === name);
-  });
+  panes.forEach(p => p.classList.toggle("is-active", p.dataset.pane === name));
 }
 
-// clique nas abas (evita qualquer comportamento padrão)
-tabs.forEach(t => {
-  t.addEventListener("click", (e) => {
-    e.preventDefault();
-    openTab(t.dataset.tab);
-  });
-});
-
-// links
-goSignup?.addEventListener("click", (e) => {
-  e.preventDefault();
-  openTab("signup");
-});
-
-goLogin?.addEventListener("click", (e) => {
-  e.preventDefault();
-  openTab("login");
-});
+tabs.forEach(t => t.addEventListener("click", () => openTab(t.dataset.tab)));
+goSignup?.addEventListener("click", (e) => { e.preventDefault(); openTab("signup"); });
+goLogin?.addEventListener("click", (e) => { e.preventDefault(); openTab("login"); });
 
 
 // ==============================
@@ -102,8 +81,8 @@ const coins = row ? Array.from(row.querySelectorAll(".coin")) : [];
 
 /**
  * REVEAL sincronizado:
- * - usa o centro da linha (scanX)
- *   para o reveal acontecer exatamente quando cruza a moeda.
+ * - usa a borda DIREITA da linha (scanRect.right)
+ *   para o reveal começar exatamente quando a linha encosta na moeda.
  */
 function updateCoinColors(){
   if(!scan || !coins || coins.length === 0) return;
@@ -112,6 +91,7 @@ function updateCoinColors(){
   const scanX = scanRect.left + (scanRect.width / 2); // centro da linha no viewport
 
   coins.forEach((coin) => {
+    // IMPORTANTÍSSIMO:
     // medir o MESMO elemento que está sendo recortado (normalmente a imagem neon)
     const neonImg = coin.querySelector(".coin-img.neon");
     const target = neonImg || coin.querySelector(".coin-face") || coin;
@@ -197,5 +177,5 @@ signupForm?.addEventListener("submit", async (e) => {
     if(signupHint) signupHint.textContent = "Conta criada. Verifique seu e-mail ou faça login.";
     openTab("login");
   }, 900);
+  
 });
-
