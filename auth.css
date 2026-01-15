@@ -690,10 +690,34 @@ body{
   transition: filter .25s ease, transform .25s ease, opacity .25s ease;
 }
 
-/* quando ganha neon */
+/* ==========================
+   MOEDA — NEON AZUL MARINHO
+   ========================== */
+
 .coin.is-neon .coin-img{
-  filter: grayscale(0) brightness(1.2) drop-shadow(0 0 12px rgba(63,169,255,.85));
-  transform: scale(1.06);
+  filter:
+    grayscale(0)
+    brightness(0.85)
+    contrast(1.15)
+    drop-shadow(0 0 8px rgba(37,99,235,.65))
+    drop-shadow(0 0 18px rgba(30,64,175,.45)) !important;
+  transform: scale(1.06) !important;
+}
+
+/* Disco da moeda (fundo) */
+.coin.is-neon .coin-face{
+  background: radial-gradient(circle at 50% 40%,
+    rgba(37,99,235,.35),
+    rgba(30,64,175,.85) 65%,
+    rgba(15,23,42,1) 100%
+  ) !important;
+
+  border: 1px solid rgba(96,165,250,.75) !important;
+
+  box-shadow:
+    0 0 16px rgba(37,99,235,.65),
+    0 0 34px rgba(30,64,175,.55),
+    inset 0 0 22px rgba(59,130,246,.25) !important;
 }
 
 /* ==========================
