@@ -495,7 +495,7 @@ body{
 
 /* animação: loop perfeito (anda -50% pq você duplicou as moedas) */
 .coins-row.moving{
-  animation: marqueeLoop var(--marquee-duration, 40s) linear infinite !important;
+  animation: marqueeLoop var(--marquee-duration, 30s) linear infinite !important;
 }
 
 @keyframes marqueeLoop{
