@@ -76,68 +76,26 @@ function setScanToMiddleOfBlue(){
 const coins = row ? Array.from(row.querySelectorAll(".coin")) : [];
 
 function updateCoinColors(){
-  if(!scan || !coins || coins.length === 0) return;
+  if(!scan || coins.length === 0) return;
 
-  const scanRect = scan.getBoundingClientRect();
-
-  // Usar o EIXO da linha (meio dela), não a borda esquerda.
-  const scanX = scanRect.left + (scanRect.width / 2);
-  const scanY = scanRect.top + (scanRect.height / 2);
-
-  const FADE_RANGE = 260;
-  const MIN_OPACITY = 0.35;
-  const MAX_OPACITY = 1.0;
+  const scanX = scan.getBoundingClientRect().left;
 
   coins.forEach((coin) => {
     const r = coin.getBoundingClientRect();
 
-    // ===== 1) Fill progressivo: 0..1 conforme a linha atravessa a moeda =====
-    // "tocou" quando o eixo da linha entra no retângulo da moeda
-    const isTouching = (scanX >= r.left) && (scanX <= r.right);
-    const isAfter = (scanX > r.right);
+    // Progress 0..1:
+    // 0 quando a borda ESQUERDA da moeda encosta na linha (primeiro toque)
+    // 1 quando a linha já atravessou a moeda inteira (passou da borda direita)
+    const progress = (scanX - r.left) / r.width;
+    const clamped = Math.max(0, Math.min(1, progress));
 
-    let fill = 0;
+    // passa para o CSS como porcentagem (0%..100%)
+    coin.style.setProperty("--reveal", `${(clamped * 100).toFixed(2)}%`);
 
-    if (isTouching) {
-      // 0 quando encosta na borda esquerda? Não: queremos iniciar na BORDA DIREITA.
-      // A moeda vem da direita pra esquerda, a linha "pega" primeiro a borda DIREITA da moeda.
-      // Então o preenchimento deve começar quando scanX toca r.right:
-      // fill = (r.right - scanX) / r.width  -> 1..0 (inverte)
-      // Queremos 0..1: 1 - (r.right - scanX)/r.width = (scanX - r.left)/r.width
-      fill = (scanX - r.left) / Math.max(1, r.width);
-    } else if (isAfter) {
-      fill = 1;
-    } else {
-      fill = 0;
-    }
-
-    fill = Math.max(0, Math.min(1, fill));
-
-    // liga estado "scanner ativo" assim que tocar
-    coin.classList.toggle("is-neon", fill > 0);
-
-    // expõe o progresso pro CSS pintar gradualmente
-    coin.style.setProperty("--fill", fill.toFixed(3));
-
-    // ===== 2) Opacidade por proximidade (mantém seu efeito) =====
-    const coinCenterX = r.left + (r.width / 2);
-    const coinCenterY = r.top + (r.height / 2);
-
-    const dx = Math.abs(coinCenterX - scanX);
-    const dy = Math.abs(coinCenterY - scanY);
-    const dist = Math.sqrt(dx*dx + dy*dy);
-
-    const t = Math.max(0, Math.min(1, 1 - (dist / FADE_RANGE)));
-    const baseOpacity = MIN_OPACITY + (t * (MAX_OPACITY - MIN_OPACITY));
-
-    // leve boost quando está atravessando (pra ficar evidente já no toque)
-    const boost = 0.18 * fill;
-
-    const finalOpacity = Math.max(MIN_OPACITY, Math.min(MAX_OPACITY, baseOpacity + boost));
-    coin.style.opacity = finalOpacity.toFixed(3);
+    // se quiser manter a classe "is-neon" quando terminar 100%
+    coin.classList.toggle("is-neon", clamped >= 1);
   });
 }
-
 
 // Loop RAF
 let rafId = null;

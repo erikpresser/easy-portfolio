@@ -925,3 +925,35 @@ mask-image: linear-gradient(
 
   transform: scale(1.06) !important;
 }
+
+/* =========================================
+   COIN SWAP (NORMAL -> NEON) POR SCAN-LINE
+   ========================================= */
+
+/* garante empilhamento */
+.coin-face{
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+/* as duas imagens ocupam exatamente o mesmo espaço */
+.coin-img{
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: contain !important;
+  display: block !important;
+}
+
+/* base sempre visível */
+.coin-img.base{
+  opacity: 1 !important;
+}
+
+/* neon começa oculto e é revelado pela variável --reveal (0%..100%) */
+.coin-img.neon{
+  opacity: 1 !important;
+  clip-path: inset(0 calc(100% - var(--reveal, 0%)) 0 0) !important;
+  will-change: clip-path !important;
+}
