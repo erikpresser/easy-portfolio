@@ -1041,3 +1041,48 @@ mask-image: linear-gradient(
   opacity: .45;
 }
 
+/* ==========================
+   FADE SUAVE NAS BORDAS
+   (entrada e saída das moedas)
+   ========================== */
+
+.coins-track{
+  position: relative;
+  overflow: hidden;
+}
+
+/* camada de fade */
+.coins-track::before,
+.coins-track::after{
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 90px;                 /* TAMANHO DO FADE (ajuste fino: 60~140) */
+  height: 100%;
+  pointer-events: none;
+  z-index: 20;
+}
+
+/* fade da esquerda (entrada) */
+.coins-track::before{
+  left: 0;
+  background: linear-gradient(
+    to right,
+    rgba(5,15,34,1) 0%,
+    rgba(5,15,34,.85) 30%,
+    rgba(5,15,34,.45) 60%,
+    rgba(5,15,34,0) 100%
+  );
+}
+
+/* fade da direita (saída) */
+.coins-track::after{
+  right: 0;
+  background: linear-gradient(
+    to left,
+    rgba(5,15,34,1) 0%,
+    rgba(5,15,34,.85) 30%,
+    rgba(5,15,34,.45) 60%,
+    rgba(5,15,34,0) 100%
+  );
+}
