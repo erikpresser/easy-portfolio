@@ -990,3 +990,7 @@ mask-image: linear-gradient(
   transition: clip-path 0.05s linear !important; /* bem curto pra não atrasar */
   will-change: clip-path !important;
 }
+
+.coin-img.neon{
+  transition: none !important; /* evita “atraso/efeito elástico” */
+}

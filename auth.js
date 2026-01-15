@@ -91,15 +91,17 @@ function updateCoinColors(){
 
   const scanRect = scan.getBoundingClientRect();
 
-  // Use RIGHT para começar a troca no toque (mais fiel ao olho)
-  const scanX = scanRect.right;
+  // Use o centro da linha (mais fiel visualmente)
+  const scanX = scanRect.left + (scanRect.width / 2);
 
   coins.forEach((coin) => {
-    const r = coin.getBoundingClientRect();
+    // mede a área REAL onde o reveal acontece
+    const face = coin.querySelector(".coin-face");
+    if(!face) return;
 
-    // progress:
-    // 0 antes do toque
-    // 1 quando a linha já atravessou toda a moeda
+    const r = face.getBoundingClientRect();
+
+    // progresso enquanto a linha atravessa a coin-face
     let progress = (scanX - r.left) / Math.max(1, r.width);
     progress = Math.max(0, Math.min(1, progress));
 
