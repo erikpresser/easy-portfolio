@@ -1474,40 +1474,68 @@ mask-image: linear-gradient(
 }
 
 /* =========================================================
-   MOBILE — subir BEM a faixa das moedas (moedas + scan-line)
+   MOBILE — moedas estáveis + título ajustado (SEM afetar desktop)
+   SUBSTITUI os 2 blocos @media que você colou
    ========================================================= */
 @media (max-width: 980px){
 
-  /* QUANTO MAIOR, MAIS PRA CIMA */
-  :root{ --mobile-coins-offset: 600px; }   /* ajuste fino: 140px ~ 240px */
-
-  /* faixa das moedas */
-  .coins-track{
-    bottom: auto !important;
-    top: calc(100% - 150px - var(--mobile-coins-offset)) !important;
-    height: 150px !important;
+  /* 1) Estabiliza o topo azul para não variar quando muda Login/Signup */
+  .left{
+    position: relative !important;
+    overflow: hidden !important;
+    min-height: 42vh !important;          /* trava a altura do topo no mobile */
+    padding: 28px 18px 18px !important;
   }
 
-  /* scan-line acompanha exatamente a mesma faixa */
+  /* 2) No mobile, o marquee deixa de ser "fixo na tela toda" e fica preso no topo */
+  .coins-marquee{
+    position: absolute !important;
+    inset: 0 !important;
+    height: 42vh !important;              /* acompanha o topo */
+    pointer-events: none !important;
+    z-index: 2 !important;
+  }
+
+  /* 3) Faixa das moedas: controle por % (mais estável que calc(100% - offset)) */
+  .coins-track{
+    bottom: auto !important;
+    top: 62% !important;                  /* SUBA/DESÇA aqui: 55%~70% */
+    height: 150px !important;
+    transform: translateY(-50%) !important;
+  }
+
+  /* 4) A scan-line acompanha a faixa, sem depender do offset */
   .scan-line{
-    top: calc(100% - (150px / 2) - var(--mobile-coins-offset)) !important;
+    top: 62% !important;                  /* mesmo valor do .coins-track */
     transform: translate(-50%, -50%) !important;
     height: 150px !important;
   }
-}
 
-/* =========================================================
-   MOBILE — abaixar e diminuir o título
-   ========================================================= */
-@media (max-width: 980px){
-
+  /* 5) Título: menor e mais abaixo somente no mobile */
   .headline{
-    font-size: 1.50rem !important;     /* diminui o tamanho */
+    font-size: 1.50rem !important;
     line-height: 1.15 !important;
-    margin-top: 70px !important;       /* abaixa o título */
+    margin-top: 70px !important;
     margin-bottom: 12px !important;
     text-align: center !important;
-    padding: 0 14px !important;        /* respiro nas laterais */
+    padding: 0 14px !important;
+
+    /* garante que nenhum CSS antigo posicione absoluto no mobile */
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    width: auto !important;
+    transform: none !important;
+    z-index: 5 !important;
   }
 
+  /* 6) Painel branco sempre acima das moedas */
+  .right{
+    position: relative !important;
+    z-index: 10 !important;
+  }
+  .card{
+    position: relative !important;
+    z-index: 11 !important;
+  }
 }
