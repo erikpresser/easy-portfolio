@@ -2229,3 +2229,28 @@ mask-image: linear-gradient(
     max-width: 110px !important;
   }
 }
+
+/* PHONE ROW — layout definitivo */
+#phoneField .phone-row{
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  width: 100% !important;
+}
+
+/* botão do país: tamanho fixo menor */
+#phoneField .country-btn{
+  flex: 0 0 120px !important;
+  width: 120px !important;
+  max-width: 120px !important;
+  height: 42px !important;
+}
+
+/* input do número: ocupa TODO o resto */
+#phoneField .phone-input{
+  flex: 1 1 auto !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  height: 42px !important;
+  display: block !important;
+}
