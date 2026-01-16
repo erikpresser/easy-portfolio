@@ -1472,3 +1472,26 @@ mask-image: linear-gradient(
     padding: 18px !important;
   }
 }
+
+/* =========================================================
+   MOBILE — subir a faixa das moedas (moedas + scan-line)
+   ========================================================= */
+@media (max-width: 980px){
+
+  /* sobe a faixa: quanto MAIOR o valor, mais pra cima ela vai */
+  :root{ --mobile-coins-offset: 70px; }  /* ajuste fino: 50px ~ 120px */
+
+  /* a pista sobe */
+  .coins-track{
+    bottom: auto !important;
+    top: calc(100% - 150px - var(--mobile-coins-offset)) !important;
+    height: 150px !important;
+  }
+
+  /* a scan-line acompanha exatamente a mesma faixa */
+  .scan-line{
+    top: calc(100% - (150px / 2) - var(--mobile-coins-offset)) !important;
+    transform: translate(-50%, -50%) !important; /* mantém central certinho */
+    height: 150px !important;
+  }
+}
