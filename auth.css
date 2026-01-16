@@ -2062,3 +2062,128 @@ mask-image: linear-gradient(
     font-size: 0.92rem !important;
   }
 }
+
+/* =========================================
+   PATCH DEFINITIVO — PHONE FIELD (COLAR NO FIM)
+   ========================================= */
+
+#phoneField{ position: relative !important; width: 100% !important; }
+
+#phoneField .phone-row{
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  width: 100% !important;
+  flex-wrap: nowrap !important;
+}
+
+/* Botão país menor */
+#phoneField .country-btn{
+  flex: 0 0 140px !important;
+  width: 140px !important;
+  height: 40px !important;
+  padding: 0 10px !important;
+
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 8px !important;
+
+  border-radius: 10px !important;
+  border: 1px solid rgba(15,36,81,.22) !important;
+  background: #fff !important;
+
+  line-height: 1 !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+}
+
+/* Bandeira e nome CENTRALIZADOS */
+#phoneField .country-left{
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  min-width: 0 !important;
+}
+
+#phoneField .country-flag{
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-size: 16px !important;
+  line-height: 1 !important;
+  width: 18px !important;
+  flex: 0 0 18px !important;
+}
+
+/* Garante que o nome não “suba” */
+#phoneField .country-name{
+  display: inline-flex !important;
+  align-items: center !important;
+  line-height: 1 !important;
+  transform: translateY(0px) !important;
+}
+
+/* DDI + caret */
+#phoneField .country-dial,
+#phoneField .country-caret{
+  display: inline-flex !important;
+  align-items: center !important;
+  line-height: 1 !important;
+}
+
+/* Input MAIOR (para o exemplo ir para baixo) */
+#phoneField .phone-input,
+#phoneInput{
+  flex: 1 1 auto !important;
+  width: auto !important;
+  min-width: 0 !important;
+  height: 40px !important;
+  padding: 0 12px !important;
+
+  border-radius: 10px !important;
+  border: 1px solid rgba(15,36,81,.22) !important;
+  background: #fff !important;
+
+  font-size: 0.95rem !important;
+  line-height: 1 !important;
+}
+
+/* O EXEMPLO SEMPRE EMBAIXO (FORÇA TOTAL) */
+#phoneField .phone-hint{
+  display: block !important;
+  position: static !important;
+  width: 100% !important;
+
+  margin: 8px 0 0 0 !important;
+  padding: 0 !important;
+
+  font-size: 0.75rem !important;
+  line-height: 1.2 !important;
+  color: rgba(15,36,81,.55) !important;
+  text-align: left !important;
+
+  float: none !important;
+}
+
+/* Menu dropdown */
+#phoneField .country-menu{
+  position: absolute !important;
+  left: 0 !important;
+  top: calc(40px + 8px) !important;
+  width: 280px !important;
+  max-height: 240px !important;
+  overflow: auto !important;
+  display: none !important;
+  z-index: 99999 !important;
+}
+
+#phoneField.is-open .country-menu{ display: block !important; }
+
+/* Mobile: botão menor ainda */
+@media (max-width: 520px){
+  #phoneField .country-btn{
+    flex: 0 0 120px !important;
+    width: 120px !important;
+  }
+}
