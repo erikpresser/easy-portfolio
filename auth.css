@@ -1504,7 +1504,7 @@ mask-image: linear-gradient(
   .headline{
     font-size: 1.35rem !important;     /* diminui o tamanho */
     line-height: 1.15 !important;
-    margin-top: 28px !important;       /* abaixa o título */
+    margin-top: 18px !important;       /* abaixa o título */
     margin-bottom: 12px !important;
     text-align: center !important;
     padding: 0 14px !important;        /* respiro nas laterais */
