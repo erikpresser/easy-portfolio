@@ -2248,3 +2248,78 @@ mask-image: linear-gradient(
 .phone-field ~ .phone-hint{
   grid-column: 1 / -1 !important;
 }
+
+/* =========================================================
+   PHONE FIELD — proporção correta
+   ========================================================= */
+
+.phone-field{
+  display: grid !important;
+  grid-template-columns: 110px 1fr !important; /* botão menor / input maior */
+  align-items: center !important;
+  gap: 10px !important;
+}
+
+/* =========================================================
+   BOTÃO DO PAÍS (Brasil +55) — MENOR
+   ========================================================= */
+
+.country-btn{
+  height: 34px !important;
+  padding: 0 6px !important;
+  font-size: 0.75rem !important;
+  border-radius: 8px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 4px !important;
+  white-space: nowrap !important;
+}
+
+/* Bandeira */
+.country-btn .flag{
+  font-size: 14px !important;
+  line-height: 1 !important;
+}
+
+/* Texto "Brasil" */
+.country-btn .country-name{
+  line-height: 1 !important;
+  margin: 0 !important;
+}
+
+/* DDI +55 */
+.country-btn .dial{
+  line-height: 1 !important;
+  margin: 0 !important;
+}
+
+/* =========================================================
+   INPUT DO NÚMERO — MAIOR
+   ========================================================= */
+
+#phoneInput{
+  height: 34px !important;
+  padding: 0 12px !important;
+  font-size: 0.85rem !important;
+  width: 100% !important;
+  min-width: 0 !important;
+}
+
+/* =========================================================
+   TEXTO DE EXEMPLO — ABAIXO DO CAMPO
+   ========================================================= */
+
+.phone-hint{
+  display: block !important;
+  margin-top: 6px !important;
+  font-size: 0.75rem !important;
+  line-height: 1.2 !important;
+  color: #6b7280 !important;
+}
+
+/* força o exemplo a ocupar a linha inteira abaixo */
+.phone-field + .phone-hint,
+.phone-field ~ .phone-hint{
+  grid-column: 1 / -1 !important;
+}
