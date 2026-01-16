@@ -2187,3 +2187,45 @@ mask-image: linear-gradient(
     width: 120px !important;
   }
 }
+
+/* =========================================
+   PATCH — phone: input do número até o fim
+   (colar NO FINAL do auth.css)
+   ========================================= */
+
+#phoneField .phone-row{
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  width: 100% !important;
+}
+
+/* botão país: menor */
+#phoneField .country-btn{
+  flex: 0 0 125px !important;
+  width: 125px !important;
+  max-width: 125px !important;
+}
+
+/* campo do número: ocupa TODO o resto */
+#phoneField .phone-input,
+#phoneInput{
+  flex: 1 1 0% !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  display: block !important;
+}
+
+/* garante que nada “invada” e empurre o input */
+#phoneField .country-btn *{
+  white-space: nowrap !important;
+}
+
+/* mobile: botão ainda menor para sobrar mais espaço */
+@media (max-width: 520px){
+  #phoneField .country-btn{
+    flex: 0 0 110px !important;
+    width: 110px !important;
+    max-width: 110px !important;
+  }
+}
