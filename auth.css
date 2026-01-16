@@ -2331,3 +2331,11 @@ mask-image: linear-gradient(
 #phoneField.is-open #countryMenu.country-menu{
   display:block !important;
 }
+
+/* PHONE — simples */
+#phoneInput{
+  width: 100% !important;
+  height: 44px !important;
+  padding: 0 12px !important;
+  border-radius: 12px !important;
+}
