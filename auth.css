@@ -1539,3 +1539,43 @@ mask-image: linear-gradient(
     z-index: 11 !important;
   }
 }
+
+/* =========================================================
+   MOBILE FIX — moedas por CIMA do fundo azul (e atrás do texto)
+   ========================================================= */
+@media (max-width: 980px){
+
+  /* cria uma pilha (stack) controlada na área azul */
+  .left{
+    position: relative !important;
+    z-index: 1 !important;
+    overflow: hidden !important;
+  }
+
+  /* o glow/filtro da esquerda NÃO pode ficar por cima das moedas */
+  .left::after{
+    z-index: 0 !important;
+  }
+
+  /* moedas ficam acima do fundo da esquerda */
+  .coins-marquee{
+    position: absolute !important;
+    inset: 0 !important;
+    z-index: 2 !important;          /* <- acima do fundo azul */
+    pointer-events: none !important;
+  }
+
+  /* a faixa e a linha dentro do marquee */
+  .coins-track{ z-index: 2 !important; }
+  .scan-line{  z-index: 3 !important; }  /* linha acima das moedas */
+
+  /* texto do topo (título) acima das moedas */
+  .left-inner{
+    position: relative !important;
+    z-index: 4 !important;
+  }
+
+  /* mantém o card acima de tudo */
+  .right{ z-index: 10 !important; position: relative !important; }
+  .card{  z-index: 11 !important; position: relative !important; }
+}
