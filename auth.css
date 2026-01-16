@@ -1479,7 +1479,7 @@ mask-image: linear-gradient(
 @media (max-width: 980px){
 
   /* QUANTO MAIOR, MAIS PRA CIMA */
-  :root{ --mobile-coins-offset: 160px; }   /* ajuste fino: 140px ~ 240px */
+  :root{ --mobile-coins-offset: 400px; }   /* ajuste fino: 140px ~ 240px */
 
   /* faixa das moedas */
   .coins-track{
