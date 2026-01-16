@@ -1495,3 +1495,19 @@ mask-image: linear-gradient(
     height: 150px !important;
   }
 }
+
+/* =========================================================
+   MOBILE — abaixar e diminuir o título
+   ========================================================= */
+@media (max-width: 980px){
+
+  .headline{
+    font-size: 1.35rem !important;     /* diminui o tamanho */
+    line-height: 1.15 !important;
+    margin-top: 28px !important;       /* abaixa o título */
+    margin-bottom: 12px !important;
+    text-align: center !important;
+    padding: 0 14px !important;        /* respiro nas laterais */
+  }
+
+}
