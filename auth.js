@@ -1,13 +1,14 @@
 // ==============================
 // Presser Investment — auth.js
 // Tabs + Coins (loop real) + Supabase Auth (login/signup -> dashboard)
+// + Phone picker (country + dial) no SIGNUP
 // ==============================
 
 /* =========================
    SUPABASE
    ========================= */
 const SUPABASE_URL = "https://dmydhaompvanujvpkngz.supabase.co";
-const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRteWRoYW9tcHZhbnVqdnBrbmd6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTU3NDEzNjUsImV4cCI6MjA3MTMxNzM2NX0.xPxalOxi4PR0z7Jo9m2JodFF4Z8Eiw0U-pAxDMFvvV0";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmRteWRoYW9tcHZhbnVqdnBrbmd6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTU3NDEzNjUsImV4cCI6MjA3MTMxNzM2NX0.xPxalOxi4PR0z7Jo9m2JodFF4Z8Eiw0U-pAxDMFvvV0";
 
 // Para onde ir após autenticar
 const DASHBOARD_URL = "dashboard.html";
@@ -33,6 +34,13 @@ function openTab(name){
   });
 
   panes.forEach(p => p.classList.toggle("is-active", p.dataset.pane === name));
+
+  // evita “pulos” visuais ao trocar login/signup (mobile etc.)
+  requestAnimationFrame(() => {
+    setScanToMiddleOfBlue();
+    setMarqueeDistance();
+    updateCoinColors();
+  });
 }
 
 tabs.forEach(t => t.addEventListener("click", () => openTab(t.dataset.tab)));
@@ -149,8 +157,97 @@ document.addEventListener("visibilitychange", () => {
 });
 
 /* =========================
+   PHONE PICKER (Country + Dial) — SIGNUP
+   Requer estes IDs no HTML:
+   phoneField, countryBtn, countryMenu,
+   countryFlag, countryName, countryDial,
+   phoneInput, phoneDial, phoneCountry
+   ========================= */
+const phoneField   = document.getElementById("phoneField");
+const countryBtn   = document.getElementById("countryBtn");
+const countryMenu  = document.getElementById("countryMenu");
+const phoneInput   = document.getElementById("phoneInput");
+const phoneDialEl  = document.getElementById("phoneDial");
+const phoneCtryEl  = document.getElementById("phoneCountry");
+
+const countryFlag = document.getElementById("countryFlag");
+const countryName = document.getElementById("countryName");
+const countryDial = document.getElementById("countryDial");
+
+function openCountryMenu(){
+  if(!phoneField) return;
+  phoneField.classList.add("is-open");
+  countryBtn?.setAttribute("aria-expanded", "true");
+}
+function closeCountryMenu(){
+  if(!phoneField) return;
+  phoneField.classList.remove("is-open");
+  countryBtn?.setAttribute("aria-expanded", "false");
+}
+function toggleCountryMenu(){
+  if(!phoneField) return;
+  phoneField.classList.contains("is-open") ? closeCountryMenu() : openCountryMenu();
+}
+
+countryBtn?.addEventListener("click", (e) => {
+  e.preventDefault();
+  toggleCountryMenu();
+});
+
+document.addEventListener("click", (e) => {
+  if(!phoneField) return;
+  if(!phoneField.contains(e.target)) closeCountryMenu();
+});
+
+document.addEventListener("keydown", (e) => {
+  if(e.key === "Escape") closeCountryMenu();
+});
+
+countryMenu?.addEventListener("click", (e) => {
+  const btn = e.target.closest(".country-item");
+  if(!btn) return;
+
+  const iso = btn.dataset.iso || "BR";
+  const flag = btn.dataset.flag || "🇧🇷";
+  const name = btn.dataset.name || "Brasil";
+  const dial = btn.dataset.dial || "+55";
+  const placeholder = btn.dataset.placeholder || "";
+
+  // UI
+  if(countryFlag) countryFlag.textContent = flag;
+  if(countryName) countryName.textContent = name;
+  if(countryDial) countryDial.textContent = dial;
+
+  // hidden values
+  if(phoneDialEl) phoneDialEl.value = dial;
+  if(phoneCtryEl) phoneCtryEl.value = iso;
+
+  // marca ativo
+  countryMenu.querySelectorAll(".country-item").forEach(x => x.classList.remove("is-active"));
+  btn.classList.add("is-active");
+
+  // placeholder
+  if(phoneInput) phoneInput.placeholder = placeholder;
+
+  // Se vazio -> coloca DDI
+  if(phoneInput){
+    const v = (phoneInput.value || "").trim();
+    const hadPlus = v.startsWith("+");
+
+    if(!v){
+      phoneInput.value = `${dial} `;
+    } else if(hadPlus) {
+      // Troca o DDI anterior pelo novo
+      phoneInput.value = v.replace(/^\+\d+\s*/, `${dial} `);
+    }
+    phoneInput.focus();
+  }
+
+  closeCountryMenu();
+});
+
+/* =========================
    AUTH — Supabase real
-   (substitui o "demo submit")
    ========================= */
 const loginForm  = document.getElementById("loginForm");
 const signupForm = document.getElementById("signupForm");
@@ -214,7 +311,7 @@ if(!sb){
     setHint(loginHint, "Validando credenciais...");
 
     try{
-      const { data, error } = await sb.auth.signInWithPassword({ email, password });
+      const { error } = await sb.auth.signInWithPassword({ email, password });
 
       if(error){
         setHint(loginHint, "Falha no login: " + error.message);
@@ -237,6 +334,11 @@ if(!sb){
     const email = (signupForm.email?.value || "").trim();
     const password = (signupForm.password?.value || "").trim();
 
+    // novo: telefone
+    const phone = (signupForm.phone?.value || "").trim();
+    const phoneDial = (signupForm.phone_dial?.value || "").trim();
+    const phoneCountry = (signupForm.phone_country?.value || "").trim();
+
     if(!name || !email || !password){
       setHint(signupHint, "Preencha nome, e-mail e senha.");
       return;
@@ -247,6 +349,12 @@ if(!sb){
       return;
     }
 
+    // telefone não é verificado, mas se você quiser obrigar, descomente:
+    // if(!phone){
+    //   setHint(signupHint, "Informe seu número (WhatsApp).");
+    //   return;
+    // }
+
     setBusy(signupForm, true);
     setHint(signupHint, "Criando conta...");
 
@@ -255,8 +363,13 @@ if(!sb){
         email,
         password,
         options: {
-          // salva o nome no user_metadata
-          data: { full_name: name },
+          // salva metadados
+          data: {
+            full_name: name,
+            phone: phone,
+            phone_dial: phoneDial,
+            phone_country: phoneCountry
+          },
 
           // se seu Supabase exigir confirmação por e-mail,
           // isso define para onde o usuário volta após confirmar
