@@ -192,46 +192,85 @@
     </label>
 
     <!-- NOVO CAMPO: TELEFONE COM PAÍS (SEM VERIFICAÇÃO) -->
-<label class="field">
+<label class="field phone-field">
   <span>Número (WhatsApp)</span>
 
-  <div class="phone-field" id="phoneField">
-    <!-- seletor de país -->
-    <button type="button" class="country-btn" id="countryBtn" aria-haspopup="listbox" aria-expanded="false">
-      <span class="flag" id="countryFlag">🇧🇷</span>
-      <span class="country-name" id="countryName">Brasil</span>
-      <span class="dial" id="countryDial">+55</span>
-      <span class="chev" aria-hidden="true">▾</span>
-    </button>
+  <div class="phone-row" id="phoneField">
 
-    <!-- lista de países -->
-    <div class="country-menu" id="countryMenu" role="listbox" aria-label="Selecionar país">
-      <button type="button" class="country-item is-active" data-iso="BR" data-flag="🇧🇷" data-name="Brasil" data-dial="+55" data-placeholder="(11) 99999-9999">🇧🇷 Brasil <span>+55</span></button>
-      <button type="button" class="country-item" data-iso="US" data-flag="🇺🇸" data-name="EUA" data-dial="+1" data-placeholder="(201) 555-0123">🇺🇸 EUA <span>+1</span></button>
-      <button type="button" class="country-item" data-iso="PT" data-flag="🇵🇹" data-name="Portugal" data-dial="+351" data-placeholder="912 345 678">🇵🇹 Portugal <span>+351</span></button>
-      <button type="button" class="country-item" data-iso="GB" data-flag="🇬🇧" data-name="Reino Unido" data-dial="+44" data-placeholder="07400 123456">🇬🇧 Reino Unido <span>+44</span></button>
-      <button type="button" class="country-item" data-iso="AR" data-flag="🇦🇷" data-name="Argentina" data-dial="+54" data-placeholder="11 2345-6789">🇦🇷 Argentina <span>+54</span></button>
-      <button type="button" class="country-item" data-iso="PY" data-flag="🇵🇾" data-name="Paraguai" data-dial="+595" data-placeholder="(981) 123 456">🇵🇾 Paraguai <span>+595</span></button>
-      <button type="button" class="country-item" data-iso="UY" data-flag="🇺🇾" data-name="Uruguai" data-dial="+598" data-placeholder="091 234 567">🇺🇾 Uruguai <span>+598</span></button>
-    </div>
+    <!-- seletor de país -->
+    <button type="button"
+            class="country-btn"
+            id="countryBtn"
+            aria-haspopup="listbox"
+            aria-expanded="false">
+
+      <span class="country-left">
+        <span class="country-flag" id="countryFlag">🇧🇷</span>
+        <span class="country-name" id="countryName">Brasil</span>
+      </span>
+
+      <span class="country-dial" id="countryDial">+55</span>
+      <span class="country-caret" aria-hidden="true">▾</span>
+    </button>
 
     <!-- input do número -->
     <input
       type="tel"
       name="phone"
       id="phoneInput"
+      class="phone-input"
       inputmode="tel"
       autocomplete="tel"
       placeholder="(11) 99999-9999"
     />
 
-    <!-- valor do DDI selecionado (para o JS usar no signup) -->
+    <!-- lista de países -->
+    <div class="country-menu" id="countryMenu" role="listbox" aria-label="Selecionar país">
+      <button type="button" class="country-item is-active"
+              data-iso="BR" data-flag="🇧🇷" data-name="Brasil" data-dial="+55" data-placeholder="(11) 99999-9999">
+        🇧🇷 Brasil <span>+55</span>
+      </button>
+
+      <button type="button" class="country-item"
+              data-iso="US" data-flag="🇺🇸" data-name="EUA" data-dial="+1" data-placeholder="(201) 555-0123">
+        🇺🇸 EUA <span>+1</span>
+      </button>
+
+      <button type="button" class="country-item"
+              data-iso="PT" data-flag="🇵🇹" data-name="Portugal" data-dial="+351" data-placeholder="912 345 678">
+        🇵🇹 Portugal <span>+351</span>
+      </button>
+
+      <button type="button" class="country-item"
+              data-iso="GB" data-flag="🇬🇧" data-name="Reino Unido" data-dial="+44" data-placeholder="07400 123456">
+        🇬🇧 Reino Unido <span>+44</span>
+      </button>
+
+      <button type="button" class="country-item"
+              data-iso="AR" data-flag="🇦🇷" data-name="Argentina" data-dial="+54" data-placeholder="11 2345-6789">
+        🇦🇷 Argentina <span>+54</span>
+      </button>
+
+      <button type="button" class="country-item"
+              data-iso="PY" data-flag="🇵🇾" data-name="Paraguai" data-dial="+595" data-placeholder="(981) 123 456">
+        🇵🇾 Paraguai <span>+595</span>
+      </button>
+
+      <button type="button" class="country-item"
+              data-iso="UY" data-flag="🇺🇾" data-name="Uruguai" data-dial="+598" data-placeholder="091 234 567">
+        🇺🇾 Uruguai <span>+598</span>
+      </button>
+    </div>
+
+    <!-- valores ocultos para o JS/Supabase -->
     <input type="hidden" name="phone_dial" id="phoneDial" value="+55" />
     <input type="hidden" name="phone_country" id="phoneCountry" value="BR" />
+
   </div>
 
   <small class="phone-hint">Ex.: +55 11 99999-9999</small>
 </label>
+
 
 
     <label class="field">

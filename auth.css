@@ -1699,3 +1699,94 @@ mask-image: linear-gradient(
     width: 100%;
   }
 }
+
+/* =========================
+   PHONE PICKER — alinhamento no meio
+   ========================= */
+
+/* o bloco todo do telefone */
+.phone-field{
+  position: relative !important;
+}
+
+/* linha com seletor + input */
+.phone-row{
+  display: grid !important;
+  grid-template-columns: 1fr 1.1fr !important;
+  gap: 10px !important;
+  align-items: center !important;
+}
+
+/* botão do país (o “quadrado” da esquerda) */
+.country-btn{
+  height: 46px !important;                  /* igual ao input */
+  padding: 0 12px !important;
+  border-radius: 12px !important;
+  border: 1px solid rgba(148,163,184,.55) !important;
+  background: #fff !important;
+
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 10px !important;
+
+  cursor: pointer !important;
+}
+
+/* lado esquerdo: bandeira + nome */
+.country-left{
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  min-width: 0 !important;
+}
+
+/* bandeira */
+.country-flag{
+  font-size: 18px !important;               /* “tamanho” da bandeira */
+  line-height: 1 !important;
+}
+
+/* nome do país */
+.country-name{
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  color: #0f172a !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}
+
+/* ddi +55 */
+.country-dial{
+  font-size: 13px !important;
+  font-weight: 700 !important;
+  color: #0b1d3a !important;
+  line-height: 1 !important;
+}
+
+/* setinha */
+.country-caret{
+  opacity: .7 !important;
+  font-size: 12px !important;
+  line-height: 1 !important;
+}
+
+/* input do número */
+.phone-input{
+  height: 46px !important;                  /* igual ao seletor */
+  padding: 0 12px !important;
+  border-radius: 12px !important;
+  border: 1px solid rgba(148,163,184,.55) !important;
+  outline: none !important;
+  font-size: 14px !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+/* focus igual seus inputs */
+.country-btn:focus,
+.phone-input:focus{
+  border-color: rgba(37,99,235,.65) !important;
+  box-shadow: 0 0 0 4px rgba(37,99,235,.14) !important;
+}
