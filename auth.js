@@ -1,7 +1,7 @@
 // ==============================
 // Presser Investment — auth.js
 // Tabs + Coins (loop real) + Supabase Auth (login/signup -> dashboard)
-// + Phone picker (country + dial) no SIGNUP
+// + Phone picker (country + dial) no SIGNUP (emoji flags)
 // ==============================
 
 /* =========================
@@ -157,96 +157,6 @@ document.addEventListener("visibilitychange", () => {
 });
 
 /* =========================
-   PHONE PICKER (Country + Dial) — SIGNUP
-   Requer estes IDs no HTML:
-   phoneField, countryBtn, countryMenu,
-   countryFlag, countryName, countryDial,
-   phoneInput, phoneDial, phoneCountry
-   ========================= */
-const phoneField   = document.getElementById("phoneField");
-const countryBtn   = document.getElementById("countryBtn");
-const countryMenu  = document.getElementById("countryMenu");
-const phoneInput   = document.getElementById("phoneInput");
-const phoneDialEl  = document.getElementById("phoneDial");
-const phoneCtryEl  = document.getElementById("phoneCountry");
-
-const countryFlag = document.getElementById("countryFlag");
-const countryName = document.getElementById("countryName");
-const countryDial = document.getElementById("countryDial");
-
-function openCountryMenu(){
-  if(!phoneField) return;
-  phoneField.classList.add("is-open");
-  countryBtn?.setAttribute("aria-expanded", "true");
-}
-function closeCountryMenu(){
-  if(!phoneField) return;
-  phoneField.classList.remove("is-open");
-  countryBtn?.setAttribute("aria-expanded", "false");
-}
-function toggleCountryMenu(){
-  if(!phoneField) return;
-  phoneField.classList.contains("is-open") ? closeCountryMenu() : openCountryMenu();
-}
-
-countryBtn?.addEventListener("click", (e) => {
-  e.preventDefault();
-  toggleCountryMenu();
-});
-
-document.addEventListener("click", (e) => {
-  if(!phoneField) return;
-  if(!phoneField.contains(e.target)) closeCountryMenu();
-});
-
-document.addEventListener("keydown", (e) => {
-  if(e.key === "Escape") closeCountryMenu();
-});
-
-countryMenu?.addEventListener("click", (e) => {
-  const btn = e.target.closest(".country-item");
-  if(!btn) return;
-
-  const iso = btn.dataset.iso || "BR";
-  const flag = btn.dataset.flag || "🇧🇷";
-  const name = btn.dataset.name || "Brasil";
-  const dial = btn.dataset.dial || "+55";
-  const placeholder = btn.dataset.placeholder || "";
-
-  // UI
-  if(countryFlag) countryFlag.textContent = flag;
-  if(countryName) countryName.textContent = name;
-  if(countryDial) countryDial.textContent = dial;
-
-  // hidden values
-  if(phoneDialEl) phoneDialEl.value = dial;
-  if(phoneCtryEl) phoneCtryEl.value = iso;
-
-  // marca ativo
-  countryMenu.querySelectorAll(".country-item").forEach(x => x.classList.remove("is-active"));
-  btn.classList.add("is-active");
-
-  // placeholder
-  if(phoneInput) phoneInput.placeholder = placeholder;
-
-  // Se vazio -> coloca DDI
-  if(phoneInput){
-    const v = (phoneInput.value || "").trim();
-    const hadPlus = v.startsWith("+");
-
-    if(!v){
-      phoneInput.value = `${dial} `;
-    } else if(hadPlus) {
-      // Troca o DDI anterior pelo novo
-      phoneInput.value = v.replace(/^\+\d+\s*/, `${dial} `);
-    }
-    phoneInput.focus();
-  }
-
-  closeCountryMenu();
-});
-
-/* =========================
    AUTH — Supabase real
    ========================= */
 const loginForm  = document.getElementById("loginForm");
@@ -275,12 +185,11 @@ function setBusy(form, busy){
 }
 
 function getSiteOrigin(){
-  // Para redirecionamento de confirmação de e-mail (quando enabled)
   return window.location.origin;
 }
 
 /* =========================
-   PHONE PICKER (emoji flags)
+   PHONE PICKER (emoji flags) — ÚNICO
    ========================= */
 (function initPhonePicker(){
   const field = document.getElementById("phoneField");
@@ -364,11 +273,10 @@ function getSiteOrigin(){
     if(e.key === "Escape") close();
   });
 
-  // estado inicial: pega o que estiver como active, senão o primeiro
+  // estado inicial
   const initial = menu.querySelector(".country-item.is-active") || menu.querySelector(".country-item");
   if(initial) applyCountry(initial);
 })();
-
 
 // Se o Supabase não carregou, avisa
 if(!sb){
@@ -425,7 +333,7 @@ if(!sb){
     const email = (signupForm.email?.value || "").trim();
     const password = (signupForm.password?.value || "").trim();
 
-    // novo: telefone
+    // telefone (sem verificação)
     const phone = (signupForm.phone?.value || "").trim();
     const phoneDial = (signupForm.phone_dial?.value || "").trim();
     const phoneCountry = (signupForm.phone_country?.value || "").trim();
@@ -440,12 +348,6 @@ if(!sb){
       return;
     }
 
-    // telefone não é verificado, mas se você quiser obrigar, descomente:
-    // if(!phone){
-    //   setHint(signupHint, "Informe seu número (WhatsApp).");
-    //   return;
-    // }
-
     setBusy(signupForm, true);
     setHint(signupHint, "Criando conta...");
 
@@ -454,16 +356,12 @@ if(!sb){
         email,
         password,
         options: {
-          // salva metadados
           data: {
             full_name: name,
             phone: phone,
             phone_dial: phoneDial,
             phone_country: phoneCountry
           },
-
-          // se seu Supabase exigir confirmação por e-mail,
-          // isso define para onde o usuário volta após confirmar
           emailRedirectTo: `${getSiteOrigin()}/auth.html?tab=login`
         }
       });
@@ -473,7 +371,6 @@ if(!sb){
         return;
       }
 
-      // Se a confirmação por e-mail estiver ligada, normalmente data.session vem null
       const needsConfirm = !data?.session;
 
       if(needsConfirm){
@@ -482,7 +379,6 @@ if(!sb){
         return;
       }
 
-      // Se a confirmação estiver desligada e já tiver sessão, manda pro dashboard
       setHint(signupHint, "Conta criada. Redirecionando...");
       window.location.href = DASHBOARD_URL;
 
