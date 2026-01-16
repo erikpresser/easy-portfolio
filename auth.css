@@ -2167,3 +2167,84 @@ mask-image: linear-gradient(
 .country-item::before{
   margin-right: 6px !important;
 }
+
+/* =========================================================
+   PHONE FIELD — layout final (DDD menor + exemplo embaixo)
+   ========================================================= */
+
+.phone-field{
+  display: grid !important;
+  grid-template-columns: auto 1fr !important;
+  align-items: center !important;
+  gap: 8px !important;
+  position: relative !important;
+}
+
+/* BOTÃO DO PAÍS (DDD / +55) — MENOR */
+.country-btn{
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 4px !important;
+  height: 36px !important;          /* menor */
+  padding: 0 8px !important;        /* menos espaço lateral */
+  font-size: 0.80rem !important;    /* texto menor */
+  line-height: 1 !important;
+  border-radius: 8px !important;
+}
+
+/* BANDEIRA */
+.country-btn .flag{
+  font-size: 15px !important;
+  line-height: 1 !important;
+}
+
+/* TEXTO “Brasil” */
+.country-btn .country-name{
+  display: flex !important;
+  align-items: center !important;
+  line-height: 1 !important;
+  margin: 0 !important;
+}
+
+/* DDI (+55) */
+.country-btn .dial{
+  display: flex !important;
+  align-items: center !important;
+  line-height: 1 !important;
+  margin: 0 !important;
+}
+
+/* INPUT DO NÚMERO */
+#phoneInput{
+  height: 36px !important;          /* acompanha o botão */
+  line-height: 36px !important;
+  padding: 0 12px !important;
+  font-size: 0.85rem !important;
+  width: 100% !important;
+}
+
+/* REMOVE COMPRESSÃO DO INPUT */
+.phone-field input[type="tel"]{
+  min-width: 0 !important;
+  flex: 1 !important;
+}
+
+/* =========================================================
+   TEXTO DE EXEMPLO — FORA DO CAMPO (EMBAIXO)
+   ========================================================= */
+
+.phone-hint{
+  display: block !important;
+  margin-top: 6px !important;
+  margin-left: 0 !important;
+  font-size: 0.75rem !important;
+  line-height: 1.2 !important;
+  color: #6b7280 !important;
+}
+
+/* Garante que o hint não fique ao lado */
+.phone-field + .phone-hint,
+.phone-field ~ .phone-hint{
+  grid-column: 1 / -1 !important;
+}
