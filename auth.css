@@ -1580,157 +1580,12 @@ mask-image: linear-gradient(
   .card{  z-index: 11 !important; position: relative !important; }
 }
 
-/* =========================
-   PHONE PICKER (signup)
-   ========================= */
-.phone-field{
-  display: grid;
-  grid-template-columns: 170px 1fr;
-  gap: 10px;
-  align-items: stretch;
-  position: relative;
-}
-
-.country-btn{
-  display: inline-flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-  padding: 10px 12px;
-  border-radius: 12px;
-  border: 1px solid rgba(148,163,184,.55);
-  background: #fff;
-  color: #0f172a;
-  cursor: pointer;
-  font-family: inherit;
-}
-
-.country-btn .flag{ font-size: 18px; }
-.country-btn .country-name{
-  font-size: .9rem;
-  font-weight: 600;
-  color: #0f172a;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-width: 74px;
-}
-.country-btn .dial{
-  font-size: .9rem;
-  font-weight: 700;
-  color: #0b1d3a;
-  white-space: nowrap;
-}
-.country-btn .chev{
-  opacity: .65;
-  font-size: 12px;
-}
-
-.phone-field > input[type="tel"]{
-  width: 100%;
-  padding: 12px 12px;
-  border-radius: 12px;
-  border: 1px solid rgba(148,163,184,.55);
-  outline: none;
-  font-size: .95rem;
-  background: #fff;
-}
-
-/* menu */
-.country-menu{
-  position: absolute;
-  top: calc(100% + 8px);
-  left: 0;
-  width: 270px;
-  background: #fff;
-  border: 1px solid rgba(2,6,23,.10);
-  box-shadow: 0 18px 45px rgba(2,6,23,.12);
-  border-radius: 14px;
-  padding: 8px;
-  display: none;
-  z-index: 9999;
-}
-
-.phone-field.is-open .country-menu{ display: block; }
-
-.country-item{
-  width: 100%;
-  border: 0;
-  background: transparent;
-  padding: 10px 10px;
-  border-radius: 10px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-  font-family: inherit;
-  color: #0f172a;
-  font-weight: 600;
-}
-
-.country-item span{
-  color: #0b1d3a;
-  font-weight: 800;
-}
-
-.country-item:hover{
-  background: rgba(37,99,235,.08);
-}
-
-.country-item.is-active{
-  background: rgba(7,22,47,.08);
-}
-
-.phone-hint{
-  display: block;
-  margin-top: 8px;
-  color: #64748b;
-  font-size: .78rem;
-}
-
-/* mobile: deixa mais compacto */
-@media (max-width: 980px){
-  .phone-field{
-    grid-template-columns: 150px 1fr;
-    gap: 8px;
-  }
-  .country-menu{
-    width: 100%;
-  }
-}
-
-/* =========================
-   PHONE PICKER — alinhamento no meio
-   ========================= */
-
-/* o bloco todo do telefone */
-.phone-field{
-  position: relative !important;
-}
-
 /* linha com seletor + input */
 .phone-row{
   display: grid !important;
   grid-template-columns: 1fr 1.1fr !important;
   gap: 10px !important;
   align-items: center !important;
-}
-
-/* botão do país (o “quadrado” da esquerda) */
-.country-btn{
-  height: 46px !important;                  /* igual ao input */
-  padding: 0 12px !important;
-  border-radius: 12px !important;
-  border: 1px solid rgba(148,163,184,.55) !important;
-  background: #fff !important;
-
-  display: flex !important;
-  align-items: center !important;
-  justify-content: space-between !important;
-  gap: 10px !important;
-
-  cursor: pointer !important;
 }
 
 /* lado esquerdo: bandeira + nome */
@@ -1784,18 +1639,6 @@ mask-image: linear-gradient(
   align-items: center !important;
 }
 
-/* focus igual seus inputs */
-.country-btn:focus,
-.phone-input:focus{
-  border-color: rgba(37,99,235,.65) !important;
-  box-shadow: 0 0 0 4px rgba(37,99,235,.14) !important;
-}
-
-/* =========================================
-   PHONE PICKER (country + phone) — FIX
-   ========================================= */
-.phone-field { width: 100%; }
-
 .phone-row{
   position: relative;
   display: flex;
@@ -1804,23 +1647,6 @@ mask-image: linear-gradient(
   width: 100%;
 }
 
-.country-btn{
-  height: 44px;
-  min-width: 210px;                 /* largura boa p/ caber Brasil +55 */
-  padding: 0 12px;
-  border-radius: 12px;
-  border: 1px solid rgba(148,163,184,.55);
-  background: #fff;
-  color: #0f172a;
-  cursor: pointer;
-
-  display: flex;
-  align-items: center;
-  justify-content: space-between;   /* esquerda (flag+nome) / direita (+DDI+seta) */
-  gap: 10px;
-
-  line-height: 1;
-}
 
 .country-left{
   display: inline-flex;
@@ -1873,79 +1699,6 @@ mask-image: linear-gradient(
   background: #fff;
 }
 
-.phone-input:focus,
-.country-btn:focus{
-  border-color: rgba(37,99,235,.65);
-  box-shadow: 0 0 0 4px rgba(37,99,235,.14);
-  outline: none;
-}
-
-/* Dropdown */
-.country-menu{
-  position: absolute;
-  top: calc(44px + 8px);
-  left: 0;
-  width: min(360px, 100%);
-  max-height: 260px;
-  overflow: auto;
-
-  background: #fff;
-  border: 1px solid rgba(2,6,23,.10);
-  border-radius: 12px;
-  box-shadow: 0 18px 50px rgba(2,6,23,.14);
-  padding: 6px;
-  z-index: 9999;
-
-  display: none;
-}
-
-.phone-row.is-open .country-menu{ display: block; }
-
-.country-item{
-  width: 100%;
-  border: 0;
-  background: transparent;
-  padding: 10px 10px;
-  border-radius: 10px;
-
-  display: flex;
-  align-items: center;
-  justify-content: space-between;  /* nome à esquerda / +DDI à direita */
-  gap: 10px;
-
-  cursor: pointer;
-  color: #0f172a;
-  font-weight: 600;
-  text-align: left;
-}
-
-.country-item span{
-  color: #334155;
-  font-weight: 800;
-}
-
-.country-item:hover{
-  background: rgba(37,99,235,.08);
-}
-
-.country-item.is-active{
-  background: rgba(7,22,47,.08);
-}
-
-/* Hint */
-.phone-hint{
-  display: block;
-  margin-top: 6px;
-  font-size: .78rem;
-  color: #64748b;
-}
-
-/* Mobile: botão de país um pouco menor */
-@media (max-width: 980px){
-  .country-btn{ min-width: 190px; }
-  .country-name{ max-width: 95px; }
-}
-
 /* PHONE PICKER — compat (FORÇADO COM !important) */
 .phone-row{
   position: relative !important;
@@ -1953,22 +1706,6 @@ mask-image: linear-gradient(
   gap: 10px !important;
   align-items: center !important;
   width: 100% !important;
-}
-
-.country-btn{
-  height: 44px !important;
-  min-width: 210px !important;
-  padding: 0 12px !important;
-  border-radius: 12px !important;
-  border: 1px solid rgba(148,163,184,.55) !important;
-  background: #fff !important;
-  cursor: pointer !important;
-
-  display: flex !important;
-  align-items: center !important;              
-  justify-content: space-between !important;
-  gap: 10px !important;
-  line-height: 1 !important;
 }
 
 .country-left{
@@ -2012,314 +1749,316 @@ mask-image: linear-gradient(
   border-radius: 12px !important;
   border: 1px solid rgba(148,163,184,.55) !important;
 }
+/* =========================================================
+   PHONE PICKER — RESET + LAYOUT LIMPO (COM !important)
+   ========================================================= */
 
-.country-menu{
-  position: absolute !important;
-  top: calc(44px + 8px) !important;
-  left: 0 !important;
-  width: min(360px, 100%) !important;
-  background: #fff !important;
-  border: 1px solid rgba(2,6,23,.10) !important;
-  border-radius: 12px !important;
-  box-shadow: 0 18px 50px rgba(2,6,23,.14) !important;
-  padding: 6px !important;
-  z-index: 9999 !important;
-  display: none !important;
-  max-height: 260px !important;
-  overflow: auto !important;
+/* container do campo */
+.phone-field{
+  position: relative !important;
+  display: grid !important;
+  grid-template-columns: 130px 1fr !important;
+  gap: 10px !important;
+  align-items: center !important;
 }
 
+/* botão do país */
+.country-btn{
+  width: 130px !important;
+  height: 38px !important;
+  padding: 0 10px !important;
+  border: 1px solid rgba(15,36,81,.22) !important;
+  border-radius: 10px !important;
+  background: #fff !important;
+
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px !important;
+
+  font-family: inherit !important;
+  font-size: 0.82rem !important;
+  line-height: 1 !important;
+  white-space: nowrap !important;
+
+  cursor: pointer !important;
+}
+
+/* ajusta os textos internos (pra não “subirem”) */
+.country-btn .flag{
+  font-size: 16px !important;
+  line-height: 1 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+.country-btn .country-name,
+.country-btn .dial{
+  line-height: 1 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+}
+.country-btn .chev{
+  margin-left: 2px !important;
+  opacity: .7 !important;
+  line-height: 1 !important;
+}
+
+/* input do número */
+#phoneInput{
+  width: 100% !important;
+  height: 38px !important;
+  padding: 0 12px !important;
+  border: 1px solid rgba(15,36,81,.22) !important;
+  border-radius: 10px !important;
+  background: #fff !important;
+
+  font-family: inherit !important;
+  font-size: 0.9rem !important;
+  line-height: 1 !important;
+
+  min-width: 0 !important;
+}
+
+/* exemplo sempre embaixo */
+.phone-hint{
+  display: block !important;
+  margin-top: 6px !important;
+  font-size: 0.75rem !important;
+  line-height: 1.2 !important;
+  color: rgba(15,36,81,.55) !important;
+}
+
+/* menu dropdown */
+.country-menu{
+  position: absolute !important;
+  left: 0 !important;
+  top: calc(38px + 8px) !important;
+  width: 260px !important;
+  max-height: 240px !important;
+  overflow: auto !important;
+
+  background: #fff !important;
+  border: 1px solid rgba(15,36,81,.18) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 20px 45px rgba(0,0,0,.12) !important;
+
+  padding: 8px !important;
+  display: none !important;
+  z-index: 9999 !important;
+}
+
+/* abre quando o wrapper recebe .is-open */
 .phone-field.is-open .country-menu{
   display: block !important;
 }
 
+/* itens do menu */
 .country-item{
   width: 100% !important;
   border: 0 !important;
   background: transparent !important;
-  padding: 10px !important;
+  padding: 10px 10px !important;
   border-radius: 10px !important;
+
   display: flex !important;
   align-items: center !important;
   justify-content: space-between !important;
-  font-weight: 600 !important;
+  gap: 10px !important;
+
+  cursor: pointer !important;
+  font-size: 0.9rem !important;
+  line-height: 1 !important;
+}
+.country-item:hover{
+  background: rgba(15,36,81,.06) !important;
+}
+.country-item.is-active{
+  background: rgba(15,36,81,.10) !important;
+}
+
+/* mobile: ajusta proporção sem quebrar nada */
+@media (max-width: 520px){
+  .phone-field{
+    grid-template-columns: 120px 1fr !important;
+    gap: 8px !important;
+  }
+  .country-btn{
+    width: 120px !important;
+    padding: 0 8px !important;
+    font-size: 0.78rem !important;
+  }
+}
+
+/* =========================================================
+   PHONE PICKER — COMPATÍVEL COM SEU HTML (COM !important)
+   Estrutura:
+   .phone-field
+     .phone-row (botão + input + hidden + menu)
+     .phone-hint
+   ========================================================= */
+
+#phoneField{
+  position: relative !important;
+  width: 100% !important;
+}
+
+/* linha do botão + input */
+#phoneField .phone-row{
+  position: relative !important;
+  display: grid !important;
+  grid-template-columns: 140px 1fr !important; /* botão menor, input maior */
+  gap: 10px !important;
+  align-items: center !important;
+  width: 100% !important;
+}
+
+/* BOTAO PAIS */
+#phoneField .country-btn{
+  width: 140px !important;
+  height: 40px !important;
+  padding: 0 10px !important;
+  border: 1px solid rgba(15,36,81,.22) !important;
+  border-radius: 10px !important;
+  background: #fff !important;
+
+  display: flex !important;
+  align-items: center !important;     /* centraliza vertical */
+  justify-content: space-between !important;
+  gap: 8px !important;
+
+  font-family: inherit !important;
+  font-size: 0.85rem !important;
+  line-height: 1 !important;
+  white-space: nowrap !important;
+
   cursor: pointer !important;
 }
 
-.country-item span{
-  font-weight: 800 !important;
-  opacity: .8 !important;
-}
-
-.country-item:hover{
-  background: rgba(37,99,235,.08) !important;
-}
-
-.country-item.is-active{
-  background: rgba(7,22,47,.08) !important;
-}
-
-.phone-hint{
-  display: block !important;
-  margin-top: 6px !important;
-  font-size: .78rem !important;
-  opacity: .75 !important;
-}
-
-/* MOBILE */
-@media (max-width: 980px){
-  .country-btn{
-    min-width: 190px !important;
-  }
-
-  .country-name{
-    max-width: 95px !important;
-  }
-}
-
-/* =========================================================
-   FIX PHONE FIELD — alinhamento, largura e textos
-   ========================================================= */
-
-.phone-field{
-  display: grid !important;
-  grid-template-columns: auto 1fr !important;
+/* lado esquerdo dentro do botão (bandeira + nome) */
+#phoneField .country-left{
+  display: inline-flex !important;
   align-items: center !important;
-  gap: 10px !important;
+  gap: 8px !important;
+  min-width: 0 !important;
 }
 
-/* BOTÃO DO PAÍS */
-.country-btn{
-  display: flex !important;
+/* bandeira */
+#phoneField .country-flag{
+  font-size: 16px !important;
+  line-height: 1 !important;
+  display: inline-flex !important;
   align-items: center !important;
   justify-content: center !important;
-  gap: 6px !important;
-  height: 44px !important;
-  padding: 0 12px !important;
-  line-height: 1 !important;
 }
 
-/* BANDEIRA */
-.country-btn .flag{
-  font-size: 18px !important;
-  line-height: 1 !important;
-  display: flex !important;
-  align-items: center !important;
-}
-
-/* TEXTO BRASIL */
-.country-btn .country-name{
-  display: flex !important;
+/* nome do país no meio certinho */
+#phoneField .country-name{
+  display: inline-flex !important;
   align-items: center !important;
   line-height: 1 !important;
-  margin: 0 !important;
+  transform: translateY(0px) !important; /* garante que não “suba” */
 }
 
-/* DDI (+55) */
-.country-btn .dial{
-  display: flex !important;
+/* ddi + caret */
+#phoneField .country-dial,
+#phoneField .country-caret{
+  display: inline-flex !important;
   align-items: center !important;
   line-height: 1 !important;
-  margin: 0 !important;
+}
+#phoneField .country-caret{
+  opacity: .75 !important;
+  margin-left: 2px !important;
 }
 
-/* INPUT DO NÚMERO */
-#phoneInput{
-  height: 44px !important;
-  line-height: 44px !important;
-  padding: 0 14px !important;
-  font-size: 0.95rem !important;
+/* INPUT DO NÚMERO (maior) */
+#phoneInput,
+#phoneField .phone-input{
   width: 100% !important;
-}
+  height: 40px !important;
+  padding: 0 12px !important;
+  border: 1px solid rgba(15,36,81,.22) !important;
+  border-radius: 10px !important;
+  background: #fff !important;
 
-/* REMOVE COMPRESSÃO DO INPUT */
-.phone-field input[type="tel"]{
+  font-family: inherit !important;
+  font-size: 0.95rem !important;
+  line-height: 1 !important;
+
   min-width: 0 !important;
-  flex: 1 !important;
 }
 
-/* TEXTO DE EXEMPLO */
-.phone-hint{
+/* DICA “Ex.: …” EMBAIXO */
+#phoneField .phone-hint{
+  display: block !important;
   margin-top: 6px !important;
-  font-size: 0.78rem !important;
+  font-size: 0.75rem !important;
   line-height: 1.2 !important;
-  color: #6b7280 !important;
+  color: rgba(15,36,81,.55) !important;
 }
 
-/* =========================================================
-   MENU DE PAÍSES — alinhado e centralizado
-   ========================================================= */
+/* MENU DROPDOWN */
+#phoneField .country-menu{
+  position: absolute !important;
+  left: 0 !important;
+  top: calc(40px + 8px) !important; /* abaixo do botão */
+  width: 280px !important;
+  max-height: 240px !important;
+  overflow: auto !important;
 
-.country-menu{
-  padding: 6px 0 !important;
+  background: #fff !important;
+  border: 1px solid rgba(15,36,81,.18) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 20px 45px rgba(0,0,0,.12) !important;
+
+  padding: 8px !important;
+  display: none !important;
+  z-index: 99999 !important;
 }
 
-.country-item{
+/* abre quando #phoneField ganha is-open (seu JS usa isso) */
+#phoneField.is-open .country-menu{
+  display: block !important;
+}
+
+/* ITEM DO MENU */
+#phoneField .country-item{
+  width: 100% !important;
+  border: 0 !important;
+  background: transparent !important;
+  padding: 10px 10px !important;
+  border-radius: 10px !important;
+
   display: flex !important;
   align-items: center !important;
   justify-content: space-between !important;
   gap: 10px !important;
-  line-height: 1 !important;
-  padding: 8px 12px !important;
-}
 
-/* FLAG NO MENU */
-.country-item::before{
-  margin-right: 6px !important;
-}
-
-/* =========================================================
-   PHONE FIELD — layout final (DDD menor + exemplo embaixo)
-   ========================================================= */
-
-.phone-field{
-  display: grid !important;
-  grid-template-columns: auto 1fr !important;
-  align-items: center !important;
-  gap: 8px !important;
-  position: relative !important;
-}
-
-/* BOTÃO DO PAÍS (DDD / +55) — MENOR */
-.country-btn{
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  gap: 4px !important;
-  height: 36px !important;          /* menor */
-  padding: 0 8px !important;        /* menos espaço lateral */
-  font-size: 0.80rem !important;    /* texto menor */
-  line-height: 1 !important;
-  border-radius: 8px !important;
-}
-
-/* BANDEIRA */
-.country-btn .flag{
-  font-size: 15px !important;
+  cursor: pointer !important;
+  font-size: 0.9rem !important;
   line-height: 1 !important;
 }
-
-/* TEXTO “Brasil” */
-.country-btn .country-name{
-  display: flex !important;
-  align-items: center !important;
-  line-height: 1 !important;
-  margin: 0 !important;
+#phoneField .country-item:hover{
+  background: rgba(15,36,81,.06) !important;
+}
+#phoneField .country-item.is-active{
+  background: rgba(15,36,81,.10) !important;
 }
 
-/* DDI (+55) */
-.country-btn .dial{
-  display: flex !important;
-  align-items: center !important;
-  line-height: 1 !important;
-  margin: 0 !important;
-}
-
-/* INPUT DO NÚMERO */
-#phoneInput{
-  height: 36px !important;          /* acompanha o botão */
-  line-height: 36px !important;
-  padding: 0 12px !important;
-  font-size: 0.85rem !important;
-  width: 100% !important;
-}
-
-/* REMOVE COMPRESSÃO DO INPUT */
-.phone-field input[type="tel"]{
-  min-width: 0 !important;
-  flex: 1 !important;
-}
-
-/* =========================================================
-   TEXTO DE EXEMPLO — FORA DO CAMPO (EMBAIXO)
-   ========================================================= */
-
-.phone-hint{
-  display: block !important;
-  margin-top: 6px !important;
-  margin-left: 0 !important;
-  font-size: 0.75rem !important;
-  line-height: 1.2 !important;
-  color: #6b7280 !important;
-}
-
-/* Garante que o hint não fique ao lado */
-.phone-field + .phone-hint,
-.phone-field ~ .phone-hint{
-  grid-column: 1 / -1 !important;
-}
-
-/* =========================================================
-   PHONE FIELD — proporção correta
-   ========================================================= */
-
-.phone-field{
-  display: grid !important;
-  grid-template-columns: 110px 1fr !important; /* botão menor / input maior */
-  align-items: center !important;
-  gap: 10px !important;
-}
-
-/* =========================================================
-   BOTÃO DO PAÍS (Brasil +55) — MENOR
-   ========================================================= */
-
-.country-btn{
-  height: 34px !important;
-  padding: 0 6px !important;
-  font-size: 0.75rem !important;
-  border-radius: 8px !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  gap: 4px !important;
-  white-space: nowrap !important;
-}
-
-/* Bandeira */
-.country-btn .flag{
-  font-size: 14px !important;
-  line-height: 1 !important;
-}
-
-/* Texto "Brasil" */
-.country-btn .country-name{
-  line-height: 1 !important;
-  margin: 0 !important;
-}
-
-/* DDI +55 */
-.country-btn .dial{
-  line-height: 1 !important;
-  margin: 0 !important;
-}
-
-/* =========================================================
-   INPUT DO NÚMERO — MAIOR
-   ========================================================= */
-
-#phoneInput{
-  height: 34px !important;
-  padding: 0 12px !important;
-  font-size: 0.85rem !important;
-  width: 100% !important;
-  min-width: 0 !important;
-}
-
-/* =========================================================
-   TEXTO DE EXEMPLO — ABAIXO DO CAMPO
-   ========================================================= */
-
-.phone-hint{
-  display: block !important;
-  margin-top: 6px !important;
-  font-size: 0.75rem !important;
-  line-height: 1.2 !important;
-  color: #6b7280 !important;
-}
-
-/* força o exemplo a ocupar a linha inteira abaixo */
-.phone-field + .phone-hint,
-.phone-field ~ .phone-hint{
-  grid-column: 1 / -1 !important;
+/* MOBILE: botão menor, input maior */
+@media (max-width: 520px){
+  #phoneField .phone-row{
+    grid-template-columns: 120px 1fr !important;
+    gap: 8px !important;
+  }
+  #phoneField .country-btn{
+    width: 120px !important;
+    padding: 0 8px !important;
+    font-size: 0.8rem !important;
+  }
+  #phoneInput,
+  #phoneField .phone-input{
+    font-size: 0.92rem !important;
+  }
 }
