@@ -279,6 +279,97 @@ function getSiteOrigin(){
   return window.location.origin;
 }
 
+/* =========================
+   PHONE PICKER (emoji flags)
+   ========================= */
+(function initPhonePicker(){
+  const field = document.getElementById("phoneField");
+  if(!field) return;
+
+  const btn   = document.getElementById("countryBtn");
+  const menu  = document.getElementById("countryMenu");
+
+  const flagEl = document.getElementById("countryFlag");
+  const nameEl = document.getElementById("countryName");
+  const dialEl = document.getElementById("countryDial");
+
+  const input = document.getElementById("phoneInput");
+  const hiddenDial = document.getElementById("phoneDial");
+  const hiddenCountry = document.getElementById("phoneCountry");
+
+  const hint = field.parentElement?.querySelector(".phone-hint");
+
+  if(!btn || !menu || !flagEl || !nameEl || !dialEl || !input || !hiddenDial || !hiddenCountry) return;
+
+  function open(){
+    field.classList.add("is-open");
+    btn.setAttribute("aria-expanded", "true");
+  }
+  function close(){
+    field.classList.remove("is-open");
+    btn.setAttribute("aria-expanded", "false");
+  }
+  function toggle(){
+    field.classList.contains("is-open") ? close() : open();
+  }
+
+  function applyCountry(item){
+    const flag = item.dataset.flag || "🇧🇷";
+    const name = item.dataset.name || "Brasil";
+    const dial = item.dataset.dial || "+55";
+    const iso  = item.dataset.iso  || "BR";
+    const ph   = item.dataset.placeholder || "";
+
+    flagEl.textContent = flag;
+    nameEl.textContent = name;
+    dialEl.textContent = dial;
+
+    hiddenDial.value = dial;
+    hiddenCountry.value = iso;
+
+    if(ph) input.placeholder = ph;
+
+    // hint “Ex.: ...”
+    if(hint){
+      hint.textContent = `Ex.: ${dial} ${ph || ""}`.trim();
+    }
+
+    // ativa visualmente
+    menu.querySelectorAll(".country-item").forEach(b => b.classList.remove("is-active"));
+    item.classList.add("is-active");
+  }
+
+  // abre/fecha
+  btn.addEventListener("click", (e) => {
+    e.preventDefault();
+    toggle();
+  });
+
+  // click nos países
+  menu.addEventListener("click", (e) => {
+    const item = e.target.closest(".country-item");
+    if(!item) return;
+    applyCountry(item);
+    close();
+    input.focus();
+  });
+
+  // fecha clicando fora
+  document.addEventListener("click", (e) => {
+    if(!field.contains(e.target)) close();
+  });
+
+  // ESC fecha
+  document.addEventListener("keydown", (e) => {
+    if(e.key === "Escape") close();
+  });
+
+  // estado inicial: pega o que estiver como active, senão o primeiro
+  const initial = menu.querySelector(".country-item.is-active") || menu.querySelector(".country-item");
+  if(initial) applyCountry(initial);
+})();
+
+
 // Se o Supabase não carregou, avisa
 if(!sb){
   setHint(loginHint, "Erro: supabase-js não carregou. Verifique o <script> do supabase-js no auth.html.");

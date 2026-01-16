@@ -1790,3 +1790,158 @@ mask-image: linear-gradient(
   border-color: rgba(37,99,235,.65) !important;
   box-shadow: 0 0 0 4px rgba(37,99,235,.14) !important;
 }
+
+/* =========================================
+   PHONE PICKER (country + phone) — FIX
+   ========================================= */
+.phone-field { width: 100%; }
+
+.phone-row{
+  position: relative;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  width: 100%;
+}
+
+.country-btn{
+  height: 44px;
+  min-width: 210px;                 /* largura boa p/ caber Brasil +55 */
+  padding: 0 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(148,163,184,.55);
+  background: #fff;
+  color: #0f172a;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;   /* esquerda (flag+nome) / direita (+DDI+seta) */
+  gap: 10px;
+
+  line-height: 1;
+}
+
+.country-left{
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.country-flag{
+  font-size: 18px;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.country-name{
+  font-size: 13.5px;
+  font-weight: 600;
+  color: #0b1d3a;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 120px;
+}
+
+.country-dial{
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #0b1d3a;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.country-caret{
+  opacity: .7;
+  font-size: 14px;
+  margin-left: 2px;
+}
+
+.phone-input{
+  height: 44px;
+  flex: 1;
+  padding: 0 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(148,163,184,.55);
+  outline: none;
+  font-size: .95rem;
+  background: #fff;
+}
+
+.phone-input:focus,
+.country-btn:focus{
+  border-color: rgba(37,99,235,.65);
+  box-shadow: 0 0 0 4px rgba(37,99,235,.14);
+  outline: none;
+}
+
+/* Dropdown */
+.country-menu{
+  position: absolute;
+  top: calc(44px + 8px);
+  left: 0;
+  width: min(360px, 100%);
+  max-height: 260px;
+  overflow: auto;
+
+  background: #fff;
+  border: 1px solid rgba(2,6,23,.10);
+  border-radius: 12px;
+  box-shadow: 0 18px 50px rgba(2,6,23,.14);
+  padding: 6px;
+  z-index: 9999;
+
+  display: none;
+}
+
+.phone-row.is-open .country-menu{ display: block; }
+
+.country-item{
+  width: 100%;
+  border: 0;
+  background: transparent;
+  padding: 10px 10px;
+  border-radius: 10px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;  /* nome à esquerda / +DDI à direita */
+  gap: 10px;
+
+  cursor: pointer;
+  color: #0f172a;
+  font-weight: 600;
+  text-align: left;
+}
+
+.country-item span{
+  color: #334155;
+  font-weight: 800;
+}
+
+.country-item:hover{
+  background: rgba(37,99,235,.08);
+}
+
+.country-item.is-active{
+  background: rgba(7,22,47,.08);
+}
+
+/* Hint */
+.phone-hint{
+  display: block;
+  margin-top: 6px;
+  font-size: .78rem;
+  color: #64748b;
+}
+
+/* Mobile: botão de país um pouco menor */
+@media (max-width: 980px){
+  .country-btn{ min-width: 190px; }
+  .country-name{ max-width: 95px; }
+}
