@@ -8,7 +8,7 @@
    SUPABASE
    ========================= */
 const SUPABASE_URL = "https://dmydhaompvanujvpkngz.supabase.co";
-const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmRteWRoYW9tcHZhbnVqdnBrbmd6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTU3NDEzNjUsImV4cCI6MjA3MTMxNzM2NX0.xPxalOxi4PR0z7Jo9m2JodFF4Z8Eiw0U-pAxDMFvvV0";
+const SUPABASE_ANON_KEY = "sb_publishable_w5n19zQm4vDPDyziTGcN_w_7lPEX-xm";
 
 // Para onde ir após autenticar
 const DASHBOARD_URL = "dashboard.html";
