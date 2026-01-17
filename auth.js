@@ -10,7 +10,9 @@
 const SUPABASE_URL = "https://dmydhaompvanujvpkngz.supabase.co";
 const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRteWRoYW9tcHZhbnVqdnBrbmd6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTU3NDEzNjUsImV4cCI6MjA3MTMxNzM2NX0.xPxalOxi4PR0z7Jo9m2JodFF4Z8Eiw0U-pAxDMFvvV0";
 
-const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+const sb = (window.supabase)
+  ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
+  : null;
 
 // Para onde ir após autenticar
 const DASHBOARD_URL = "dashboard.html";
@@ -32,7 +34,6 @@ function openTab(name){
 
   panes.forEach(p => p.classList.toggle("is-active", p.dataset.pane === name));
 
-  // evita “pulos” visuais ao trocar login/signup (mobile etc.)
   requestAnimationFrame(() => {
     setScanToMiddleOfBlue();
     setMarqueeDistance();
@@ -130,8 +131,8 @@ function initCoins(){
   if(!row) return;
 
   setScanToMiddleOfBlue();
-
   setMarqueeDistance();
+
   requestAnimationFrame(() => {
     setMarqueeDistance();
     updateCoinColors();
@@ -169,11 +170,12 @@ function setHint(el, msg){
 function setBusy(form, busy){
   if(!form) return;
   const btn = form.querySelector('button[type="submit"]');
+
   form.querySelectorAll("input, button, a").forEach(el => {
-    // não desabilita links de alternância (opcional)
     if(el.tagName.toLowerCase() === "a") return;
     el.disabled = !!busy;
   });
+
   if(btn){
     const original = btn.dataset.originalText || btn.textContent;
     btn.dataset.originalText = original;
@@ -186,7 +188,38 @@ function getSiteOrigin(){
 }
 
 /* =========================
-   PHONE PICKER (emoji flags) — ÚNICO
+   PERFIL — salva no public.profiles quando houver session
+   ========================= */
+async function upsertProfileIfSession(session, payload){
+  // payload: { full_name, phone, phone_dial, phone_country, email }
+  if(!sb) return { ok: false, reason: "no-sb" };
+  if(!session?.user?.id) return { ok: false, reason: "no-session" };
+
+  const userId = session.user.id;
+
+  // Ajuste os nomes das colunas abaixo para bater com sua tabela profiles
+  // (user_id / email / full_name / phone / phone_dial / phone_country)
+  const row = {
+    user_id: userId,
+    email: payload.email || session.user.email || null,
+    full_name: payload.full_name || null,
+    phone: payload.phone || null,
+    phone_dial: payload.phone_dial || null,
+    phone_country: payload.phone_country || null
+  };
+
+  const { error } = await sb
+    .from("profiles")
+    .upsert(row, { onConflict: "user_id" });
+
+  if(error){
+    return { ok: false, reason: "db-error", error };
+  }
+  return { ok: true };
+}
+
+/* =========================
+   PHONE PICKER (emoji flags)
    ========================= */
 (function initPhonePicker(){
   const field = document.getElementById("phoneField");
@@ -235,23 +268,19 @@ function getSiteOrigin(){
 
     if(ph) input.placeholder = ph;
 
-    // hint “Ex.: ...”
     if(hint){
       hint.textContent = `Ex.: ${dial} ${ph || ""}`.trim();
     }
 
-    // ativa visualmente
     menu.querySelectorAll(".country-item").forEach(b => b.classList.remove("is-active"));
     item.classList.add("is-active");
   }
 
-  // abre/fecha
   btn.addEventListener("click", (e) => {
     e.preventDefault();
     toggle();
   });
 
-  // click nos países
   menu.addEventListener("click", (e) => {
     const item = e.target.closest(".country-item");
     if(!item) return;
@@ -260,28 +289,26 @@ function getSiteOrigin(){
     input.focus();
   });
 
-  // fecha clicando fora
   document.addEventListener("click", (e) => {
     if(!field.contains(e.target)) close();
   });
 
-  // ESC fecha
   document.addEventListener("keydown", (e) => {
     if(e.key === "Escape") close();
   });
 
-  // estado inicial
   const initial = menu.querySelector(".country-item.is-active") || menu.querySelector(".country-item");
   if(initial) applyCountry(initial);
 })();
 
-// Se o Supabase não carregou, avisa
+/* =========================
+   BOOT
+   ========================= */
 if(!sb){
   setHint(loginHint, "Erro: supabase-js não carregou. Verifique o <script> do supabase-js no auth.html.");
   setHint(signupHint, "Erro: supabase-js não carregou. Verifique o <script> do supabase-js no auth.html.");
 } else {
 
-  // (Opcional) Se já estiver logado, manda pro dashboard
   (async () => {
     try{
       const { data: { session } } = await sb.auth.getSession();
@@ -307,12 +334,15 @@ if(!sb){
     setHint(loginHint, "Validando credenciais...");
 
     try{
-      const { error } = await sb.auth.signInWithPassword({ email, password });
+      const { data, error } = await sb.auth.signInWithPassword({ email, password });
 
       if(error){
         setHint(loginHint, "Falha no login: " + error.message);
         return;
       }
+
+      // (Opcional) se quiser garantir profile após login
+      // você pode puxar metadata e atualizar profiles aqui também
 
       setHint(loginHint, "Login OK. Redirecionando...");
       window.location.href = DASHBOARD_URL;
@@ -359,6 +389,7 @@ if(!sb){
             phone_dial: phoneDial,
             phone_country: phoneCountry
           },
+          // se você desativar confirmação por e-mail, isso é irrelevante
           emailRedirectTo: `${getSiteOrigin()}/auth.html?tab=login`
         }
       });
@@ -370,7 +401,26 @@ if(!sb){
 
       const needsConfirm = !data?.session;
 
+      // Se já veio session, já salva no profiles agora
+      if(data?.session){
+        const res = await upsertProfileIfSession(data.session, {
+          full_name: name,
+          phone,
+          phone_dial: phoneDial,
+          phone_country: phoneCountry,
+          email
+        });
+
+        // Se falhar, não bloqueia a conta — só avisa
+        if(!res.ok){
+          console.warn("Falha ao salvar profile:", res);
+        }
+      }
+
       if(needsConfirm){
+        // Aqui NÃO dá pra escrever em profiles via front-end (sem sessão).
+        // Portanto, para o telefone cair no profiles, você precisa do TRIGGER no Supabase
+        // que copia raw_user_meta_data para public.profiles.
         setHint(signupHint, "Conta criada. Verifique seu e-mail para confirmar e depois faça login.");
         openTab("login");
         return;
